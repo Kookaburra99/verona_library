@@ -12,6 +12,6 @@ setup(
     author_email='efren.rama.maneiro@usc.es, pedro.gamallo.fernandez@usc.es',
     url='https://gitlab.citius.usc.es/pedro.gamallo/barro_library',
     license='ToDo',
-    requires=['requests', 'pm4py'],
+    requires=['requests', 'pm4py', 'tqdm'],
     packages=find_packages()
 )
