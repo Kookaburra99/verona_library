@@ -132,7 +132,7 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
                          f'Only .csv, .xes and .xes.gz datasets are allowed.')
 
     unique_case_ids = list(df_log[case_column].unique())
-    kfold = KFold(n_splits=cv_folds, random_state=42, shuffle=True)
+    kfold = KFold(n_splits=cv_folds, random_state=seed, shuffle=True)
     indexes = sorted(unique_case_ids)
     splits = kfold.split(indexes)
 
@@ -157,7 +157,6 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
         else:
             raise ValueError(f'Wrong split percentage: val_from_train={val_from_train}. '
                              f'val_from_train should be a number between 0 and 1 (0 included, 1 excluded).')
-
 
         train_path = __save_split_to_file(train_cases, store_path, dataset_name, 'train', fold)
         return_paths.append(train_path)
