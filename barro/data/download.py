@@ -4,6 +4,7 @@ import pm4py
 from typing import Literal
 from tqdm import tqdm
 
+
 DATASETS_LIST = {
     'bpi2011': {
         'name': 'BPI Challenge 2011',
@@ -112,8 +113,7 @@ DATASETS_LIST = {
     'nasa': {
         'name': 'nasa',
         'url': 'https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/nasa.xes.gz?ref_type=heads'
-    },
-
+    }
 }
 
 
@@ -132,16 +132,18 @@ def get_available_datasets():
     return dataset_ids_list
 
 
-def get_dataset(dataset_name: str, store_path: str, extension: Literal['xes', 'csv', 'both']):
+def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes'):
     """
     Downloads from the official repository the specified dataset in xes.gz or csv format
     and stores it in the path specified as parameter.
     :param dataset_name: Identifier of the dataset to be downloaded.
     If "all" is specified instead of a valid dataset name, all available datasets are downloaded.
     The list of available datasets can be checked with the get_available_datasets() function.
-    :param store_path: Path where the dataset will be stored
+    :param store_path: Path where the dataset will be stored.
+    If not specified, it is stored in the current working directory.
     :param extension: Format in which the dataset will be saved.
     Three possible values: 'xes' (xes.gz format), 'csv' (csv format) or 'both'.
+    Default: 'xes'.
     :return: Stores the dataset in store_path and returns nothing
     """
 
