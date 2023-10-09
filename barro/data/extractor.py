@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from typing import Literal
 from barro.data.utils import DataFrameFields
 
@@ -11,7 +12,7 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
                              case_id: str = DataFrameFields.CASE_COLUMN,
                              activity_id: str = None,
                              timestamp_id: str = None,
-                             attribute_id: str = None) -> (dict[int: pd.DataFrame], dict[int: list]):
+                             attribute_id: str = None) -> (dict[int: pd.DataFrame], dict[int: np.array]):
     """
     Extracts all prefixes of the specified size from the dataset and their corresponding target
     depending on the selected prediction task. If the prefix size is not specified, prefixes of
@@ -83,21 +84,21 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
     return prefixes, targets
 
 
-def __get_next_value(case: pd.DataFrame, idx: int, column_id: str) -> list:
+def __get_next_value(case: pd.DataFrame, idx: int, column_id: str) -> np.array:
     next_value = case.loc[idx, column_id]
-    return [next_value]
+    return np.array([next_value])
 
 
-def __get_value_suffix(case: pd.DataFrame, idx: int, column_id: str) -> list:
-    value_suffix = case.loc[idx:, column_id].tolist()
+def __get_value_suffix(case: pd.DataFrame, idx: int, column_id: str) -> np.array:
+    value_suffix = case.loc[idx:, column_id].values
     return value_suffix
 
 
-def __get_remaining_time(case: pd.DataFrame, idx: int, timestamp_id) -> list:
+def __get_remaining_time(case: pd.DataFrame, idx: int, timestamp_id) -> np.array:
     if case[timestamp_id].dtype == 'O':
         case[timestamp_id] = pd.to_datetime(case[timestamp_id])
 
     remaining_time = case.loc[len(case)-1, timestamp_id] - case.loc[idx, timestamp_id]
-    return remaining_time
+    return remaining_time.value
 
 

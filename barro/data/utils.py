@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 class XesFields:
@@ -63,3 +64,35 @@ def unify_activity_and_lifecycle(dataset: pd.DataFrame, activity_id: str = XesFi
         dataset.drop(lifecycle_id, axis=1)
 
     return dataset
+
+
+def get_onehot_representation(attribute: np.array, num_elements: int) -> np.array:
+    """
+    Gets attribute values as labels and converts them to their one-hot representation.
+    :param attribute: Pandas Series or NumPy Array containing the categorical values of the attribute.
+    :param num_elements: Integer indicating the number of unique values of the attribute, which is the
+    size of the one-hot vector. If not specified, the vector size is calculated from the number of unique
+    elements in 'attribute'.
+    :return: Pandas Series or NumPy Array (depending on the type of 'attribute') containing the one-hot vectors.
+    """
+
+    if not num_elements:
+        num_elements = np.unique(attribute).size
+
+    if attribute.ndim > 1:
+        attribute = attribute.flatten()
+
+    onehot_attr = np.zeros((attribute.size, num_elements))
+    onehot_attr[np.arange(attribute.size), attribute] = 1
+
+    return onehot_attr
+
+
+def get_labels_from_onehot(onehots: np.array) -> np.array:
+    """
+    Gets the labels represented in the one-hot vectors passed as input.
+    :param onehots: NumPy Array containing the one-hot vectors.
+    :return: NumpPy Array containing the labels extracted from the one-hot vectors.
+    """
+
+    return onehots.argmax(axis=-1)
