@@ -99,6 +99,6 @@ def __get_remaining_time(case: pd.DataFrame, idx: int, timestamp_id) -> np.array
         case[timestamp_id] = pd.to_datetime(case[timestamp_id])
 
     remaining_time = case.loc[len(case)-1, timestamp_id] - case.loc[idx, timestamp_id]
-    return remaining_time.value
+    return remaining_time.total_seconds()
 
 
