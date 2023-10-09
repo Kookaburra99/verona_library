@@ -30,8 +30,8 @@ def get_accuracy(predictions: np.array, ground_truths: np.array,
     if gt_format == 'onehot':
         ground_truths = get_labels_from_onehot(ground_truths).flatten()
 
-    accuracy = metrics.accuracy_score(ground_truths, predictions, True)
-    correct_preds = metrics.accuracy_score(ground_truths, predictions, False)
+    accuracy = metrics.accuracy_score(ground_truths, predictions, normalize=True)
+    correct_preds = metrics.accuracy_score(ground_truths, predictions, normalize=False)
     total_preds = predictions.size
 
     return accuracy, correct_preds, total_preds
@@ -215,8 +215,8 @@ def get_mcc(predictions: np.array, ground_truths: np.array,
     return mcc
 
 
-def get_brier_score(predictions: np.array, ground_truths: np.array,
-                    gt_format: Literal['labels', 'onehot']) -> float:
+def get_brier_loss(predictions: np.array, ground_truths: np.array,
+                   gt_format: Literal['labels', 'onehot']) -> float:
     """
     Calculates the Brier Score Loss adapted to multi-class predictions
     (predict one activity/attribute at a time out of all existing ones).
