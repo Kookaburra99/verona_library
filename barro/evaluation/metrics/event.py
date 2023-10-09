@@ -58,11 +58,11 @@ def get_fbeta(predictions: np.array, ground_truths: np.array,
     :param preds_format: Format of the predictions. If 'label', predictions array
     contains the labels of the activities/attributes predicted. If 'onehot', predictions
     array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the accuracy.
+    internally extracted from the highest value element to calculate the metric.
     :param gt_format: Format of the ground truth. If 'label', ground truth array contains
     the labels of the correct activities/attributes. If 'onehot', ground truths array contains
     the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the accuracy.
+    extracted from the highest value element to calculate the metric.
     :return: Float between 0 and 1 indicating the f-beta score, float between 0 and 1 indicating
     the precision and float between 0 and 1 indicating the recall.
     """
@@ -97,11 +97,11 @@ def get_f1_score(predictions: np.array, ground_truths: np.array,
     :param preds_format: Format of the predictions. If 'label', predictions array
     contains the labels of the activities/attributes predicted. If 'onehot', predictions
     array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the accuracy.
+    internally extracted from the highest value element to calculate the metric.
     :param gt_format: Format of the ground truth. If 'label', ground truth array contains
     the labels of the correct activities/attributes. If 'onehot', ground truths array contains
     the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the accuracy.
+    extracted from the highest value element to calculate the metric.
     :return: Float between 0 and 1 indicating the f1-score, float between 0 and 1 indicating the
     precision and float between 0 and 1 indicating the recall.
     """
@@ -133,11 +133,11 @@ def get_precision(predictions: np.array, ground_truths: np.array,
     :param preds_format: Format of the predictions. If 'label', predictions array
     contains the labels of the activities/attributes predicted. If 'onehot', predictions
     array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the accuracy.
+    internally extracted from the highest value element to calculate the metric.
     :param gt_format: Format of the ground truth. If 'label', ground truth array contains
     the labels of the correct activities/attributes. If 'onehot', ground truths array contains
     the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the accuracy.
+    extracted from the highest value element to calculate the metric.
     :return: Float between 0 and 1 indicating the precision.
     """
 
@@ -167,11 +167,11 @@ def get_recall(predictions: np.array, ground_truths: np.array,
     :param preds_format: Format of the predictions. If 'label', predictions array
     contains the labels of the activities/attributes predicted. If 'onehot', predictions
     array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the accuracy.
+    internally extracted from the highest value element to calculate the metric.
     :param gt_format: Format of the ground truth. If 'label', ground truth array contains
     the labels of the correct activities/attributes. If 'onehot', ground truths array contains
     the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the accuracy.
+    extracted from the highest value element to calculate the metric.
     :return: Float between 0 and 1 indicating the recall.
     """
 
@@ -197,11 +197,11 @@ def get_mcc(predictions: np.array, ground_truths: np.array,
     :param preds_format: Format of the predictions. If 'label', predictions array
     contains the labels of the activities/attributes predicted. If 'onehot', predictions
     array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the accuracy.
+    internally extracted from the highest value element to calculate the metric.
     :param gt_format: Format of the ground truth. If 'label', ground truth array contains
     the labels of the correct activities/attributes. If 'onehot', ground truths array contains
     the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the accuracy.
+    extracted from the highest value element to calculate the metric.
     :return: Float between -1 and +1 indicating the Matthews correlation coefficient.
     """
 
