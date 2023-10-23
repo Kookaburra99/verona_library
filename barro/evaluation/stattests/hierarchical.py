@@ -1,15 +1,17 @@
+import tempfile
 from typing import List, Tuple
 import math
 
-import stan
+from cmdstanpy import CmdStanModel, install_cmdstan, cmdstan_path
 import numpy as np
 
 import pandas as pd
 import matplotlib.ticker as ticker
 import scipy.stats as stats
 
-from stan_codes import STAN_CODE
 import os
+
+from barro.evaluation.stattests.stan_codes import STAN_CODE
 
 
 class HierarchicalBayesianTest:
@@ -57,6 +59,9 @@ class HierarchicalBayesianTest:
         assert self.x_result.shape[0] == self.y_result.shape[0], "The number of rows of both matrices do not match"
         assert self.x_result.shape[1] == self.y_result.shape[1], "The number of columns of both matrices do not match"
         assert self.x_result.shape[0] == len(self.datasets)
+
+        if cmdstan_path() is None:
+            install_cmdstan()
 
     def run(self, rope: List, rho=0.2, n_chains=4, num_samples=1000, std_upper=1000, alpha_lower=0.5, alpha_upper=5,
             beta_lower=0.05, beta_upper=0.15, d0_lower=None, d0_upper=None) -> (
@@ -184,9 +189,17 @@ class HierarchicalBayesianTest:
             "lowerBeta": beta_lower
         }
 
-        posterior = stan.build(stan_code, data=stan_data, random_seed=seed)
-        fit = posterior.sample(num_chains=n_chains, num_samples=stan_samples)
-        results = fit.to_frame()
+        #posterior = stan.build(stan_code, data=stan_data, random_seed=seed)
+        #fit = posterior.sample(num_chains=n_chains, num_samples=stan_samples)
+
+        with tempfile.NamedTemporaryFile(suffix='.stan', delete=False) as temp:
+            temp.write(stan_code.encode('utf-8'))
+            temp_file_name = temp.name  # Save the filename to use later
+
+        model = CmdStanModel(stan_file=temp_file_name)
+        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=stan_samples, iter_warmup=int(stan_samples/4), seed=42)
+
+        results = fit.draws_pd()
 
         # The cols are named like: "diff.1.3", but we get diff as name.
         # iterate over the columns "templates" and detect them in the dataframe
@@ -233,8 +246,8 @@ class HierarchicalBayesianTest:
         # Get the results ready
         per_dataset = delta_df.mean(axis=0) * scale_factor
         per_dataset = pd.concat([per_dataset, probs_per_dataset], axis=1)
-        left_str = "left (" + self.approaches[0] + " > " + self.approaches[1] + ")"
-        right_str = "right (" + self.approaches[0] + " < " + self.approaches[1] + ")"
+        left_str = "left (" + self.approaches[0] + " < " + self.approaches[1] + ")"
+        right_str = "right (" + self.approaches[0] + " > " + self.approaches[1] + ")"
         rope_str = "rope (" + self.approaches[0] + " = " + self.approaches[1] + ")"
         per_dataset.rename(columns={
             per_dataset.columns[0]: "mean_delta",
@@ -247,11 +260,14 @@ class HierarchicalBayesianTest:
         global_sign = pd.DataFrame({"negative": prob_negative, "positive": prob_positive}, index=[0])
         global_wins = pd.DataFrame({left_str : prob_left_win, rope_str : prob_rope_win, right_str: prob_right_win}, index=[0])
 
+        import os
+        os.remove(temp_file_name)
+
         return global_wins, posterior_distribution, per_dataset, global_sign, results
 
 
 if __name__ == "__main__":
-    x_data = pd.DataFrame([[75.3, 78.3, 60.4], [68.5, 77.5, 76.9], [77.9, 74.5, 80.9], [90, 90, 90]])
+    x_data = pd.DataFrame([[75.3, 78.3, 62.4], [68.5, 77.5, 82.9], [79.9, 79.5, 83.9], [95, 93, 92]])
     y_data = pd.DataFrame([[74.3, 75.3, 61.4], [65.5, 70.5, 80.9], [79.9, 76.2, 81.9], [90, 90, 90]])
     global_wins, posterior_distribution, per_dataset, global_sign, results = HierarchicalBayesianTest(x_data, y_data,
                                                                                                       ["a1", "a2"],

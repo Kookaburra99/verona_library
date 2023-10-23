@@ -1,3 +1,4 @@
+import tempfile
 from typing import Any, List, Tuple
 
 import matplotlib
@@ -5,8 +6,10 @@ import stan
 import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
+from cmdstanpy import CmdStanModel
+from matplotlib import pyplot as plt
 
-from stan_codes import STAN_CODE
+from barro.evaluation.stattests.stan_codes import STAN_CODE
 
 
 class PlackettLuceRanking:
@@ -26,7 +29,7 @@ class PlackettLuceRanking:
 
         self.result_matrix.columns = approaches
 
-    def run(self, n_chains=4, num_samples=1000, mode="max") -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Any]:
+    def run(self, n_chains=4, num_samples=1000, mode="max") -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
         Execute the Plackett-Luce ranking model.
 
@@ -44,8 +47,8 @@ class PlackettLuceRanking:
 
         Examples
         --------
-        >>> result_matrix = [[0.75, 0.6, 0.8, 0.55], [0.8, 0.7, 0.9, 0.44], [0.9, 0.8, 0.7, 0.4]]
-        >>> expected_prob, expected_rank, posterior, plot = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3", "a4"]).run(n_chains=10, num_samples=20000, mode="max")
+        >>> result_matrix = [[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]]
+        >>> expected_prob, expected_rank, posterior = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3", "a4"]).run(n_chains=10, num_samples=20000, mode="max")
         """
 
         assert mode in ["max", "min"]
@@ -55,8 +58,8 @@ class PlackettLuceRanking:
         rank_matrix = self._get_rank_matrix(result_matrix=self.result_matrix, mode=mode)
         stan_result = self._run_stan(rank_matrix=rank_matrix, n_chains=n_chains, num_samples=num_samples)
         expected_prob, expected_rank, posterior = self._get_results_from_stan(stan_results=stan_result)
-        plot = self._plot_posteriors(posterior=posterior)
-        return expected_prob, expected_rank, posterior, plot
+        self.posterior = posterior
+        return expected_prob, expected_rank, posterior
 
     def _get_rank_matrix(self, result_matrix : pd.DataFrame, mode="max") -> pd.DataFrame:
         """
@@ -97,7 +100,7 @@ class PlackettLuceRanking:
         results : raw results from executing the STAN program
         """
 
-        stan_code = STAN_CODE.PLACKETT_LUCE_TEST
+        stan_code = STAN_CODE.PLACKETT_LUCE_TEST_V3
         rank_matrix = np.array(rank_matrix)
         n = rank_matrix.shape[0]
         m = rank_matrix.shape[1]
@@ -111,9 +114,22 @@ class PlackettLuceRanking:
             "weights": weights
         }
 
-        posterior = stan.build(stan_code, data=stan_data)
-        fit = posterior.sample(num_chains=n_chains, num_samples=num_samples)
-        results = fit.to_frame()
+        #posterior = stan.build(stan_code, data=stan_data)
+        #fit = posterior.sample(num_chains=n_chains, num_samples=num_samples)
+        #results = fit.to_frame()
+
+        with tempfile.NamedTemporaryFile(suffix='.stan', delete=False) as temp:
+            temp.write(stan_code.encode('utf-8'))
+            temp_file_name = temp.name  # Save the filename to use later
+
+        model = CmdStanModel(stan_file=temp_file_name)
+        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=num_samples, iter_warmup=int(num_samples/4), seed=42)
+
+        results = fit.draws_pd()
+
+        import os
+        os.remove(temp_file_name)
+
         return results
 
     def _get_results_from_stan(self, stan_results) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -139,7 +155,7 @@ class PlackettLuceRanking:
         expected_rank = ranks.mean(axis=0)
         return expected_prob, expected_rank, posterior
 
-    def _plot_posteriors(self, posterior):
+    def plot_posteriors(self, save_path=None):
         """
         Plot the posteriors of the Plackett-Luce model (quantiles 95%, 05% and 50%). If two approaches do not overlap,
         they have a significative different ranking.
@@ -152,6 +168,10 @@ class PlackettLuceRanking:
         -------
         fig.figure : figure of the aforementioned plot
         """
+
+        assert self.posterior is not None, "You must run the model first"
+
+        posterior = self.posterior
         y95 = posterior.quantile(q=0.95, axis=0)
         y05 = posterior.quantile(q=0.05, axis=0)
         y50 = posterior.quantile(q=0.5, axis=0)
@@ -169,15 +189,42 @@ class PlackettLuceRanking:
         fig.grid(linestyle="--")
         fig.xaxis.set_label_text("")
         fig.xaxis.set_major_formatter(ticker.FixedFormatter(df_boxplot["Approaches"]))
-        #fig.figure.savefig("probabilities_boxplot.png")
+        if save_path is not None:
+            fig.figure.savefig(save_path)
+
+        """
+        # Create a figure and axes
+        fig, ax = plt.subplots(figsize=(4, 4))
+
+        # Scatter plot
+        ax.scatter(df_boxplot["Approaches"], y50)
+
+        # Error bars
+        ax.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
+
+        # Grid
+        ax.grid(linestyle="--")
+
+        ax.set_ylabel("Probability")
+
+        # Hide x-axis label
+        ax.xaxis.set_label_text("")
+
+        # Set the x-ticks
+        ax.set_xticks(df_boxplot.index)  # or ax.set_xticks(range(len(df_boxplot["Approaches"])))
+        ax.set_xticklabels(df_boxplot["Approaches"], rotation=90)
+
+        if save_path is not None:
+            fig.savefig(save_path, bbox_inches='tight')
+        """
 
         return fig.figure
 
 
 if __name__ == "__main__":
     # Example of usage
-    result_matrix = [[0.75, 0.6, 0.8, 0.55], [0.8, 0.7, 0.9, 0.44], [0.9, 0.8, 0.7, 0.4]]
-    expected_prob, expected_rank, posterior, plot = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3", "a4"]).run(n_chains=1, num_samples=20000, mode="max")
+    result_matrix = [[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]]
+    expected_prob, expected_rank, posterior, plot = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3"]).run(n_chains=10, num_samples=300000, mode="max")
     print("Expected prob: ", expected_prob)
     print("Expected rank: ", expected_rank)
     print("Posterior: ", posterior)
