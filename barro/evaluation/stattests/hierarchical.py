@@ -197,7 +197,7 @@ class HierarchicalBayesianTest:
             temp_file_name = temp.name  # Save the filename to use later
 
         model = CmdStanModel(stan_file=temp_file_name)
-        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=stan_samples, iter_warmup=int(stan_samples/4), seed=42)
+        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=int(stan_samples/2), iter_warmup=int(stan_samples/2), seed=42)
 
         results = fit.draws_pd()
 

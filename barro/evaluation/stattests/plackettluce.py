@@ -6,7 +6,7 @@ import stan
 import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
-from cmdstanpy import CmdStanModel
+from cmdstanpy import CmdStanModel, cmdstan_path, install_cmdstan
 from matplotlib import pyplot as plt
 
 from barro.evaluation.stattests.stan_codes import STAN_CODE
@@ -28,6 +28,9 @@ class PlackettLuceRanking:
         assert self.result_matrix.shape[1] == len(approaches), "The number of columns in the result matrix does not match the approaches specified"
 
         self.result_matrix.columns = approaches
+
+        if cmdstan_path() is None:
+            install_cmdstan()
 
     def run(self, n_chains=4, num_samples=1000, mode="max") -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
@@ -169,7 +172,8 @@ class PlackettLuceRanking:
         fig.figure : figure of the aforementioned plot
         """
 
-        assert self.posterior is not None, "You must run the model first"
+        if self.posterior is None:
+            raise ValueError("You must run the model first")
 
         posterior = self.posterior
         y95 = posterior.quantile(q=0.95, axis=0)
@@ -185,6 +189,7 @@ class PlackettLuceRanking:
         sizes = [y05, y95]
 
         fig = df_boxplot.plot.scatter(x="Approaches", y="y50", rot=90, ylabel="Probability")
+        plt.tight_layout()
         fig.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
         fig.grid(linestyle="--")
         fig.xaxis.set_label_text("")
@@ -192,31 +197,6 @@ class PlackettLuceRanking:
         if save_path is not None:
             fig.figure.savefig(save_path)
 
-        """
-        # Create a figure and axes
-        fig, ax = plt.subplots(figsize=(4, 4))
-
-        # Scatter plot
-        ax.scatter(df_boxplot["Approaches"], y50)
-
-        # Error bars
-        ax.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
-
-        # Grid
-        ax.grid(linestyle="--")
-
-        ax.set_ylabel("Probability")
-
-        # Hide x-axis label
-        ax.xaxis.set_label_text("")
-
-        # Set the x-ticks
-        ax.set_xticks(df_boxplot.index)  # or ax.set_xticks(range(len(df_boxplot["Approaches"])))
-        ax.set_xticklabels(df_boxplot["Approaches"], rotation=90)
-
-        if save_path is not None:
-            fig.savefig(save_path, bbox_inches='tight')
-        """
 
         return fig.figure
 
@@ -224,9 +204,9 @@ class PlackettLuceRanking:
 if __name__ == "__main__":
     # Example of usage
     result_matrix = [[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]]
-    expected_prob, expected_rank, posterior, plot = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3"]).run(n_chains=10, num_samples=300000, mode="max")
+    plackett_ranking = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3"])
+    expected_prob, expected_rank, posterior = plackett_ranking.run(n_chains=10, num_samples=300000, mode="max")
     print("Expected prob: ", expected_prob)
     print("Expected rank: ", expected_rank)
     print("Posterior: ", posterior)
-    print("Plot: ", plot)
-    plot.figure.savefig("probabilities_boxplot.png") # This saves the plot in a file
+    plot = plackett_ranking.plot_posteriors(save_path=None)
