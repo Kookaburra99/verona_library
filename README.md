@@ -1,4 +1,4 @@
-# BARRO: BenchmArk for pRedictive pRocess mOnitoring
+# VERONA: predicti<i>V</i>e p<i>R</i>ocesss m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
 
 **Version:** v1.0.0 (October 2023)
 

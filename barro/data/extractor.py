@@ -14,34 +14,45 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
                              timestamp_id: str = None,
                              attribute_id: str = None) -> (dict[int: pd.DataFrame], dict[int: np.array]):
     """
-    Extracts all prefixes of the specified size from the dataset and their corresponding target
-    depending on the selected prediction task. If the prefix size is not specified, prefixes of
-    all possible sizes are extracted. For the next activity prediction, the target is the activity
-    of the next event to the last one in the prefix. For activity suffix prediction, the target is
-    the sequence of activities from the next event to the end of the case. For the next timestamp
-    prediction, the target is the time difference between the timestamp of the last event in the
-    prefix and the timestamp of the next event. For the remaining time prediction, the target is
-    the difference between the timestamp of the last event of the prefix and the timestamp of the
-    last event of the case. For the next attribute prediction, the target is the attribute value
-    for the next event to the last event in the prefix. For attribute suffix prediction, the target
-    is the sequence of attribute values from the next event to the end of the case.
-    :param dataset: DataFrame containing the dataset from which the prefixes will be extracted.
-    :param prediction_task: Prediction task to be performed, which determines the value of the targets.
-    Possible values are: 'next_activity' (next activity prediction), 'activity_suffix' (activity suffix
-    prediction), 'next_timestamp' (next timestamp prediction), 'remaining_time' (remaining time prediction),
-    'next_attribute' (next attribute prediction) and 'attribute_suffix' (attribute prediction suffix').
-    :param prefix_size: Size of the extracted prefixes. If not specified, prefixes of all possible sizes
-    are extracted.
-    :param case_id: Name of the case column in the DataFrame.
-    :param activity_id: Name of the activity column in the DataFrame. Only needed if 'next_activity' or
-    'activity_suffix' is selected as prediction task.
-    :param timestamp_id: Name of the timestamp column in the DataFrame. Only needed if 'next_timestamp' or
-    'remaining_time' is selected as prediction task.
-    :param attribute_id: Name of the attribute column in the DataFrame. Only needed if 'next_attribute' or
-    'attribute_suffix' is selected as prediction task.
-    :return: Two dictionaries. The first containing the identifier of the prefixes as keys and the prefixes
-    in Pandas DataFrame format as values. The latter containing the identifier of the prefixes as keys and
-    corresponding targets as values.
+    Extract prefixes and corresponding targets from a given dataset based on the prediction task.
+
+    The function extracts prefixes of the specified or all possible sizes from the dataset,
+    and returns targets corresponding to the selected prediction task.
+
+    Args:
+        dataset (pd.DataFrame): DataFrame containing the event log.
+        prediction_task (Literal): Specifies the type of prediction task.
+            - 'next_activity': Predict the next activity.
+            - 'activity_suffix': Predict the remaining sequence of activities.
+            - 'next_timestamp': Predict the next event timestamp.
+            - 'remaining_time': Predict the remaining time for the case to complete.
+            - 'next_attribute': Predict the next attribute.
+            - 'attribute_suffix': Predict the remaining sequence of attributes.
+        prefix_size (Optional[int], default=None): Length of the prefix to be used.
+            If None, uses all possible sizes.
+        case_id (str, default='CaseColumn'): Column name for the case identifier.
+        activity_id (Optional[str], default=None): Column name for the activity.
+            Needed for 'next_activity' and 'activity_suffix'.
+        timestamp_id (Optional[str], default=None): Column name for the timestamp.
+            Needed for 'next_timestamp' and 'remaining_time'.
+        attribute_id (Optional[str], default=None): Column name for the attribute.
+            Needed for 'next_attribute' and 'attribute_suffix'.
+
+    Notes:
+        Default setting for "prefix_size" reproduces the expermiental setup of [1].
+
+        [1]  Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
+
+    Returns:
+        Tuple[Dict[int, pd.DataFrame], Dict[int, np.array]]: Returns two dictionaries:
+            1. Mapping from prefix size to the DataFrame of prefixes.
+            2. Mapping from prefix size to the corresponding targets in NumPy array format.
+
+    Raises:
+        ValueError: If the required column for a prediction task is not specified.
+
+    Examples:
+        >>> prefixes, targets = get_prefixes_and_targets(dataset, 'next_activity', prefix_size=5)
     """
 
     cases = dataset.groupby(case_id)

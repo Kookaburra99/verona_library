@@ -13,6 +13,27 @@ import os
 
 from barro.evaluation.stattests.stan_codes import STAN_CODE
 
+class BayesianHierarchicalResults:
+    def __init__(self, approximated, global_wins, posterior_distribution, per_dataset, global_sign, raw_results):
+        """
+        A class to store the results of the Bayesian hierarchical test.
+
+        Args:
+            global_wins (pd.DataFrame): A DataFrame containing the global winning probabilities for each condition (left, right, rope).
+            posterior_distribution (pd.DataFrame): A DataFrame with the posterior distribution probabilities (left, rope, right).
+            per_dataset (pd.DataFrame): A DataFrame with per-dataset statistics.
+            global_sign (pd.DataFrame): A DataFrame containing the global sign probabilities (positive, negative).
+            raw_results (pd.DataFrame): A DataFrame containing the raw results from the sampling.
+        """
+
+        self.global_wins = global_wins
+        self.approximated = approximated
+        self.posterior_distribution = posterior_distribution
+        self.per_dataset = per_dataset
+        self.global_sign = global_sign
+        self.raw_results = raw_results
+
+
 
 class HierarchicalBayesianTest:
 
@@ -23,29 +44,24 @@ class HierarchicalBayesianTest:
         cumulative distribution function of a T-Student for a given number of degrees of freedom (df). This computation
         is scaled and shifted by mean, and sd, respectively.
 
-        Parameters
-        ----------
-        q : quantile
-        df : degrees of freedom
-        mean : scale (mean)
-        sd : shift (standard deviation)
+        Args:
+            q : quantile
+            df : degrees of freedom
+            mean : scale (mean)
+            sd : shift (standard deviation)
 
-        Returns
-        -------
-        Cumulative distribution function shifted and scaled.
+        Returns:
+            Cumulative distribution function shifted and scaled.
         """
         return stats.t.cdf((q - mean) / sd, df)
 
-    def __init__(self, x_result: List[List[float]], y_result: List[List[float]], approaches: List[str],
-                 datasets: List[str]):
+    def __init__(self, x_result: pd.DataFrame, y_result: pd.DataFrame, approaches: List[str], datasets: List[str]):
         """
-
-        Parameters
-        ----------
-        x_matrix : first sample, a matrix with the results obtained by the first algorithm (each dataset in a row)
-        y_matrix : second sample, a matrix with the results obtained by the second algorithm (each dataset in a row)
-        approaches : list of the names of the two approaches that are going to be compared. The first approach corresponds with x_matrix while the second one corresponds with y_matrix.
-        datasets : list of the names of the datasets that are fed to the model
+        Args:
+            x_result: A 2D dataframe containing the performance metrics obtained by the first algorithm. Each row in this matrix represents a unique dataset, and each column corresponds to the result of an individual fold in a k-fold cross-validation for that dataset.
+            y_result: A 2D dataframe containing the performance metrics obtained by the second algorithm. The structure is the same as `x_result`, where rows correspond to datasets and columns to individual k-fold cross-validation results.
+            approaches: A list containing the names of the two algorithms being compared. The first element in the list should correspond to the algorithm associated with `x_result`, and the second element should correspond to the algorithm associated with `y_result`.
+            datasets: A list containing the names of the datasets used in the model. The order should match the row order in `x_result` and `y_result`.
         """
 
         assert len(approaches) == 2, "The number of names of the approaches is not 2"
@@ -60,71 +76,77 @@ class HierarchicalBayesianTest:
         assert self.x_result.shape[1] == self.y_result.shape[1], "The number of columns of both matrices do not match"
         assert self.x_result.shape[0] == len(self.datasets)
 
-        if cmdstan_path() is None:
+        try:
+            cmdstan_path()
+        except:
             install_cmdstan()
 
-    def run(self, rope: List, rho=0.2, n_chains=4, num_samples=1000, std_upper=1000, alpha_lower=0.5, alpha_upper=5,
-            beta_lower=0.05, beta_upper=0.15, d0_lower=None, d0_upper=None) -> (
-    pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    def run(self, rope=[-1,1], rho=0.2, n_chains=4, num_samples=300000, std_upper=1000, alpha_lower=0.5, alpha_upper=5,
+            beta_lower=0.05, beta_upper=0.15, d0_lower=None, d0_upper=None) -> BayesianHierarchicalResults:
         """
-        Bayesian hierarchical model for the analysis of two algorithms in multiple datasets.
+        Executes a Bayesian hierarchical model tailored for comparing the performance of two machine learning algorithms across multiple datasets based on cross-validation results.
 
-        Parameters
-        ----------
-        rope : region of practical equivalence, i.e, interval for the difference considered as "irrelevant"
-        n_chains : number of MC chains to be simulated. As half the simulations are used for the warm-up, the total number of simulations will be \code{nchain}*\code{nsim}/2
-        num_samples : number of samples (per chain) used to estimate the posterior distribution. Note that, by default, half the simulations are used for the burn-in
-        std_upper : factor to set the upper bound for both sigma_i and sigma_0 (see [1] for more details)
-        alpha_lower : lower bound for the (uniform) prior for the alpha hyperparameter (see [1] for more details). Default value set at 0.5, as in the original paper
-        alpha_upper : upper bound for the (uniform) prior for the alpha hyperparameter (see [1] for more details). Default value set at 5, as in the original paper
-        beta_lower : lower bound for the (uniform) prior for the beta hyperparameter (see [1] for more details). Default value set at 0.05, as in the original paper
-        beta_upper : upper bound for the (uniform) prior for the beta hyperparameter (see [1] for more details). Default value set at 0.15, as in the original paper
-        d0_lower : lower bound for the prior for mu_0. If not provided, the smallest observed difference is used
-        d0_upper : upper bound for the prior for mu_0. If not provided, the biggest observed difference is used
-        seed : optional parameter used to fix the random seed
+        This model employs a two-level hierarchical structure to account for both dataset-specific variations and global trends in the performance differences between the two algorithms. Specifically, it treats the performance metrics from each dataset as arising from a dataset-specific distribution, which in turn is governed by global hyperparameters.
 
-        Notes
-        -----
-        The results includes the typical information relative to the three areas of the posterior density (left, right and rope probabilities), both global and per dataset (in the additional information). Also, the simulation results are included.
+        The model can work directly on a variety of metrics obtained through cross-validation, thereby providing a comprehensive statistical insight into the comparative evaluation. This is a significant advantage over frequentist methods which may not fully capture the uncertainty in the metrics.
 
-        As for the prior parameters, they are set to the default values indicated in [1], except for the bound for the prior distribution of mu_0, which are set to the maximum and minimum values observed in the sample. You should not modify them unless you know what you are doing.
+        This implementation is ported from the Bayesian hierarchical model implemented in [2], which provides posterior probabilities for a richer interpretation of the comparison.
 
-        [1] A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. \emph{Journal of Machine Learning Research}, 18, 1-36.
 
-        Returns
-        -------
-        global_wins : vector with the left, rope and right probabilities overall
-        posterior_distribution : sampled probabilities (see details)
-        per_dataset : vector with the left, rope and right probabilities for each dataset
-        global_sign : sampled probabilities of mu_0 being positive or negative
-        results : complete set of results produced by the Stan program
+        Args:
+            rope (List, default=[-1, 1]): Region of Practical Equivalence, defines the interval within which performance differences are considered "irrelevant" or "insignificant".
+            rho (float, default=0.2): A hyperparameter representing the correlation factor across datasets. A higher value indicates stronger correlation between datasets in terms of algorithm performance.
+            n_chains (int, default=4): The number of Markov Chains to be used in the simulation. Half of the simulations are used for warm-up.
+            num_samples (int, default=300000): The total number of samples (per chain) used for estimating the posterior distribution. By default, half of these samples are used for the burn-in phase.
+            std_upper (int, default=1000): A scaling factor that sets the upper bounds for the hyperparameters sigma_i and sigma_0, which represent dataset-specific and global variability, respectively.
+            alpha_lower (float, default=0.5): Lower bound for the uniform prior of the alpha hyperparameter, which models the global variance.
+            alpha_upper (float, default=5): Upper bound for the uniform prior of the alpha hyperparameter.
+            beta_lower (float, default=0.05): Lower bound for the uniform prior of the beta hyperparameter, which models dataset-specific variances.
+            beta_upper (float, default=0.15): Upper bound for the uniform prior of the beta hyperparameter.
+            d0_lower (float, optional): Lower bound for the prior distribution of mu_0, the grand mean of performance differences. If not provided, the smallest observed difference is used as the lower bound.
+            d0_upper (float, optional): Upper bound for the prior distribution of mu_0. If not provided, the largest observed difference is used as the upper bound.
 
-        Examples
-        --------
-        >>> x_data = pd.DataFrame([[75.3, 78.3, 60.4], [68.5, 77.5, 76.9], [77.9, 74.5, 80.9], [90, 90, 90]])
-        >>> y_data = pd.DataFrame([[74.3, 75.3, 61.4], [65.5, 70.5, 80.9], [79.9, 76.2, 81.9], [90, 90, 90]])
-        >>> global_wins, posterior_distribution, per_dataset, global_sign, results = HierarchicalBayesianTest(x_data, y_data)._run_stan(x_data, y_data, [-1, 1], n_chains=10, stan_samples=15000)
+        Notes:
+            The results includes the typical information relative to the three areas of the posterior density (left, right and rope probabilities), both global and per dataset (in the additional information). Also, the simulation results are included.
+
+            As for the prior parameters, they are set to the default values indicated in [1,2], except for the bound for the prior distribution of mu_0, which are set to the maximum and minimum values observed in the sample. You should not modify them unless you know what you are doing.
+
+            [1] A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. \emph{Journal of Machine Learning Research}, 18, 1-36.
+            [2] Borja Calvo and Guzmán Santafé (2016) scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems. *The R Journal*, 8(1), 248-256. [DOI: 10.32614/RJ-2016-017](https://doi.org/10.32614/RJ-2016-017)
+
+        Returns:
+            BayesianHierarchicalResults
+                An object containing the following attributes:
+                - `approximated` : Boolean value that indicates whether the posterior distribution is approximated (True in this case).
+                - `global_wins`: DataFrame containing the global winning probabilities for each condition (left, right, rope).
+                - `posterior_distribution`: DataFrame with the posterior distribution probabilities (left, rope, right).
+                - `per_dataset`: DataFrame with per-dataset statistics.
+                - `global_sign`: DataFrame containing the global sign probabilities (positive, negative).
+                - `raw_results`: DataFrame containing the raw results from the sampling.
+
+        Examples:
+            >>> x_data = pd.DataFrame([[75.3, 78.3, 60.4], [68.5, 77.5, 76.9], [77.9, 74.5, 80.9], [90, 90, 90]])
+            >>> y_data = pd.DataFrame([[74.3, 75.3, 61.4], [65.5, 70.5, 80.9], [79.9, 76.2, 81.9], [90, 90, 90]])
+            >>> results = HierarchicalBayesianTest(x_data, y_data, approaches=["approach 1", "approach 2"], datasets=["d1", "d2", "d3", "d4"]).run([-1, 1])
+            >>> print("Global wins: ", results.global_wins)
+            Global wins:     left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 > approach 2)
+                                    0.809272                             0.0                         0.190728
+            >>> print("Per dataset: ", results.per_dataset.iloc[:, 1:4])
+            Per dataset:      left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 > approach 2)
+            d1                        0.207137                        0.503125                         0.289738
+            d2                        0.279955                        0.419848                         0.300197
+            d3                        0.619778                        0.337055                         0.043167
+            d4                        0.039968                        0.937468                         0.022563
         """
-        global_wins, posterior_distribution, per_dataset, global_sign, results = self._run_stan(x_matrix=self.x_result,
-                                                                                                y_matrix=self.y_result,
-                                                                                                rope=rope, rho=rho,
-                                                                                                n_chains=n_chains,
-                                                                                                stan_samples=num_samples,
-                                                                                                std_upper=std_upper,
-                                                                                                alpha_lower=alpha_lower,
-                                                                                                alpha_upper=alpha_upper,
-                                                                                                beta_lower=beta_lower,
-                                                                                                beta_upper=beta_upper,
-                                                                                                d0_lower=d0_lower,
-                                                                                                d0_upper=d0_upper)
-        return global_wins, posterior_distribution, per_dataset, global_sign, results
+        return self._run_stan(x_matrix=self.x_result, y_matrix=self.y_result, rope=rope, rho=rho,
+                              n_chains=n_chains, stan_samples=num_samples, std_upper=std_upper,
+                              alpha_lower=alpha_lower, alpha_upper=alpha_upper, beta_lower=beta_lower,
+                              beta_upper=beta_upper, d0_lower=d0_lower, d0_upper=d0_upper)
 
     def _run_stan(self, x_matrix: pd.DataFrame, y_matrix: pd.DataFrame, rope: List, rho=0.2, n_chains=4,
                   stan_samples=1000, std_upper=1000, alpha_lower=0.5, alpha_upper=5, beta_lower=0.05, beta_upper=0.15,
-                  d0_lower=None, d0_upper=None, seed=42) -> Tuple[
-        pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+                  d0_lower=None, d0_upper=None, seed=42) -> BayesianHierarchicalResults:
         # TODO: refactor this method since it follows the structure of the original code, but it is not very pythonic
-        # SCMAMP does not describe rho, so do I.
 
         assert len(rope) == 2, "The number of elements of rope must be 2"
         assert rope[0] < rope[1], "rope[0] must be less than rope[1]"
@@ -263,19 +285,16 @@ class HierarchicalBayesianTest:
         import os
         os.remove(temp_file_name)
 
-        return global_wins, posterior_distribution, per_dataset, global_sign, results
+        return BayesianHierarchicalResults(True, global_wins, posterior_distribution, per_dataset, global_sign, results)
 
 
 if __name__ == "__main__":
-    x_data = pd.DataFrame([[75.3, 78.3, 62.4], [68.5, 77.5, 82.9], [79.9, 79.5, 83.9], [95, 93, 92]])
+    x_data = pd.DataFrame([[75.3, 78.3, 60.4], [68.5, 77.5, 76.9], [77.9, 74.5, 80.9], [90, 90, 90]])
     y_data = pd.DataFrame([[74.3, 75.3, 61.4], [65.5, 70.5, 80.9], [79.9, 76.2, 81.9], [90, 90, 90]])
-    global_wins, posterior_distribution, per_dataset, global_sign, results = HierarchicalBayesianTest(x_data, y_data,
-                                                                                                      ["a1", "a2"],
-                                                                                                      ["d1", "d2",
-                                                                                                       "d3", "d4"])._run_stan(
-        x_data, y_data, rope=[-1, 1], n_chains=10, stan_samples=90000)
-    print("Global wins: ", global_wins)
-    print("Posterior distribution: ", posterior_distribution)
-    print("Per dataset: ", per_dataset)
-    print("Glboal sign: ", global_sign)
-    print("Results: ", results)
+    results = HierarchicalBayesianTest(x_data, y_data, approaches=["approach 1", "approach 2"], datasets=["d1", "d2", "d3", "d4"]).run([-1, 1])
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', None)
+    pd.set_option('display.max_colwidth', None)
+    print("Global wins: ", results.global_wins)
+    print("Per dataset: ", results.per_dataset.iloc[:, 1:4])

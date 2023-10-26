@@ -1,4 +1,7 @@
 class STAN_CODE:
+    """
+    STAN codes for the different statistical tests directly ported from scmamp.
+    """
     HIERARCHICAL_TEST = """
       data {
         // Bound of the delta_0 parameter

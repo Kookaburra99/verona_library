@@ -119,8 +119,17 @@ DATASETS_LIST = {
 
 def get_available_datasets():
     """
-    Shows the list of available datasets to be downloaded from the official repository.
-    :return: Array of datasets identifiers
+    Display the list of available datasets from the official repository and return their identifiers.
+
+    This function prints out the list of available datasets along with their names, as defined in the
+    `DATASETS_LIST` dictionary.
+
+    Returns:
+        list: List of available dataset identifiers.
+
+    Examples:
+        >>> available_datasets = get_available_datasets()
+        >>> print(available_datasets)
     """
 
     print(f'Available datasets:')
@@ -134,17 +143,28 @@ def get_available_datasets():
 
 def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes'):
     """
-    Downloads from the official repository the specified dataset in xes.gz or csv format
-    and stores it in the path specified as parameter.
-    :param dataset_name: Identifier of the dataset to be downloaded.
-    If "all" is specified instead of a valid dataset name, all available datasets are downloaded.
-    The list of available datasets can be checked with the get_available_datasets() function.
-    :param store_path: Path where the dataset will be stored.
-    If not specified, it is stored in the current working directory.
-    :param extension: Format in which the dataset will be saved.
-    Three possible values: 'xes' (xes.gz format), 'csv' (csv format) or 'both'.
-    Default: 'xes'.
-    :return: Stores the dataset in store_path and returns nothing
+    Download a specified dataset from the official repository and store it in a designated path.
+
+    This function downloads the dataset in either 'xes.gz' or 'csv' format, based on the 'extension' argument.
+    If the 'dataset_name' is set to "all", all available datasets will be downloaded.
+
+    Args:
+        dataset_name (str): Identifier of the dataset to download.
+            Use "all" to download all available datasets.
+            Refer to `get_available_datasets()` for a list of valid identifiers.
+
+        store_path (Optional[str]): The directory path where the dataset will be stored.
+            If not specified, the dataset will be stored in the current working directory.
+
+        extension (Literal['xes', 'csv', 'both']): The format in which to save the dataset.
+            Choose from 'xes' for 'xes.gz' format, 'csv' for 'csv' format, or 'both' to download both formats.
+            Default is 'xes'.
+
+    Returns:
+        None: The function stores the downloaded dataset in the 'store_path' and returns nothing.
+
+    Examples:
+        >>> get_dataset('bpi2012a', store_path=None, extension='csv')
     """
 
     if dataset_name == "all":
