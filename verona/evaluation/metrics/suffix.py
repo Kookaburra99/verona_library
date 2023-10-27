@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Literal, Union
 from jellyfish._jellyfish import damerau_levenshtein_distance
-from barro.data.utils import get_labels_from_onehot
+from verona.data.utils import get_labels_from_onehot
 
 
 def get_damerau_levenshtein_score(predictions: list[np.array], ground_truths: list[np.array],
@@ -10,25 +10,31 @@ def get_damerau_levenshtein_score(predictions: list[np.array], ground_truths: li
                                   eoc: Union[str, int] = None) -> float:
     """
     Calculates the Damerau-Levenshtein score between the predictions and the real values.
-    The Damerau-Levenshtein distance represents the number of insertions, deletions, substitutions
-    and transpositions required to change the first sequence into the second. Here, as a score is returned,
-    normalize the distance by the size of the longest sequence and subtract 1 minus the result to get the
-    final metric.
-    :param predictions: List containing the predicted suffixes as NumPy Arrays.
-    :param ground_truths: List containing the ground truths suffixes as NumPy Arrays.
-    :param preds_format: Format of the predictions. If 'label', predictions array
-    contains the labels of the activities/attributes predicted. If 'onehot', predictions
-    array contains the vectors of probabilities predicted, from which the labels are
-    internally extracted from the highest value element to calculate the metric.
-    :param gt_format: Format of the ground truth. If 'label', ground truth array contains
-    the labels of the correct activities/attributes. If 'onehot', ground truths array contains
-    the one-hot representation of the correct values, from which the labels are internally
-    extracted from the highest value element to calculate the metric.
-    :param eoc: String or Integer representing the label of the End-of-Case (element that represents
-    the end of the trace/suffix).
-    :return: Float between 0 and 1, where a lower value represents a worse suffix prediction
-    and a higher value represents a suffix prediction closer to the actual suffix.
+
+    The Damerau-Levenshtein distance represents the number of insertions, deletions,
+    substitutions, and transpositions required to change the first sequence into the second.
+    In this function, the score is normalized by the size of the longest sequence, and the
+    value is obtained by subtracting the normalized distance from 1.
+
+    Args:
+        predictions (list[np.array]): List containing the predicted suffixes as NumPy Arrays.
+        ground_truths (list[np.array]): List containing the ground truth suffixes as NumPy Arrays.
+        preds_format (Literal['labels', 'onehot']): Format of the predictions. If 'label',
+            the predictions array contains the labels of the activities/attributes predicted.
+            If 'onehot', the predictions array contains vectors of probabilities, and the labels
+            are internally extracted based on the highest value element for the metric calculation.
+        gt_format (Literal['labels', 'onehot']): Format of the ground truth. If 'label',
+            the ground truth array contains the labels of the correct activities/attributes.
+            If 'onehot', the ground truth array contains the one-hot representation of the
+            correct values, and the labels are internally extracted for the metric calculation.
+        eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that
+            signifies the end of the trace/suffix.
+
+    Returns:
+        float: Damerau-Levenshtein score between 0 and 1. A lower value indicates worse suffix
+        prediction, whereas a higher value indicates a prediction closer to the actual suffix.
     """
+
 
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions)

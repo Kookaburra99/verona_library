@@ -45,12 +45,12 @@ python setup.py install
 
 Or you can just install it using pip:
 ```bash
-pip install barro
+pip install verona
 ```
 
 ## Usage
 ```bash
-import barro
+import verona
 
 # ToDo
 ```

@@ -11,7 +11,7 @@ import scipy.stats as stats
 
 import os
 
-from barro.evaluation.stattests.stan_codes import STAN_CODE
+from verona.evaluation.stattests.stan_codes import STAN_CODE
 
 class BayesianHierarchicalResults:
     def __init__(self, approximated, global_wins, posterior_distribution, per_dataset, global_sign, raw_results):

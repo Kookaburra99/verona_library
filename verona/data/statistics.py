@@ -1,5 +1,5 @@
 import pandas as pd
-from barro.data.utils import DataFrameFields
+from verona.data.utils import DataFrameFields
 
 
 def get_num_activities(dataset: pd.DataFrame,

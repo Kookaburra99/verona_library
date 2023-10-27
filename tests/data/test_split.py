@@ -1,4 +1,4 @@
-from barro.data import split
+from verona.data import split
 
 
 def test_split_holdout():

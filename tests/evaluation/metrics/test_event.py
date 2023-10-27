@@ -1,4 +1,4 @@
-from barro.evaluation.metrics import event
+from verona.evaluation.metrics import event
 
 import numpy as np
 

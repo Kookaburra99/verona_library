@@ -5,9 +5,9 @@ import pandas as pd
 
 from enum import Enum
 
-from barro.evaluation.stattests.correlated_t_test import CorrelatedBayesianTTest
-from barro.evaluation.stattests.hierarchical import HierarchicalBayesianTest
-from barro.evaluation.stattests.plackettluce import PlackettLuceRanking
+from verona.evaluation.stattests.correlated_t_test import CorrelatedBayesianTTest
+from verona.evaluation.stattests.hierarchical import HierarchicalBayesianTest
+from verona.evaluation.stattests.plackettluce import PlackettLuceRanking
 
 
 @dataclass(frozen=True)

@@ -4,7 +4,7 @@ import pandas as pd
 from typing import Literal
 from pathlib import Path
 from sklearn.model_selection import KFold
-from barro.data.utils import XesFields
+from verona.data.utils import XesFields
 
 
 def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0.2,

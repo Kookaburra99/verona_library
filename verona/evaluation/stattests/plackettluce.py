@@ -9,7 +9,7 @@ import matplotlib.ticker as ticker
 from cmdstanpy import CmdStanModel, cmdstan_path, install_cmdstan
 from matplotlib import pyplot as plt
 
-from barro.evaluation.stattests.stan_codes import STAN_CODE
+from verona.evaluation.stattests.stan_codes import STAN_CODE
 
 class PlackettLuceResults:
     """

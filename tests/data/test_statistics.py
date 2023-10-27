@@ -1,4 +1,4 @@
-from barro.data import statistics
+from verona.data import statistics
 import pandas as pd
 
 

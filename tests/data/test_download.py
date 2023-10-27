@@ -1,4 +1,4 @@
-from barro.data import download
+from verona.data import download
 
 
 def test_get_available_datasets():

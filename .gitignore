@@ -1,2 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# IDE directories
 .idea/
+
+# Cache directories
 .pytest_cache/
+.cache/
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+myenv/
+.barro_env/
+
+# Sphinx build directory
+docs/_build/

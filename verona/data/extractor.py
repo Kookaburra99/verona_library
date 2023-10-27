@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from typing import Literal
-from barro.data.utils import DataFrameFields
+from verona.data.utils import DataFrameFields
 
 
 def get_prefixes_and_targets(dataset: pd.DataFrame,
