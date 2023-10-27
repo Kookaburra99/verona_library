@@ -149,12 +149,9 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
     Download a specified dataset from the official repository and store it in a designated path.
 
     This function downloads the dataset in either 'xes.gz' or 'csv' format, based on the 'extension' argument.
-    If the 'dataset_name' is set to "all", all available datasets will be downloaded.
 
     Args:
         dataset_name (str): Identifier of the dataset to download.
-            Use "all" to download all available datasets.
-            Refer to `get_available_datasets()` for a list of valid identifiers.
 
         store_path (Optional[str]): The directory path where the dataset will be stored.
             If not specified, the dataset will be stored in the folder ~/.verona_datasets/
@@ -170,10 +167,19 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
         >>> get_dataset('bpi2012a', store_path=None, extension='csv')
     """
 
-    if dataset_name == "all":
-        for dataset in DATASETS_LIST:
-            return __download_dataset(dataset, store_path, extension)
-    elif dataset_name in DATASETS_LIST:
+    if extension not in ['xes', 'csv', 'both']:
+        raise ValueError("Wrong extension. Choose from 'xes', 'csv', or 'both'.")
+
+    if store_path is None:
+        # By default, os does not expand the '~' character to the user home.
+        store_path = os.path.expanduser(DEFAULT_PATH)
+        print("Creating directory in: ", store_path)
+        print(os.listdir("~"))
+        if not os.path.exists(store_path):
+            os.mkdir(store_path)
+
+    # TODO: add caching mechanism to avoid downloading the same file multiple times
+    if dataset_name in DATASETS_LIST:
         return __download_dataset(dataset_name, store_path, extension)
     else:
         raise ValueError(f'Wrong dataset identifier: {dataset_name} is not available. '
@@ -183,11 +189,6 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
 def __download_dataset(dataset_name: str, store_path: str, extension: Literal['xes', 'csv', 'both']) -> Tuple[str, pd.DataFrame]:
     dataset_url = DATASETS_LIST[dataset_name]['url']
     response = requests.get(dataset_url, stream=True)
-
-    if not store_path:
-        store_path = DEFAULT_PATH
-        if not os.path.exists(DEFAULT_PATH):
-            os.makedirs(DEFAULT_PATH)
 
     store_path_xes = os.path.join(store_path, dataset_name + '.xes.gz')
     store_path_csv = None
