@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import numpy as np
+from importlib.resources import open_text
 
 import pandas as pd
 
@@ -114,15 +115,19 @@ def __evenize_dataset(results: pd.DataFrame, even_strategy: MissingResultStrateg
 
 def __load_csv_results(metric: MetricValue):
     if metric.parent == "next_activity":
-        return pd.read_csv(f"csv/{metric.value}_raw_results.csv")
+        resource_path = f'{metric.value}_raw_results.csv'
     elif metric.parent == "suffix":
-        return pd.read_csv(f"csv/suffix_raw_results.csv")
+        resource_path = 'suffix_raw_results.csv'
     elif metric.parent == "next_timestamp":
-        return pd.read_csv(f"csv/nt_mae_raw_results.csv")
+        resource_path = 'nt_mae_raw_results.csv'
     elif metric.parent == "remaining_time":
-        return pd.read_csv("csv/remaining_time_results.csv")
+        resource_path = 'remaining_time_results.csv'
     else:
         raise ValueError(f"Unsupported metric")
+
+    with open_text('verona.data.csv', resource_path) as f:
+        return pd.read_csv(f)
+
 
 
 def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=AvailableMetrics.NextActivity.ACCURACY,

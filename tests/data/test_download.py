@@ -7,7 +7,7 @@ def test_get_available_datasets():
 
 
 def test_get_dataset_1():
-    download.get_dataset('bpi2012', '../../', 'xes')
+    string, log = download.get_dataset('bpi2012', '../../', 'xes')
 
     download.get_dataset('bpi2013cp', '../../', 'csv')
 

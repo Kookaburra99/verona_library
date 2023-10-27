@@ -5,9 +5,7 @@ import matplotlib
 import stan
 import numpy as np
 import pandas as pd
-import matplotlib.ticker as ticker
 from cmdstanpy import CmdStanModel, cmdstan_path, install_cmdstan
-from matplotlib import pyplot as plt
 
 from verona.evaluation.stattests.stan_codes import STAN_CODE
 
@@ -33,58 +31,21 @@ class PlackettLuceResults:
             and probabilities of each algorithm. These distributions capture the uncertainties
             in the point estimates and are essential for Bayesian inference.
     """
-    def __init__(self, expected_prob : pd.Series, expected_rank : pd.Series, posterior : dict):
+    def __init__(self, expected_prob : pd.Series, expected_rank : pd.Series, posterior : pd.DataFrame):
         """
         Initializes the PlackettLuceResults object with the estimated metrics.
 
         Args:
             expected_prob (pd.Series): Expected probabilities for each algorithm.
             expected_rank (pd.Series): Expected ranks for each algorithm.
-            posterior (dict or similar container): Posterior distributions for rank and probabilities.
+            posterior (pd.DataFrame): Posterior distributions for rank and probabilities.
 
         """
         self.expected_prob = expected_prob
         self.expected_rank = expected_rank
         self.posterior = posterior
 
-    def plot_posteriors(self, save_path=None):
-        """
-        Plot the posteriors of the Plackett-Luce model (quantiles 95%, 05% and 50%). If two approaches do not overlap,
-        they have a significative different ranking.
 
-        Parameters
-            save_path: String that indicates the path where the plot will be saved. If None, the plot will not be saved.
-
-        Returns
-            fig.figure : matplotlib figure of the aforementioned plot
-        """
-
-        if self.posterior is None:
-            raise ValueError("You must run the model first")
-
-        posterior = self.posterior
-        y95 = posterior.quantile(q=0.95, axis=0)
-        y05 = posterior.quantile(q=0.05, axis=0)
-        y50 = posterior.quantile(q=0.5, axis=0)
-        df_boxplot = pd.concat([y05, y50, y95], axis=1)
-        df_boxplot.columns = ["y05", "y50", "y95"]
-        df_boxplot["Approaches"] = posterior.columns
-
-        y50 = df_boxplot["y50"].tolist()
-        y05 = (df_boxplot["y50"] - df_boxplot["y05"]).tolist()
-        y95 = (df_boxplot["y95"] - df_boxplot["y50"]).tolist()
-        sizes = [y05, y95]
-
-        fig = df_boxplot.plot.scatter(x="Approaches", y="y50", rot=90, ylabel="Probability")
-        plt.tight_layout()
-        fig.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
-        fig.grid(linestyle="--")
-        fig.xaxis.set_label_text("")
-        fig.xaxis.set_major_formatter(ticker.FixedFormatter(df_boxplot["Approaches"]))
-        if save_path is not None:
-            fig.figure.savefig(save_path)
-
-        return fig.figure
 
 class PlackettLuceRanking:
 
@@ -138,9 +99,6 @@ class PlackettLuceRanking:
             Expected rank:  a1    1.580505
                             a2    2.667531
                             a3    1.751964
-            >>> plot = results.plot_posteriors(save_path=None)
-            >>> print(plot)
-            Figure(640x480)
         """
 
         assert mode in ["max", "min"]
@@ -249,5 +207,3 @@ if __name__ == "__main__":
     results = plackett_ranking.run(n_chains=10, num_samples=300000, mode="max")
     print("Expected prob: ", results.expected_prob)
     print("Expected rank: ", results.expected_rank)
-    plot = results.plot_posteriors(save_path=None)
-    print(plot)

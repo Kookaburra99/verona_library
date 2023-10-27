@@ -1,14 +1,16 @@
 import os
 import pm4py
 import pandas as pd
-from typing import Literal
+from typing import Literal, Tuple, List
 from pathlib import Path
 from sklearn.model_selection import KFold
+
+from verona.data.download import DEFAULT_PATH
 from verona.data.utils import XesFields
 
 
 def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0.2,
-                 val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN) -> list[str]:
+                 val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Split a given dataset following a holdout scheme (train-validation-test).
 
@@ -20,13 +22,13 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
         case_column (str, optional): Name of the case identifier in the original dataset file. Default is 'case:concept:name'.
 
     Returns:
-        list[str]: List containing the paths to the stored splits.
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train, validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for test_size or val_from_train is provided.
 
     Examples:
-        >>> splits_paths = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
+        >>> train_df, val_df, test_df = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
 
     Notes:
         The default values for test_size and val_from_train are based on the experimental setup from the first version of [1]
@@ -70,26 +72,24 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
                          f'test_size should be a number between 0 and 1 (both excluded).')
 
     if not store_path:
-        store_path = os.getcwd()
+        store_path = DEFAULT_PATH
 
-    return_paths = []
 
-    train_path = __save_split_to_file(train_cases, store_path, dataset_name, 'train')
-    return_paths.append(train_path)
+    train_df = __save_split_to_file(train_cases, store_path, dataset_name, 'train')
 
     if val_from_train != 0:
-        val_path = __save_split_to_file(val_cases, store_path, dataset_name, 'val')
-        return_paths.append(val_path)
+        val_df = __save_split_to_file(val_cases, store_path, dataset_name, 'val')
+    else:
+        val_df = None
 
-    test_path = __save_split_to_file(test_cases, store_path, dataset_name, 'test')
-    return_paths.append(test_path)
+    test_df = __save_split_to_file(test_cases, store_path, dataset_name, 'test')
 
-    return return_paths
+    return train_df, val_df, test_df
 
 
 def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: int = 5,
                          val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN,
-                         seed: int = 42) -> list[str]:
+                         seed: int = 42) -> Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]:
     """
     Split a given dataset following a cross-validation scheme.
 
@@ -102,7 +102,7 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
         seed (int, optional): Set a seed for reproducibility. Default is 42.
 
     Returns:
-        list[str]: List containing the paths to the stored splits.
+        Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of DataFrames for the train, validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for cv_folds or val_from_train is provided.
@@ -134,7 +134,10 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
     indexes = sorted(unique_case_ids)
     splits = kfold.split(indexes)
 
-    return_paths = []
+    train_folds = []
+    val_folds = []
+    test_folds = []
+
     fold = 0
     for train_index, test_index in splits:
         if (0 < val_from_train < 1):
@@ -157,22 +160,22 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
                              f'val_from_train should be a number between 0 and 1 (0 included, 1 excluded).')
 
         train_path = __save_split_to_file(train_cases, store_path, dataset_name, 'train', fold)
-        return_paths.append(train_path)
+        train_folds.append(train_path)
 
         if val_from_train != 0:
             val_path = __save_split_to_file(val_cases, store_path, dataset_name, 'val', fold)
-            return_paths.append(val_path)
+            val_folds.append(val_path)
 
         test_path = __save_split_to_file(test_cases, store_path, dataset_name, 'test', fold)
-        return_paths.append(test_path)
+        test_folds.append(test_path)
 
         fold += 1
 
-    return return_paths
+    return train_folds, val_folds, test_folds
 
 
 def __save_split_to_file(cases: list, store_path: str, dataset_name: str,
-                         split: Literal['train', 'val', 'test'], fold: int = None) -> str:
+                         split: Literal['train', 'val', 'test'], fold: int = None) -> pd.DataFrame:
     df_split = pd.concat(cases)
 
     if fold is not None:
@@ -183,5 +186,5 @@ def __save_split_to_file(cases: list, store_path: str, dataset_name: str,
     full_path = store_path + filename + '.csv'
     df_split.to_csv(full_path)
 
-    return full_path
+    return df_split
 
