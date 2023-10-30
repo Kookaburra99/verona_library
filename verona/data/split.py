@@ -16,7 +16,7 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
 
     Parameters:
         dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
-        store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.
+        store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
         test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces reserved for the test partition. Default is 0.2.
         val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the percentage of traces reserved for the validation partition within the cases of the training partition. Default is 0.2.
         case_column (str, optional): Name of the case identifier in the original dataset file. Default is 'case:concept:name'.

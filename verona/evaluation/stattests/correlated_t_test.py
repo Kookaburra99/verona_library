@@ -20,9 +20,6 @@ class BayesianTTestResult:
         additional (dict): Additional details about the posterior distribution,
             such as degrees of freedom, mean, and standard deviation.
 
-    Methods:
-        summarize(): Provides a summary of the test results, e.g., mean, standard deviation,
-            and posterior probabilities.
     """
 
     def __init__(self, posterior_probs, approximated, parameters, posterior, additional):
@@ -58,6 +55,7 @@ class CorrelatedBayesianTTest:
     Attributes:
         x (array-like): First sample.
         y (array-like): Second sample. If not provided, x is assumed to be the difference. approaches (array-like): Methods or approaches to be compared.
+        approaches (array-like): Names of the two methods or approaches to be compared.
 
     Methods:
         run: Executes the Bayesian t-test.
@@ -88,7 +86,7 @@ class CorrelatedBayesianTTest:
         self.y = y
         self.approaches = approaches
 
-    def run(self, rho=0.2, rope=[-1, 1]) -> BayesianTTestResult:
+    def run(self, rho=0.2, rope=(-1, 1)) -> BayesianTTestResult:
         """
         Executes the Bayesian t-test.
 

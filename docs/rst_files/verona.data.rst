@@ -20,6 +20,14 @@ verona.data.extractor module
    :undoc-members:
    :show-inheritance:
 
+verona.data.results module
+--------------------------
+
+.. automodule:: verona.data.results
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 verona.data.split module
 ------------------------
 

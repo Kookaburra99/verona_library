@@ -9,6 +9,7 @@ from enum import Enum
 from verona.evaluation.stattests.correlated_t_test import CorrelatedBayesianTTest
 from verona.evaluation.stattests.hierarchical import HierarchicalBayesianTest
 from verona.evaluation.stattests.plackettluce import PlackettLuceRanking
+from verona.evaluation.stattests.signed_rank import BayesianSignedRankTest
 
 
 @dataclass(frozen=True)
@@ -255,6 +256,12 @@ def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=Av
         results = results * 100
     return results[approach_1].to_numpy(), results[approach_2].to_numpy()
 
+if __name__ == "__main__":
+    results_1, results_2 = load_results_non_hierarchical(approach_1="Camargo", approach_2="Tax", metric = AvailableMetrics.NextActivity.ACCURACY, even_strategy = MissingResultStrategy.DELETE_DATASET)
+    print("Results 1: ", results_1)
+    print("Results 2: ", results_2)
+    results = BayesianSignedRankTest(results_1, results_2, ["Camargo", "Tax"]).run()
+    print(results.posterior_probabilities)
 
 """
 if __name__ == "__main__":
@@ -278,6 +285,7 @@ if __name__ == "__main__":
     plot = results.plot_posteriors(save_path=None)
 """
 
+"""
 if __name__ == "__main__":
     approach_1_df, approach_2_df, datasets = load_results_hierarchical(approach_1="Camargo", approach_2="Tax",
                                                                        metric=AvailableMetrics.NextActivity.ACCURACY)
@@ -291,3 +299,4 @@ if __name__ == "__main__":
     print("Posterior distribution: ", results.posterior_distribution)
     print("Per dataset: ", results.per_dataset)
     print("Glboal sign: ", results.global_sign)
+"""
