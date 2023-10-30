@@ -144,7 +144,7 @@ def get_available_datasets():
     return dataset_ids_list
 
 
-def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes') -> Tuple[str, pd.DataFrame]:
+def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes', force_redownload=False) -> Tuple[str, pd.DataFrame]:
     """
     Download a specified dataset from the official repository and store it in a designated path.
 
@@ -159,6 +159,8 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
         extension (Literal['xes', 'csv', 'both']): The format in which to save the dataset.
             Choose from 'xes' for 'xes.gz' format, 'csv' for 'csv' format, or 'both' to download both formats.
             Default is 'xes'.
+
+        force_redownload (bool): If True, the dataset will be downloaded even if it already exists in the store_path.
 
     Returns:
         None: The function stores the downloaded dataset in the 'store_path' and returns nothing.
@@ -177,6 +179,15 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
         print(os.listdir("~"))
         if not os.path.exists(store_path):
             os.mkdir(store_path)
+
+    # Download caching.
+    if extension != "both" and os.path.exists(os.path.join(store_path, dataset_name + "." + extension)) and not force_redownload:
+        return_path = os.path.join(store_path, dataset_name + "." + extension)
+        if extension == "xes":
+            return return_path, pm4py.read_xes(return_path)
+        else:
+            return return_path, pd.read_csv(return_path)
+
 
     # TODO: add caching mechanism to avoid downloading the same file multiple times
     if dataset_name in DATASETS_LIST:

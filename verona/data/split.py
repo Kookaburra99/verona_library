@@ -95,7 +95,7 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
 
     Parameters:
         dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
-        store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.
+        store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
         cv_folds (int, optional): Number of folds for the cross-validation split. Default is 5.
         val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the percentage of traces reserved for the validation partition within the cases of the training partition. Default is 0.2.
         case_column (str, optional): Name of the case identifier in the original dataset file. Default is 'case:concept:name'.
@@ -115,6 +115,9 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
 
         [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
     """
+
+    if not store_path:
+        store_path = DEFAULT_PATH
 
     dataset_name = Path(dataset_path).stem
     if len(dataset_name.split('.')) == 1:
@@ -137,6 +140,7 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
     train_folds = []
     val_folds = []
     test_folds = []
+
 
     fold = 0
     for train_index, test_index in splits:
