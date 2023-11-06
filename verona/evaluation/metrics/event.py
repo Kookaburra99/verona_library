@@ -1,6 +1,8 @@
-import numpy as np
 from typing import Literal
+
+import numpy as np
 from sklearn import metrics
+
 from verona.data.utils import get_labels_from_onehot, get_onehot_representation
 
 
@@ -24,7 +26,6 @@ def get_accuracy(predictions: np.array, ground_truths: np.array,
         tuple: Float indicating the accuracy ratio, integer for the number of correct predictions,
             and integer for the total number of predictions.
     """
-
 
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions).flatten()
@@ -59,7 +60,6 @@ def get_fbeta(predictions: np.array, ground_truths: np.array,
     Returns:
         tuple: Float for the F-beta score, float for the precision, and float for the recall.
     """
-
 
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions).flatten()

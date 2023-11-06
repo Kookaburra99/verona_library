@@ -1,5 +1,6 @@
-from verona.data import extractor
 import pandas as pd
+
+from verona.data import extractor
 
 
 def test_get_prefixes_and_targets():

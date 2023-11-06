@@ -1,6 +1,7 @@
-import numpy as np
 from typing import Literal, Union
-from jellyfish._jellyfish import damerau_levenshtein_distance
+
+import numpy as np
+
 from verona.data.utils import get_labels_from_onehot
 
 
@@ -34,7 +35,6 @@ def get_damerau_levenshtein_score(predictions: list[np.array], ground_truths: li
         float: Damerau-Levenshtein score between 0 and 1. A lower value indicates worse suffix
         prediction, whereas a higher value indicates a prediction closer to the actual suffix.
     """
-
 
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions)

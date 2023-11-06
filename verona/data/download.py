@@ -1,9 +1,9 @@
 import os
+from typing import Literal, Tuple
 
 import pandas as pd
-import requests
 import pm4py
-from typing import Literal, Tuple
+import requests
 from tqdm import tqdm
 
 # TODO: this should be in a yaml

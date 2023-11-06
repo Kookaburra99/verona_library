@@ -1,15 +1,9 @@
 from dataclasses import dataclass
-import numpy as np
+from enum import Enum
 from importlib.resources import open_text
 
+import numpy as np
 import pandas as pd
-
-from enum import Enum
-
-from verona.evaluation.stattests.correlated_t_test import CorrelatedBayesianTTest
-from verona.evaluation.stattests.hierarchical import HierarchicalBayesianTest
-from verona.evaluation.stattests.plackettluce import PlackettLuceRanking
-from verona.evaluation.stattests.signed_rank import BayesianSignedRankTest
 
 
 @dataclass(frozen=True)

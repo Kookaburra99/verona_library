@@ -1,6 +1,8 @@
-from verona.data import download
 import os
+
 import pytest
+
+from verona.data import download
 
 
 def test_get_available_datasets():

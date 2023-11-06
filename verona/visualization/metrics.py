@@ -1,8 +1,11 @@
+from typing import Literal
+
 import numpy as np
 import pandas as pd
-from plotly.graph_objects import Figure
 import plotly.express as px
-from typing import Literal
+from plotly.graph_objects import Figure
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 
 def bar_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str = 'Accuracy',
@@ -13,7 +16,7 @@ def bar_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str =
     Generates a bar chart from input data.
 
     Args:
-        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
+        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be
             represented on the X-axis and the values are either single numerical values
             or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
@@ -70,7 +73,7 @@ def line_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str 
     Generates a line chart from input data.
 
     Args:
-        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
+        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be
             represented on the X-axis and the values are either single numerical values
             or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
@@ -126,9 +129,8 @@ def box_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str =
 
     Args:
         data (pd.DataFrame): Pandas DataFrame containing the values to be represented in the graph.
-            The dictionary keys correspond to the categories to be represented on the X-axis,
-            while the value associated with each key is a NumPy Array with the values to build
-            the corresponding box.
+            The columns name correspond to the categories to be represented on the X-axis,
+            while the values associated are used to build the corresponding box.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
         y_label (str, optional): Label for the Y axis. Defaults to 'Accuracy'.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
@@ -158,9 +160,8 @@ def error_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str
     experiments, as it shows the mean and standard deviation for each NumPy Array of values.
 
     Args:
-        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
-            represented on the X-axis and the values are NumPy Arrays used to construct
-            the corresponding error bars.
+        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be
+            represented on the X-axis and the values are used to construct the corresponding error bars.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
         y_label (str, optional): Label for the Y axis. Defaults to 'Accuracy'.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
@@ -202,6 +203,64 @@ def error_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str
 
     fig.update_xaxes(title_text=x_label, tickangle=15, tickfont=dict(size=font_size))
     fig.update_yaxes(title_text=y_label, tickfont=dict(size=font_size))
+    return fig
+
+
+def plot_metric_by_prefixes_len(data: pd.DataFrame, metric_label: str = 'Accuracy',
+                                font_size: int = 15, print_values: bool = False,
+                                num_decimals: int = 2) -> Figure:
+    """
+    Generates a mixed plot, where the bar chart indicates the number of prefixes of each length and the
+    line chart indicates the value of the chosen metric for each prefix length.
+
+    Args:
+        data (pd.DataFrame): Pandas DataFrame where the column names indicate the length of the prefixes and
+            the associated values indicate 1- the value of the metric and 2- the number of prefixes of that length.
+        metric_label (str, optional): Label for the right Y-axis. Defaults to 'Accuracy'.
+        font_size (int, optional): Font size of the text in the plot. Defaults to 15.
+        print_values (bool, optional): Whether to print metric values over each
+            point. Defaults to False.
+        num_decimals (int, optional): Number of decimal places to show if 'print_values'
+            is True. Defaults to 2.
+
+    Returns:
+        fig: Plotly Figure object representing the bar chart and the line chart.
+    """
+
+    x_values = data.columns.tolist()
+    y_values_metric = data.loc[0].values
+    y_values_counts = data.loc[1].values
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Add bar chart trace
+    bar_trace = go.Bar(x=x_values, y=y_values_counts, name='Counts')
+    fig.add_trace(bar_trace, secondary_y=False)
+
+    # Add line chart trace
+    line_trace = go.Scatter(x=x_values, y=y_values_metric, mode='lines', name=metric_label)
+    fig.add_trace(line_trace, secondary_y=True)
+
+    # Update line chart properties (color and thickness)
+    fig.update_traces(selector=dict(type='scatter'), line=dict(color='red', width=3), secondary_y=True)
+
+    if print_values:
+        for i, v in enumerate(y_values_metric):
+            fig.add_annotation(
+                x=x_values[i],
+                y=(v + 0.01) * max(y_values_counts),
+                text=f'{v:.{num_decimals}f}',
+                showarrow=False,
+                font=dict(size=font_size, color='black')
+            )
+
+    fig.update_layout(title=f'{metric_label} by prefix length')
+    fig.update_xaxes(title_text='Prefix Length', tickfont=dict(size=font_size))
+    fig.update_yaxes(range=[0, max(y_values_counts+0.05)], title_text='Counts',
+                     secondary_y=False, tickfont=dict(size=font_size))
+    fig.update_yaxes(range=[0, max(y_values_metric+(0.05/max(y_values_counts)))], title_text='Metric',
+                     secondary_y=True, tickfont=dict(size=font_size))
+
     return fig
 
 
