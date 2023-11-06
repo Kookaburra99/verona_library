@@ -1,4 +1,4 @@
-from barro.evaluation.metrics import suffix
+from verona.evaluation.metrics import suffix
 
 import numpy as np
 

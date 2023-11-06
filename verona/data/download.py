@@ -1,10 +1,13 @@
 import os
+
+import pandas as pd
 import requests
 import pm4py
-from typing import Literal
+from typing import Literal, Tuple
 from tqdm import tqdm
 
-
+# TODO: this should be in a yaml
+DEFAULT_PATH = "~/.verona_datasets/"
 DATASETS_LIST = {
     'bpi2011': {
         'name': 'BPI Challenge 2011',
@@ -119,8 +122,17 @@ DATASETS_LIST = {
 
 def get_available_datasets():
     """
-    Shows the list of available datasets to be downloaded from the official repository.
-    :return: Array of datasets identifiers
+    Display the list of available datasets from the official repository and return their identifiers.
+
+    This function prints out the list of available datasets along with their names, as defined in the
+    `DATASETS_LIST` dictionary.
+
+    Returns:
+        list: List of available dataset identifiers.
+
+    Examples:
+        >>> available_datasets = get_available_datasets()
+        >>> print(available_datasets)
     """
 
     print(f'Available datasets:')
@@ -132,38 +144,54 @@ def get_available_datasets():
     return dataset_ids_list
 
 
-def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes'):
+def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes') -> Tuple[str, pd.DataFrame]:
     """
-    Downloads from the official repository the specified dataset in xes.gz or csv format
-    and stores it in the path specified as parameter.
-    :param dataset_name: Identifier of the dataset to be downloaded.
-    If "all" is specified instead of a valid dataset name, all available datasets are downloaded.
-    The list of available datasets can be checked with the get_available_datasets() function.
-    :param store_path: Path where the dataset will be stored.
-    If not specified, it is stored in the current working directory.
-    :param extension: Format in which the dataset will be saved.
-    Three possible values: 'xes' (xes.gz format), 'csv' (csv format) or 'both'.
-    Default: 'xes'.
-    :return: Stores the dataset in store_path and returns nothing
+    Download a specified dataset from the official repository and store it in a designated path.
+
+    This function downloads the dataset in either 'xes.gz' or 'csv' format, based on the 'extension' argument.
+
+    Args:
+        dataset_name (str): Identifier of the dataset to download.
+
+        store_path (Optional[str]): The directory path where the dataset will be stored.
+            If not specified, the dataset will be stored in the folder ~/.verona_datasets/
+
+        extension (Literal['xes', 'csv', 'both']): The format in which to save the dataset.
+            Choose from 'xes' for 'xes.gz' format, 'csv' for 'csv' format, or 'both' to download both formats.
+            Default is 'xes'.
+
+    Returns:
+        None: The function stores the downloaded dataset in the 'store_path' and returns nothing.
+
+    Examples:
+        >>> get_dataset('bpi2012a', store_path=None, extension='csv')
     """
 
-    if dataset_name == "all":
-        for dataset in DATASETS_LIST:
-            __download_dataset(dataset, store_path, extension)
-    elif dataset_name in DATASETS_LIST:
-        __download_dataset(dataset_name, store_path, extension)
+    if extension not in ['xes', 'csv', 'both']:
+        raise ValueError("Wrong extension. Choose from 'xes', 'csv', or 'both'.")
+
+    if store_path is None:
+        # By default, os does not expand the '~' character to the user home.
+        store_path = os.path.expanduser(DEFAULT_PATH)
+        print("Creating directory in: ", store_path)
+        print(os.listdir("~"))
+        if not os.path.exists(store_path):
+            os.mkdir(store_path)
+
+    # TODO: add caching mechanism to avoid downloading the same file multiple times
+    if dataset_name in DATASETS_LIST:
+        return __download_dataset(dataset_name, store_path, extension)
     else:
         raise ValueError(f'Wrong dataset identifier: {dataset_name} is not available. '
                          f'Check the list of available datasets with get_available_datasets()')
 
 
-def __download_dataset(dataset_name: str, store_path: str, extension: Literal['xes', 'csv', 'both']):
+def __download_dataset(dataset_name: str, store_path: str, extension: Literal['xes', 'csv', 'both']) -> Tuple[str, pd.DataFrame]:
     dataset_url = DATASETS_LIST[dataset_name]['url']
     response = requests.get(dataset_url, stream=True)
 
-    if not store_path:
-        store_path = os.getcwd()
     store_path_xes = os.path.join(store_path, dataset_name + '.xes.gz')
+    store_path_csv = None
 
     if response.status_code == 200:
         file_size = int(response.headers.get('content-length', 0))
@@ -182,6 +210,14 @@ def __download_dataset(dataset_name: str, store_path: str, extension: Literal['x
         if extension not in ['xes', 'both']:
             os.remove(store_path_xes)
 
+        # Dataset stored in xes. We need to load it with pm4py
+        if store_path_csv is None:
+            log = pm4py.read_xes(store_path_xes)
+            return store_path_xes, log
+        # Dataset stored in csv, the dataset is already preloaded
+        else:
+            return store_path_csv, log
+
     else:
-        print(f'Failed to download the file. Status code: {response.status_code}')
+        raise ValueError(f'Failed to download the file. Status code: {response.status_code}')
 

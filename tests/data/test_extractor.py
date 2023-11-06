@@ -1,4 +1,4 @@
-from barro.data import extractor
+from verona.data import extractor
 import pandas as pd
 
 
