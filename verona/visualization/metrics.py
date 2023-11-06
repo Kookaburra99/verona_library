@@ -1,20 +1,19 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
+from plotly.graph_objects import Figure
+import plotly.express as px
 from typing import Literal
 
-import matplotlib
-matplotlib.use('TkAgg')
 
-
-def bar_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accuracy',
+def bar_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str = 'Accuracy',
                     reduction: Literal['mean', 'max', 'min', 'median'] = None,
-                    y_min: float = 0.0, y_max: float = 100.0,
-                    print_values: bool = False, num_decimals: int = 2) -> plt:
+                    y_min: float = 0.0, y_max: float = 100.0, font_size: int = 15,
+                    print_values: bool = False, num_decimals: int = 2) -> Figure:
     """
     Generates a bar chart from input data.
 
     Args:
-        data (dict): A dictionary where the keys correspond to the categories to be
+        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
             represented on the X-axis and the values are either single numerical values
             or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
@@ -24,50 +23,54 @@ def bar_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accura
             Defaults to None.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
         y_max (float, optional): The maximum value for the Y-axis. Defaults to 100.0.
+        font_size (int, optional): Font size of the text in the plot. Defaults to 15.
         print_values (bool, optional): If True, metric values are printed over each bar.
             Defaults to False.
         num_decimals (int, optional): Number of decimals to display if `print_values` is True.
             Defaults to 2.
 
     Returns:
-        plt: Matplotlib plot object representing the bar chart.
+        fig: Plotly Figure object representing the bar chart.
     """
 
-    x_values = list(data.keys())
+    x_values = data.columns.tolist()
+    y_values_raw = data.T.values
 
-    y_values_raw = list(data.values())
-    if type(y_values_raw[0]) == float:
+    if y_values_raw.ndim == 2 and y_values_raw.shape[1] == 1:
         y_values = y_values_raw
-    elif type(y_values_raw[0]) == np.ndarray:
+    elif y_values_raw.ndim == 2 and y_values_raw.shape[1] > 1:
         y_values = __apply_reduction(y_values_raw, reduction)
     else:
-        raise TypeError(f'Incorrect type for values in data dictionary: {type(y_values_raw[0])}. '
-                        f'Only float or NumPy Array are allowed.')
+        raise TypeError(f'Incorrect format for values in data DataFrame: {y_values_raw}. '
+                        f'Only two dimension DataFrames with one or more values per column are allowed.')
 
-    plt.figure()
-    plt.bar(x_values, y_values)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.ylim(y_min, y_max)
-    plt.xticks(rotation=15)
+    fig = px.bar(x=x_values, y=y_values, labels={x_label, y_label})
+    fig.update_yaxes(range=[y_min, y_max])
 
     if print_values:
         for i, v in enumerate(y_values):
-            plt.text(i, v + 1, f'{v:.{num_decimals}f}', ha='center')
-    plt.tight_layout()
+            fig.add_annotation(
+                x=x_values[i],
+                y=v + 1,
+                text=f'{v:.{num_decimals}f}',
+                showarrow=False,
+                font=dict(size=font_size)
+            )
 
-    return plt
+    fig.update_xaxes(title_text=x_label, tickangle=15, tickfont=dict(size=font_size))
+    fig.update_yaxes(title_text=y_label, tickfont=dict(size=font_size))
+    return fig
 
 
-def line_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accuracy',
+def line_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str = 'Accuracy',
                      reduction: Literal['mean', 'max', 'min', 'median'] = None,
-                     y_min: float = 0.0, y_max: float = 100.0,
-                     print_values: bool = False, num_decimals: int = 2) -> plt:
+                     y_min: float = 0.0, y_max: float = 100.0, font_size: int = 15,
+                     print_values: bool = False, num_decimals: int = 2) -> Figure:
     """
     Generates a line chart from input data.
 
     Args:
-        data (dict): A dictionary where the keys correspond to the categories to be
+        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
             represented on the X-axis and the values are either single numerical values
             or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
@@ -77,81 +80,77 @@ def line_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accur
             Defaults to None.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
         y_max (float, optional): The maximum value for the Y-axis. Defaults to 100.0.
+        font_size (int, optional): Font size of the text in the plot. Defaults to 15.
         print_values (bool, optional): If True, metric values are printed over each point.
             Defaults to False.
         num_decimals (int, optional): Number of decimals to display if `print_values` is True.
             Defaults to 2.
 
     Returns:
-        plt: Matplotlib plot object representing the line chart.
+        fig: Plotly Figure object representing the line chart.
     """
 
-    x_values = list(data.keys())
+    x_values = data.columns.tolist()
+    y_values_raw = data.T.values
 
-    y_values_raw = list(data.values())
-    if type(y_values_raw[0]) == float:
+    if y_values_raw.ndim == 2 and y_values_raw.shape[1] == 1:
         y_values = y_values_raw
-    elif type(y_values_raw[0]) == np.ndarray:
+    elif y_values_raw.ndim == 2 and y_values_raw.shape[1] > 1:
         y_values = __apply_reduction(y_values_raw, reduction)
     else:
-        raise TypeError(f'Incorrect type for values in data dictionary: {type(y_values_raw[0])}. '
-                        f'Only float or NumPy Array are allowed.')
+        raise TypeError(f'Incorrect format for values in data DataFrame: {y_values_raw}. '
+                        f'Only two dimension DataFrames with one or more values per column are allowed.')
 
-    plt.figure()
-    plt.plot(x_values, y_values, marker='o', color='b', linestyle='-', linewidth=2, markersize=8)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.ylim(y_min, y_max)
-    plt.xticks(rotation=15)
+    fig = px.line(x=x_values, y=y_values, labels={x_label, y_label}, markers=True)
+    fig.update_yaxes(range=[y_min, y_max])
 
     if print_values:
         for i, v in enumerate(y_values):
-            plt.text(i, v + 1, f'{v:.{num_decimals}f}', ha='center')
-    plt.tight_layout()
+            fig.add_annotation(
+                x=x_values[i],
+                y=v + 1,
+                text=f'{v:.{num_decimals}f}',
+                showarrow=False,
+                font=dict(size=font_size)
+            )
 
-    return plt
+    fig.update_xaxes(title_text=x_label, tickangle=15, tickfont=dict(size=font_size))
+    fig.update_yaxes(title_text=y_label, tickfont=dict(size=font_size))
+    return fig
 
 
-def box_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accuracy',
-                    y_min: float = 0.0, y_max: float = 100.0) -> plt:
+def box_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str = 'Accuracy',
+                    y_min: float = 0.0, y_max: float = 100.0, font_size: int = 15) -> Figure:
     """
-    Generates a box plot from input data.
+    Generates a box plot showing the corresponding box for each category.
 
     Args:
-        data (dict): A dictionary where the keys correspond to the categories to be
-            represented on the X-axis and the values are NumPy Arrays used to construct
-            the corresponding boxes.
+        data (pd.DataFrame): Pandas DataFrame containing the values to be represented in the graph.
+            The dictionary keys correspond to the categories to be represented on the X-axis,
+            while the value associated with each key is a NumPy Array with the values to build
+            the corresponding box.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
         y_label (str, optional): Label for the Y axis. Defaults to 'Accuracy'.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
         y_max (float, optional): The maximum value for the Y-axis. Defaults to 100.0.
+        font_size (int, optional): Font size of the text in the plot. Defaults to 15.
 
     Returns:
-        plt: Matplotlib plot object representing the box plot.
+        fig: Plotly Figure object representing the error plot.
     """
 
-    x_values = list(data.keys())
+    fig = px.box(data, title='Box Plot',
+                 labels={y_label, x_label}, range_y=[y_min, y_max])
 
-    y_values_raw = list(data.values())
-    if type(y_values_raw[0]) == np.ndarray:
-        y_values = y_values_raw
-    else:
-        raise TypeError(f'Incorrect type for values in data dictionary: {type(y_values_raw[0])}. '
-                        f'Only NumPy Array is allowed.')
+    fig.update_xaxes(title_text=x_label, tickangle=15, tickfont=dict(size=font_size))
+    fig.update_yaxes(title_text=y_label, tickfont=dict(size=font_size))
 
-    plt.figure()
-    plt.boxplot(y_values, labels=x_values)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.ylim(y_min, y_max)
-    plt.xticks(rotation=15)
-
-    return plt
+    return fig
 
 
-def error_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accuracy',
-                      y_min: float = 0.0, y_max: float = 100.0,
-                      print_values: bool = False, num_decimals: int = 2) -> plt:
+def error_plot_metric(data: pd.DataFrame, x_label: str = 'Dataset', y_label: str = 'Accuracy',
+                      y_min: float = 0.0, y_max: float = 100.0, font_size: int = 15,
+                      print_values: bool = False, num_decimals: int = 2) -> Figure:
     """
     Generates an error plot from input data.
 
@@ -159,50 +158,51 @@ def error_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accu
     experiments, as it shows the mean and standard deviation for each NumPy Array of values.
 
     Args:
-        data (dict): A dictionary where the keys correspond to the categories to be
+        data (pd.DataFrame): Pandas DataFrame where the keys correspond to the categories to be
             represented on the X-axis and the values are NumPy Arrays used to construct
             the corresponding error bars.
         x_label (str, optional): Label for the X axis. Defaults to 'Dataset'.
         y_label (str, optional): Label for the Y axis. Defaults to 'Accuracy'.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
         y_max (float, optional): The maximum value for the Y-axis. Defaults to 100.0.
+        font_size (int, optional): Font size of the text in the plot. Defaults to 15.
         print_values (bool, optional): Whether to print metric values over each
             point. Defaults to False.
         num_decimals (int, optional): Number of decimal places to show if 'print_values'
             is True. Defaults to 2.
 
     Returns:
-        plt: Matplotlib plot object representing the error plot.
+        fig: Plotly Figure object representing the error plot.
     """
 
-    x_values = list(data.keys())
+    x_values = data.columns.tolist()
+    y_values_raw = data.T.values
 
-    y_values_raw = list(data.values())
-    if type(y_values_raw[0]) == np.ndarray:
+    if y_values_raw.ndim == 2 and y_values_raw.shape[1] > 1:
         y_values = y_values_raw
     else:
-        raise TypeError(f'Incorrect type for values in data dictionary: {type(y_values_raw[0])}. '
-                        f'Only NumPy Array is allowed.')
+        raise TypeError(f'Incorrect format for values in data DataFrame: {y_values_raw}. '
+                        f'Only two dimension DataFrames with two or more values per column are allowed.')
 
     y_means = __apply_reduction(y_values, 'mean')
     y_stds = __apply_reduction(y_values, 'std')
-    print(y_stds)
 
-    plt.figure()
-    plt.errorbar(x_values, y_means, y_stds, fmt='o', linewidth=2, capsize=6)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.ylim(y_min, y_max)
-    plt.xticks(rotation=15)
+    fig = px.scatter(x=x_values, y=y_means, error_y=y_stds, labels={x_label, y_label})
+    fig.update_yaxes(range=[y_min, y_max])
 
     if print_values:
-        for i, v in enumerate(y_means):
-            plt.text(i + 0.1, v, f'{v:.{num_decimals}f}', ha='center')
-        for i, v in enumerate(y_stds):
-            plt.text(i - 0.1, y_means[i]+v, f'{v:.{num_decimals}f}', ha='center')
-    plt.tight_layout()
+        for i, (mean_val, std_val) in enumerate(zip(y_means, y_stds)):
+            fig.add_annotation(
+                x=x_values[i],
+                y=mean_val + std_val + 1,
+                text=f'Mean: {mean_val:.{num_decimals}f}<br>Std: {std_val:.{num_decimals}f}',
+                showarrow=False,
+                font=dict(size=font_size)
+            )
 
-    return plt
+    fig.update_xaxes(title_text=x_label, tickangle=15, tickfont=dict(size=font_size))
+    fig.update_yaxes(title_text=y_label, tickfont=dict(size=font_size))
+    return fig
 
 
 def __apply_reduction(raw_values: np.array,

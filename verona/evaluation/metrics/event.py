@@ -95,7 +95,6 @@ def get_f1_score(predictions: np.array, ground_truths: np.array,
         tuple: Float for the F1-score, float for the precision, and float for the recall.
     """
 
-
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions).flatten()
     if gt_format == 'onehot':
@@ -125,7 +124,6 @@ def get_precision(predictions: np.array, ground_truths: np.array,
     Returns:
         float: Precision score between 0 and 1.
     """
-
 
     if preds_format == 'onehot':
         predictions = get_labels_from_onehot(predictions).flatten()
@@ -221,12 +219,9 @@ def get_brier_loss(predictions: np.array, ground_truths: np.array,
         (worse predictions).
     """
 
-
     if gt_format == 'labels':
         ground_truths = get_onehot_representation(ground_truths, predictions.shape[-1])
 
     brier_loss = np.mean(np.sum((ground_truths - predictions)**2, axis=-1)).item()
 
     return brier_loss
-
-

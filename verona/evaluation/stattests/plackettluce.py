@@ -1,8 +1,6 @@
 import tempfile
-from typing import Any, List, Tuple
+from typing import List, Tuple
 
-import matplotlib
-import stan
 import numpy as np
 import pandas as pd
 from cmdstanpy import CmdStanModel, cmdstan_path, install_cmdstan

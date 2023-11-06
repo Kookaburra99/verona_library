@@ -1,15 +1,10 @@
 import tempfile
-from typing import List, Tuple
-import math
+from typing import List
 
-from cmdstanpy import CmdStanModel, install_cmdstan, cmdstan_path
 import numpy as np
-
 import pandas as pd
-import matplotlib.ticker as ticker
 import scipy.stats as stats
-
-import os
+from cmdstanpy import CmdStanModel, install_cmdstan, cmdstan_path
 
 from verona.evaluation.stattests.stan_codes import STAN_CODE
 

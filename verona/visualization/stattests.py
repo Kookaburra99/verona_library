@@ -5,9 +5,13 @@ import matplotlib.ticker as ticker
 from verona.data.download import get_dataset
 from verona.data.results import load_results_plackett_luce
 from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
+import plotly.graph_objects as go
 
 import numpy as np
 from typing import Literal
+
+import matplotlib
+matplotlib.use('TkAgg')
 
 
 def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=None):
@@ -40,18 +44,28 @@ def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=No
     df_boxplot.columns = ["y05", "y50", "y95"]
     df_boxplot["Approaches"] = posterior.columns
 
-    y50 = df_boxplot["y50"].tolist()
-    y05 = (df_boxplot["y50"] - df_boxplot["y05"]).tolist()
-    y95 = (df_boxplot["y95"] - df_boxplot["y50"]).tolist()
-    sizes = [y05, y95]
+    y50 = df_boxplot["y50"]
+    yerr_lower = df_boxplot["y50"] - df_boxplot["y05"]
+    yerr_upper = df_boxplot["y95"] - df_boxplot["y50"]
 
-    fig = df_boxplot.plot.scatter(x="Approaches", y="y50", rot=90, ylabel="Probability")
-    plt.tight_layout()
-    fig.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
-    fig.grid(linestyle="--")
-    fig.xaxis.set_label_text("")
-    fig.xaxis.set_major_formatter(ticker.FixedFormatter(df_boxplot["Approaches"]))
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df_boxplot["Approaches"], y=y50,
+        error_y=dict(
+            type='data', symmetric=False,
+            array=yerr_upper, arrayminus=yerr_lower
+        ),
+        mode='markers'
+    ))
+
+    fig.update_layout(
+        xaxis_title="",
+        yaxis_title="Probability",
+        xaxis=dict(tickmode='array', tickvals=list(range(len(df_boxplot["Approaches"]))),
+                   ticktext=df_boxplot["Approaches"])
+    )
+
     if save_path is not None:
-        fig.figure.savefig(save_path)
+        fig.write_image(save_path)
 
-    return fig.figure
+    return fig
