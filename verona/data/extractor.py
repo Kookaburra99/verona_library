@@ -41,7 +41,9 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
     Notes:
         Default setting for "prefix_size" reproduces the expermiental setup of [1].
 
-        [1]  Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
+        [1]  Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process
+        Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756.
+        doi:10.1109/TSC.2021.3139807
 
     Returns:
         Tuple[Dict[int, pd.DataFrame], Dict[int, np.array]]: Returns two dictionaries:

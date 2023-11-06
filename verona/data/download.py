@@ -144,7 +144,8 @@ def get_available_datasets():
     return dataset_ids_list
 
 
-def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['xes', 'csv', 'both'] = 'xes') -> Tuple[str, pd.DataFrame]:
+def get_dataset(dataset_name: str, store_path: str = None,
+                extension: Literal['xes', 'csv', 'both'] = 'xes') -> Tuple[str, pd.DataFrame]:
     """
     Download a specified dataset from the official repository and store it in a designated path.
 
@@ -186,7 +187,8 @@ def get_dataset(dataset_name: str, store_path: str = None, extension: Literal['x
                          f'Check the list of available datasets with get_available_datasets()')
 
 
-def __download_dataset(dataset_name: str, store_path: str, extension: Literal['xes', 'csv', 'both']) -> Tuple[str, pd.DataFrame]:
+def __download_dataset(dataset_name: str, store_path: str,
+                       extension: Literal['xes', 'csv', 'both']) -> Tuple[str, pd.DataFrame]:
     dataset_url = DATASETS_LIST[dataset_name]['url']
     response = requests.get(dataset_url, stream=True)
 

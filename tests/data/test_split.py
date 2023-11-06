@@ -1,8 +1,6 @@
-import os.path
-
-import pandas as pd
-
 from verona.data import split, download
+import os.path
+import pandas as pd
 
 
 def test_split_holdout():

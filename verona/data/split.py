@@ -10,19 +10,25 @@ from verona.data.utils import XesFields
 
 
 def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0.2,
-                 val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+                 val_from_train: float = 0.2,
+                 case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Split a given dataset following a holdout scheme (train-validation-test).
 
     Parameters:
         dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
         store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
-        test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces reserved for the test partition. Default is 0.2.
-        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the percentage of traces reserved for the validation partition within the cases of the training partition. Default is 0.2.
-        case_column (str, optional): Name of the case identifier in the original dataset file. Default is 'case:concept:name'.
+        test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces
+            reserved for the test partition. Default is 0.2.
+        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the
+            percentage of traces reserved for the validation partition within the cases of the training partition.
+            Default is 0.2.
+        case_column (str, optional): Name of the case identifier in the original dataset file.
+            Default is 'case:concept:name'.
 
     Returns:
-        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train, validation, and test splits.
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train,
+            validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for test_size or val_from_train is provided.
@@ -31,9 +37,11 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
         >>> train_df, val_df, test_df = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
 
     Notes:
-        The default values for test_size and val_from_train are based on the experimental setup from the first version of [1]
+        The default values for test_size and val_from_train are based on the experimental setup from the first version
+        of [1]
 
-        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. https://arxiv.org/abs/2009.13251v1.
+        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:
+            Review and Benchmark. https://arxiv.org/abs/2009.13251v1.
     """
 
     dataset_name = Path(dataset_path).stem
@@ -74,7 +82,6 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
     if not store_path:
         store_path = DEFAULT_PATH
 
-
     train_df = __save_split_to_file(train_cases, store_path, dataset_name, 'train')
 
     if val_from_train != 0:
@@ -97,12 +104,16 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
         dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
         store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.
         cv_folds (int, optional): Number of folds for the cross-validation split. Default is 5.
-        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the percentage of traces reserved for the validation partition within the cases of the training partition. Default is 0.2.
-        case_column (str, optional): Name of the case identifier in the original dataset file. Default is 'case:concept:name'.
+        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the
+            percentage of traces reserved for the validation partition within the cases of the training partition.
+            Default is 0.2.
+        case_column (str, optional): Name of the case identifier in the original dataset file.
+            Default is 'case:concept:name'.
         seed (int, optional): Set a seed for reproducibility. Default is 42.
 
     Returns:
-        Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of DataFrames for the train, validation, and test splits.
+        Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of
+            DataFrames for the train, validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for cv_folds or val_from_train is provided.
@@ -113,7 +124,8 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
     References:
         The default values for cv_folds, val_from_train, and seed reproduce the experimental setup from [1]
 
-        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
+        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:
+            Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
     """
 
     dataset_name = Path(dataset_path).stem
