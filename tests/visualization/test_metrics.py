@@ -1,4 +1,4 @@
-from barro.visualization import metrics
+from verona.visualization import metrics
 import numpy as np
 
 

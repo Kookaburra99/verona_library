@@ -9,6 +9,7 @@ from cmdstanpy import CmdStanModel, cmdstan_path, install_cmdstan
 
 from verona.evaluation.stattests.stan_codes import STAN_CODE
 
+
 class PlackettLuceResults:
     """
     Encapsulates the results from running the Plackett-Luce ranking model.
@@ -31,7 +32,7 @@ class PlackettLuceResults:
             and probabilities of each algorithm. These distributions capture the uncertainties
             in the point estimates and are essential for Bayesian inference.
     """
-    def __init__(self, expected_prob : pd.Series, expected_rank : pd.Series, posterior : pd.DataFrame):
+    def __init__(self, expected_prob: pd.Series, expected_rank: pd.Series, posterior: pd.DataFrame):
         """
         Initializes the PlackettLuceResults object with the estimated metrics.
 
@@ -46,20 +47,21 @@ class PlackettLuceResults:
         self.posterior = posterior
 
 
-
 class PlackettLuceRanking:
 
     def __init__(self, result_matrix : pd.DataFrame, approaches : List[str]):
         """
         Parameters:
-            result_matrix : matrix of results in which each row represents a dataset and each column represents an algorithm
+            result_matrix : matrix of results in which each row represents a dataset and each column represents an
+            algorithm.
             approaches : list of the names of approaches in the result matrix
         """
         self.result_matrix = result_matrix
         self.approaches = approaches
 
         assert (approaches is not None) and (len(approaches) > 0), "The list of approaches is none or empty"
-        assert self.result_matrix.shape[1] == len(approaches), "The number of columns in the result matrix does not match the approaches specified"
+        assert self.result_matrix.shape[1] == len(approaches), "The number of columns in the result matrix does not " \
+                                                               "match the approaches specified"
 
         self.result_matrix.columns = approaches
 
@@ -80,7 +82,8 @@ class PlackettLuceRanking:
         Args:
             n_chains : number of chains used ot perform the sampling
             num_samples : number of samples to considerate in the MCMC
-            mode : "max" or "min". If "max" the higher the value the better the algorithm. If "min" the lower the value the better the algorithm.
+            mode : "max" or "min". If "max" the higher the value the better the algorithm. If "min" the lower the value
+            the better the algorithm.
 
         Returns:
             expected_prob : expected probability of each algorithm having the best ranking
@@ -114,7 +117,8 @@ class PlackettLuceRanking:
 
     def _get_rank_matrix(self, result_matrix : pd.DataFrame, mode="max") -> pd.DataFrame:
         """
-        Compute the rank matrix of a matrix of results. If the mode is max, assume that the higher the result, the better.
+        Compute the rank matrix of a matrix of results. If the mode is max, assume that the higher the result,
+        the better.
         If the mode is min, do otherwise.
 
         Args:
@@ -166,7 +170,8 @@ class PlackettLuceRanking:
             temp_file_name = temp.name  # Save the filename to use later
 
         model = CmdStanModel(stan_file=temp_file_name)
-        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=num_samples, iter_warmup=int(num_samples/4), seed=42)
+        fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=num_samples,
+                           iter_warmup=int(num_samples/4), seed=42)
 
         results = fit.draws_pd()
 
@@ -197,13 +202,3 @@ class PlackettLuceRanking:
         expected_prob = posterior.mean(axis=0)
         expected_rank = ranks.mean(axis=0)
         return expected_prob, expected_rank, posterior
-
-
-
-if __name__ == "__main__":
-    # Example of usage
-    result_matrix = pd.DataFrame([[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]])
-    plackett_ranking = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3"])
-    results = plackett_ranking.run(n_chains=10, num_samples=300000, mode="max")
-    print("Expected prob: ", results.expected_prob)
-    print("Expected rank: ", results.expected_rank)

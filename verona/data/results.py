@@ -46,7 +46,8 @@ class AvailableMetrics:
 
     class ActivitySuffix:
         """
-        Metrics available for the task of predicting the suffix (sequence of remaining activities) in a process instance.
+        Metrics available for the task of predicting the suffix (sequence of remaining activities) in a
+        process instance.
         """
         DAMERAU_LEVENSHTEIN = MetricValue("damerau_levenshtein", "suffix")
 
@@ -65,7 +66,8 @@ class AvailableMetrics:
 
 class MissingResultStrategy(Enum):
     """
-    Enum for specifying the strategy to use for handling missing data (NaNs) in the dataset when applying Bayesian models.
+    Enum for specifying the strategy to use for handling missing data (NaNs) in the dataset when applying
+    Bayesian models.
 
     This enum provides options for how to deal with missing data (NaN values) in the dataset when preparing
     data for Bayesian models. Options include deleting the entire dataset associated with the missing data, 
@@ -130,7 +132,6 @@ def __load_csv_results(metric: MetricValue):
         return pd.read_csv(f)
 
 
-
 def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=AvailableMetrics.NextActivity.ACCURACY,
                               even_strategy=MissingResultStrategy.DELETE_DATASET):
     """
@@ -154,7 +155,8 @@ def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=Availa
         AssertionError: If the specified approaches are not available in the data.
 
     Examples:
-        >>> approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("Tax", "TACO", metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=EvenStrategy.DELETE_DATASET)
+        >>> approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("Tax", "TACO", \
+                metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=EvenStrategy.DELETE_DATASET)
         >>> print(approach_1_df.head())
         >>> print(approach_2_df.head())
         >>> print(common_datasets)
@@ -164,11 +166,14 @@ def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=Availa
         - For the metrics "next_activity" and "suffix", the values are multiplied by 100 so that they are consistent with
         the default rope values.
     """
+
     results = __load_csv_results(metric)
 
     available_approaches = results["approach"].unique()
-    assert approach_1 in available_approaches, f"Approach {approach_1} not available, available approaches are {available_approaches}"
-    assert approach_2 in available_approaches, f"Approach {approach_2} not available, available approaches are {available_approaches}"
+    assert approach_1 in available_approaches, f"Approach {approach_1} not available, available approaches are " \
+                                               f"{available_approaches}"
+    assert approach_2 in available_approaches, f"Approach {approach_2} not available, available approaches are " \
+                                               f"{available_approaches}"
 
     approach_1_df = results[results["approach"] == approach_1]
     approach_1_df = approach_1_df.pivot(index='log', columns='fold', values='accuracy')
@@ -204,16 +209,19 @@ def load_results_plackett_luce(metric=AvailableMetrics.NextActivity.ACCURACY,
     if any.
 
     Args:
-        metric (AvailableMetrics): The metric for which results should be loaded. Defaults to `AvailableMetrics.NextActivity.ACCURACY`.
+        metric (AvailableMetrics): The metric for which results should be loaded. Defaults to
+            `AvailableMetrics.NextActivity.ACCURACY`.
         even_strategy (MissingResultStrategy): Strategy to apply when missing values are encountered. Determines whether
-            rows (datasets) or columns (approaches) should be dropped. Defaults to `MissingResultStrategy.DELETE_DATASET`.
+            rows (datasets) or columns (approaches) should be dropped. Defaults to
+            `MissingResultStrategy.DELETE_DATASET`.
 
     Returns:
         pd.DataFrame: A DataFrame containing the mean results, where each row represents a dataset and each column an approach.
         list: A list of approach names.
 
     Examples:
-        >>> mean_results, approaches = load_results_plackett_luce(AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
+        >>> mean_results, approaches = load_results_plackett_luce(AvailableMetrics.NextActivity.ACCURACY, \
+                MissingResultStrategy.DELETE_DATASET)
     """
     results = __load_csv_results(metric)
 
@@ -238,16 +246,19 @@ def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=Av
     Args:
         approach_1 (str): The name of the first approach to compare. Defaults to "Tax".
         approach_2 (str): The name of the second approach to compare. Defaults to "TACO".
-        metric (AvailableMetrics): The metric to consider for loading results. Defaults to `AvailableMetrics.NextActivity.ACCURACY`.
+        metric (AvailableMetrics): The metric to consider for loading results. Defaults to
+            `AvailableMetrics.NextActivity.ACCURACY`.
         even_strategy (MissingResultStrategy): Strategy to apply when missing values are encountered. Determines whether
-            rows (datasets) or columns (approaches) should be dropped. Defaults to `MissingResultStrategy.DELETE_DATASET`.
+            rows (datasets) or columns (approaches) should be dropped. Defaults to
+                `MissingResultStrategy.DELETE_DATASET`.
 
     Returns:
         np.ndarray: A NumPy array containing the filtered results for `approach_1`.
         np.ndarray: A NumPy array containing the filtered results for `approach_2`.
 
     Examples:
-        >>> results_tax, results_taco = load_results_non_hierarchical("Tax", "TACO", AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
+        >>> results_tax, results_taco = load_results_non_hierarchical("Tax", "TACO", \
+                AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
     """
     results, approaches = load_results_plackett_luce(metric, even_strategy=MissingResultStrategy.NONE)
     results = results.loc[:, [approach_1, approach_2]]
@@ -256,47 +267,3 @@ def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=Av
         results = results * 100
     return results[approach_1].to_numpy(), results[approach_2].to_numpy()
 
-if __name__ == "__main__":
-    results_1, results_2 = load_results_non_hierarchical(approach_1="Camargo", approach_2="Tax", metric = AvailableMetrics.NextActivity.ACCURACY, even_strategy = MissingResultStrategy.DELETE_DATASET)
-    print("Results 1: ", results_1)
-    print("Results 2: ", results_2)
-    results = BayesianSignedRankTest(results_1, results_2, ["Camargo", "Tax"]).run()
-    print(results.posterior_probabilities)
-
-"""
-if __name__ == "__main__":
-    results_1, results_2 = get_results_non_hierarchical(approach_1="Camargo", approach_2="Tax", metric = AvailableMetrics.NextActivity.ACCURACY, even_strategy = EvenStrategy.DELETE_DATASET)
-    print("Results 1: ", results_1)
-    print("Results 2: ", results_2)
-    dpos, qpos, posterior_probs = CorrelatedBayesianTTest(results_1, results_2, ["Camargo", "Tax"]).run(rho=0.2)
-    print(dpos)
-    print(qpos)
-    print(posterior_probs)
-"""
-
-"""
-if __name__ == "__main__":
-    results, approaches = load_results_plackett_luce(metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=MissingResultStrategy.DELETE_DATASET)
-
-    print(results)
-    print(approaches)
-    plackett_luce = PlackettLuceRanking(results, approaches)
-    results = plackett_luce.run(n_chains=10, num_samples=30000, mode="max")
-    plot = results.plot_posteriors(save_path=None)
-"""
-
-"""
-if __name__ == "__main__":
-    approach_1_df, approach_2_df, datasets = load_results_hierarchical(approach_1="Camargo", approach_2="Tax",
-                                                                       metric=AvailableMetrics.NextActivity.ACCURACY)
-    print("Camargo:")
-    print(approach_1_df)
-    print("Tax: ")
-    print(approach_2_df)
-
-    results = HierarchicalBayesianTest(approach_1_df, approach_2_df, ["Camargo", "Tax"], datasets).run()
-    print("Global wins: ", results.global_wins)
-    print("Posterior distribution: ", results.posterior_distribution)
-    print("Per dataset: ", results.per_dataset)
-    print("Glboal sign: ", results.global_sign)
-"""

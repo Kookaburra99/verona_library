@@ -1,5 +1,4 @@
 from verona.evaluation.metrics import suffix
-
 import numpy as np
 
 

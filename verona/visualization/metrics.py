@@ -1,67 +1,17 @@
-import pandas as pd
-from matplotlib import pyplot as plt
-import matplotlib.ticker as ticker
-
-from verona.data.download import get_dataset
-from verona.data.results import load_results_plackett_luce
-from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
-
 import numpy as np
+import matplotlib.pyplot as plt
 from typing import Literal
 
+import matplotlib
+matplotlib.use('TkAgg')
 
-
-def plot_posteriors_plackett(plackett_results : PlackettLuceResults, save_path=None):
-    """
-    Plot the posteriors of the Plackett-Luce model (quantiles 95%, 05% and 50%). If two approaches do not overlap,
-    they have a significative different ranking.
-
-    Parameters
-        save_path: String that indicates the path where the plot will be saved. If None, the plot will not be saved.
-
-    Returns
-        fig.figure : matplotlib figure of the aforementioned plot
-
-    Examples:
-        >>> result_matrix = pd.DataFrame([[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]])
-        >>> plackett_ranking = PlackettLuceRanking(result_matrix, ["a1", "a2", "a3"])
-        >>> results = plackett_ranking.run(n_chains=10, num_samples=300000, mode="max")
-        >>> plot = plot_posteriors_plackett(results, save_path=None)
-        >>> print(plot)
-    """
-
-    if plackett_results is None or plackett_results.posterior is None:
-        raise ValueError("You must run the model first")
-
-    posterior = plackett_results.posterior
-    y95 = posterior.quantile(q=0.95, axis=0)
-    y05 = posterior.quantile(q=0.05, axis=0)
-    y50 = posterior.quantile(q=0.5, axis=0)
-    df_boxplot = pd.concat([y05, y50, y95], axis=1)
-    df_boxplot.columns = ["y05", "y50", "y95"]
-    df_boxplot["Approaches"] = posterior.columns
-
-    y50 = df_boxplot["y50"].tolist()
-    y05 = (df_boxplot["y50"] - df_boxplot["y05"]).tolist()
-    y95 = (df_boxplot["y95"] - df_boxplot["y50"]).tolist()
-    sizes = [y05, y95]
-
-    fig = df_boxplot.plot.scatter(x="Approaches", y="y50", rot=90, ylabel="Probability")
-    plt.tight_layout()
-    fig.errorbar(df_boxplot["Approaches"], y50, yerr=sizes, solid_capstyle="projecting", capsize=5, fmt="none")
-    fig.grid(linestyle="--")
-    fig.xaxis.set_label_text("")
-    fig.xaxis.set_major_formatter(ticker.FixedFormatter(df_boxplot["Approaches"]))
-    if save_path is not None:
-        fig.figure.savefig(save_path)
-
-    return fig.figure
 
 def bar_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accuracy',
                     reduction: Literal['mean', 'max', 'min', 'median'] = None,
                     y_min: float = 0.0, y_max: float = 100.0,
                     print_values: bool = False, num_decimals: int = 2) -> plt:
-    """Generates a bar chart from input data.
+    """
+    Generates a bar chart from input data.
 
     Args:
         data (dict): A dictionary where the keys correspond to the categories to be
@@ -82,7 +32,6 @@ def bar_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accura
     Returns:
         plt: Matplotlib plot object representing the bar chart.
     """
-
 
     x_values = list(data.keys())
 
@@ -217,7 +166,7 @@ def error_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accu
         y_label (str, optional): Label for the Y axis. Defaults to 'Accuracy'.
         y_min (float, optional): The minimum value for the Y-axis. Defaults to 0.0.
         y_max (float, optional): The maximum value for the Y-axis. Defaults to 100.0.
-        print_values (bool, optional): Whether or not to print metric values over each
+        print_values (bool, optional): Whether to print metric values over each
             point. Defaults to False.
         num_decimals (int, optional): Number of decimal places to show if 'print_values'
             is True. Defaults to 2.
@@ -225,7 +174,6 @@ def error_plot_metric(data: dict, x_label: str = 'Dataset', y_label: str = 'Accu
     Returns:
         plt: Matplotlib plot object representing the error plot.
     """
-
 
     x_values = list(data.keys())
 
@@ -269,4 +217,3 @@ def __apply_reduction(raw_values: np.array,
         return np.array(list(map(np.median, raw_values)))
     if reduction == 'std':
         return np.array(list(map(np.std, raw_values)))
-

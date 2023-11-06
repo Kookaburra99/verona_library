@@ -55,17 +55,19 @@ def unify_activity_and_lifecycle(dataset: pd.DataFrame, activity_id: str = XesFi
 
     Args:
         dataset (pd.DataFrame): DataFrame containing the dataset.
-        activity_id (str, optional): Name of the activity column in the DataFrame. Defaults to XesFields.ACTIVITY_COLUMN.
-        lifecycle_id (str, optional): Name of the lifecycle column in the DataFrame. Defaults to XesFields.LIFECYCLE_COLUMN.
+        activity_id (str, optional): Name of the activity column in the DataFrame.
+            Defaults to XesFields.ACTIVITY_COLUMN.
+        lifecycle_id (str, optional): Name of the lifecycle column in the DataFrame.
+            Defaults to XesFields.LIFECYCLE_COLUMN.
         drop_lifecycle_column (bool, optional): Delete the lifecycle column after the conversion. Defaults to True.
 
     Returns:
         pd.DataFrame: The dataset, as Pandas DataFrame, updated.
 
     References:
-        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
+        [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:
+            Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
     """
-
 
     if lifecycle_id not in dataset:
         raise ValueError(f'Wrong lifecycle identifier: {lifecycle_id} is not a column in the dataframe.')

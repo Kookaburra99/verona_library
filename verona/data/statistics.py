@@ -10,7 +10,8 @@ def get_num_activities(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        activity_id (str, optional): Name of the activity column in the DataFrame. Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
+        activity_id (str, optional): Name of the activity column in the DataFrame.
+            Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
 
     Returns:
         int: The number of unique activities in the dataset.
@@ -35,7 +36,8 @@ def get_activities_list(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        activity_id (str, optional): Name of the activity column in the DataFrame. Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
+        activity_id (str, optional): Name of the activity column in the DataFrame.
+            Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
 
     Returns:
         list: A list containing unique activities in the dataset.
@@ -85,7 +87,8 @@ def get_values_list(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        attribute_id (str, optional): Name of the attribute column in the DataFrame. Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
+        attribute_id (str, optional): Name of the attribute column in the DataFrame.
+            Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
 
     Returns:
         list: The list of unique values for the specified attribute in the dataset.
@@ -110,7 +113,8 @@ def get_num_cases(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
 
     Returns:
         int: The number of unique cases in the dataset.
@@ -135,7 +139,8 @@ def get_max_len_case(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
 
     Returns:
         int: The maximum case length in the dataset.
@@ -143,7 +148,6 @@ def get_max_len_case(dataset: pd.DataFrame,
     Raises:
         ValueError: If the dataset is empty or the case identifier column does not exist.
     """
-
 
     cases = dataset.groupby(case_id)
     return cases[case_id].count().max()
@@ -156,7 +160,8 @@ def get_min_len_case(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
 
     Returns:
         int: The minimum case length in the dataset.
@@ -175,7 +180,8 @@ def get_avg_len_case(dataset: pd.DataFrame,
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
 
     Returns:
         float: The average case length in the dataset.
@@ -195,8 +201,10 @@ def get_max_duration_case(dataset: pd.DataFrame, case_id: str = DataFrameFields.
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The maximum temporal duration of a case in the dataset.
@@ -219,8 +227,10 @@ def get_min_duration_case(dataset: pd.DataFrame, case_id: str = DataFrameFields.
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The minimum temporal duration of a case in the dataset.
@@ -243,8 +253,10 @@ def get_avg_duration_case(dataset: pd.DataFrame, case_id: str = DataFrameFields.
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The average temporal duration of a case in the dataset.
@@ -267,8 +279,10 @@ def get_max_duration_event(dataset: pd.DataFrame, case_id: str = DataFrameFields
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The maximum temporal duration of an event in the dataset.
@@ -290,8 +304,10 @@ def get_min_duration_event(dataset: pd.DataFrame, case_id: str = DataFrameFields
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The minimum temporal duration of an event in the dataset.
@@ -313,8 +329,10 @@ def get_avg_duration_event(dataset: pd.DataFrame, case_id: str = DataFrameFields
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        timestamp_id (str, optional): Name of the timestamp column in the DataFrame. Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.
+            Default is specified by `DataFrameFields.TIMESTAMP_COLUMN`.
 
     Returns:
         pd.Timedelta: The average temporal duration of an event in the dataset.
@@ -336,8 +354,10 @@ def get_num_variants(dataset: pd.DataFrame, case_id: str = DataFrameFields.CASE_
 
     Parameters:
         dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-        case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-        activity_id (str, optional): Name of the activity column in the DataFrame. Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
+        case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+        activity_id (str, optional): Name of the activity column in the DataFrame.
+            Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
 
     Returns:
         int: The number of variants (cases with different sequences of activities).
@@ -359,11 +379,14 @@ def get_count_variants(dataset: pd.DataFrame, case_id: str = DataFrameFields.CAS
 
      Parameters:
          dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.
-         case_id (str, optional): Name of the case identifier column in the DataFrame. Default is specified by `DataFrameFields.CASE_COLUMN`.
-         activity_id (str, optional): Name of the activity column in the DataFrame. Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
+         case_id (str, optional): Name of the case identifier column in the DataFrame.
+            Default is specified by `DataFrameFields.CASE_COLUMN`.
+         activity_id (str, optional): Name of the activity column in the DataFrame.
+            Default is specified by `DataFrameFields.ACTIVITY_COLUMN`.
 
      Returns:
-         dict: Dictionary where the keys are the variants and the values are the count of occurrences of each variant in the dataset.
+         dict: Dictionary where the keys are the variants and the values are the count of occurrences of each variant
+            in the dataset.
 
      Raises:
          ValueError: If the dataset is empty, or the case identifier or activity columns do not exist.

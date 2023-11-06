@@ -1,6 +1,5 @@
 from verona.evaluation.metrics import time
 from verona.data.extractor import get_prefixes_and_targets
-
 import numpy as np
 import pandas as pd
 

@@ -1,5 +1,4 @@
 from verona.evaluation.metrics import event
-
 import numpy as np
 
 
