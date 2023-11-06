@@ -1,5 +1,6 @@
-from verona.data import statistics
 import pandas as pd
+
+from verona.data import statistics
 
 
 def test_activity_stats():

@@ -1,17 +1,7 @@
 import pandas as pd
-from matplotlib import pyplot as plt
-import matplotlib.ticker as ticker
-
-from verona.data.download import get_dataset
-from verona.data.results import load_results_plackett_luce
-from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
 import plotly.graph_objects as go
 
-import numpy as np
-from typing import Literal
-
-import matplotlib
-matplotlib.use('TkAgg')
+from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
 
 
 def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=None):

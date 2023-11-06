@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Literal, Union
+
+import numpy as np
 
 
 def get_mae(predictions: np.array, ground_truths: np.array,
@@ -17,7 +18,6 @@ def get_mae(predictions: np.array, ground_truths: np.array,
     Returns:
         Union[float, np.array]: MAE as a single float if reduction is 'mean', or as a NumPy Array if reduction is 'none'.
     """
-
 
     mae = np.abs(predictions - ground_truths)
 
@@ -42,7 +42,6 @@ def get_mse(predictions: np.array, ground_truths: np.array,
     Returns:
         Union[float, np.array]: MSE as a single float if reduction is 'mean', or as a NumPy Array if reduction is 'none'.
     """
-
 
     mse = np.power(predictions - ground_truths, 2)
 

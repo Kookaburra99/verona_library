@@ -1,5 +1,6 @@
-from verona.evaluation.metrics import event
 import numpy as np
+
+from verona.evaluation.metrics import event
 
 
 def test_get_accuracy():

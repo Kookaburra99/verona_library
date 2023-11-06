@@ -1,6 +1,6 @@
-import numpy as np
 import pandas as pd
-from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
+
+from verona.evaluation.stattests.plackettluce import PlackettLuceRanking
 from verona.visualization import stattests
 
 

@@ -1,8 +1,8 @@
-import os
-import pm4py
-import pandas as pd
-from typing import Literal, Tuple, List
 from pathlib import Path
+from typing import Literal, Tuple, List
+
+import pandas as pd
+import pm4py
 from sklearn.model_selection import KFold
 
 from verona.data.download import DEFAULT_PATH
