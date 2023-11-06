@@ -1,4 +1,4 @@
-# VERONA: predicti<i>V</i>e p<i>R</i>ocesss m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
+# VERONA: predicti<i>VE</i> p<i>R</i>ocesss m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
 
 **Version:** v1.0.0 (October 2023)
 
@@ -9,7 +9,7 @@
 [Personal Page](https://citius.gal/team/pedro-gamallo-fernandez)
 
 
-The ***BARRO*** library is a powerful Python tool designed to evaluate and compare predictive process
+The ***VERONA*** library is a powerful Python tool designed to evaluate and compare predictive process
 monitoring models *fairly and under equals conditions*. Leveraging the benchmark published in Rama-Maneiro et al. [1],
 this library provides comprehensive functions for assessing the performance of predictive models in the context of 
 business process monitoring.
@@ -28,11 +28,11 @@ library into their projects and research workflows.
 You can install the library from this repository as follows:
 - Create a virtual environment (preferably a Conda environment):
 ```bash
-conda create -n barro_env python==3.11
+conda create -n verona_env python==3.11
 ```
 - Initialize the environment:
 ```bash
-conda activate barro_env
+conda activate verona_env
 ```
 - Install dependencies:
 ```bash
@@ -56,7 +56,8 @@ import verona
 ```
 
 ## License
-This project is licensed under the [ToDo] - see the LICENSE.txt file for details.
+This project is licensed under the terms of the **GNU General Public License v3.0** (*GPLv3*) - see the LICENSE file 
+for details.
 
 ## References
 1. Rama-Maneiro, E., Vidal, J., & Lama, M. (2021). Deep learning for predictive business process monitoring: Review and 

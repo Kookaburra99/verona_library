@@ -11,10 +11,11 @@ setup(
     author='Efren Rama-Maneiro, Pedro Gamallo-Fernandez',
     author_email='efren.rama.maneiro@usc.es, pedro.gamallo.fernandez@usc.es',
     url='https://gitlab.citius.usc.es/pedro.gamallo/barro_library',
-    license='ToDo',
+    license='GPLv3',
     package_data={
         'verona.data.csv': ['*.csv'],  # Include all CSV files under the 'csv' directory
     },
-    requires=['requests', 'pm4py', 'pandas', 'numpy', 'scikit-learn', 'tqdm', 'jellyfish', 'pytest', 'cmdstanpy', "matplotlib", "sphinx", "sphinx_bootstrap_theme"],
+    requires=['requests', 'pm4py', 'pandas', 'numpy', 'scikit-learn', 'tqdm', 'jellyfish', 'pytest', 'cmdstanpy',
+              "matplotlib", "sphinx", "sphinx_bootstrap_theme"],
     packages=find_packages()
 )
