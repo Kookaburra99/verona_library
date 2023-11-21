@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.evaluation.stattests.stan_codes</title>
+    
+          <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.evaluation.stattests.stan_codes</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.evaluation.stattests.stan_codes</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="STAN_CODE">
+<a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">STAN_CODE</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    STAN codes for the different statistical tests directly ported from scmamp.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">HIERARCHICAL_TEST</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      data {</span>
+<span class="s2">        // Bound of the delta_0 parameter</span>
+<span class="s2">        real deltaLow;</span>
+<span class="s2">        real deltaHi;</span>
+<span class="s2">        </span>
+<span class="s2">        //bounds of the sigma of the higher-level distribution</span>
+<span class="s2">        real std0Low; </span>
+<span class="s2">        real std0Hi; </span>
+
+<span class="s2">        //bounds on the domain of the sigma of each data set</span>
+<span class="s2">        real stdLow; </span>
+<span class="s2">        real stdHi; </span>
+<span class="s2">        </span>
+<span class="s2">        //number of results for each data set. Typically 100 (10 runs of 10-folds cv)</span>
+<span class="s2">        int&lt;lower=2&gt; Nsamples; </span>
+
+<span class="s2">        //number of data sets</span>
+<span class="s2">        int&lt;lower=1&gt; q; </span>
+
+<span class="s2">        //difference of accuracy between the two classifier, on each fold of each data set.</span>
+<span class="s2">        matrix[q,Nsamples] x;</span>
+<span class="s2">        </span>
+<span class="s2">        //correlation (typically, for cross validation, 1/(number of folds))</span>
+<span class="s2">        real rho; </span>
+<span class="s2">        </span>
+<span class="s2">        /*</span>
+<span class="s2">        upper and lower bound for alpha and beta, which are the parameters of the Gamma distribution</span>
+<span class="s2">        used as a prior for the degress of freedom.</span>
+<span class="s2">        As a default we suggest: lowerAlpha=0.5; upperAlpha= 5; lowerBeta=0.05; upperBeta = .15</span>
+<span class="s2">        */</span>
+<span class="s2">        real upperAlpha;</span>
+<span class="s2">        real lowerAlpha;</span>
+<span class="s2">        real upperBeta;</span>
+<span class="s2">        real lowerBeta;</span>
+<span class="s2">      }</span>
+
+
+<span class="s2">      transformed data {</span>
+<span class="s2">        //vector of 1s appearing in the likelihood </span>
+<span class="s2">        vector[Nsamples] H;</span>
+<span class="s2">        </span>
+<span class="s2">        //vector of 0s: the mean of the mvn noise </span>
+<span class="s2">        vector[Nsamples] zeroMeanVec;</span>
+<span class="s2">        </span>
+<span class="s2">        /* M is the correlation matrix of the mvn noise.</span>
+<span class="s2">        invM is its inverse, detM its determinant */</span>
+<span class="s2">        matrix[Nsamples,Nsamples] invM;</span>
+<span class="s2">        real detM;</span>
+<span class="s2">        </span>
+<span class="s2">        //The determinant of M is analytically known</span>
+<span class="s2">        detM = (1+(Nsamples-1)*rho)*(1-rho)^(Nsamples-1);</span>
+
+<span class="s2">        //build H and invM. They do not depend on the data.</span>
+<span class="s2">        for (j in 1:Nsamples){</span>
+<span class="s2">          zeroMeanVec[j] = 0;</span>
+<span class="s2">          H[j] = 1;</span>
+<span class="s2">          for (i in 1:Nsamples){</span>
+<span class="s2">            if (j==i)</span>
+<span class="s2">              invM[j,i] = (1 + (Nsamples-2)*rho)*pow((1-rho),Nsamples-2);</span>
+<span class="s2">            else</span>
+<span class="s2">              invM[j,i] = -rho * pow((1-rho),Nsamples-2);</span>
+<span class="s2">           }</span>
+<span class="s2">        }</span>
+<span class="s2">        </span>
+<span class="s2">        /*at this point invM contains the adjugate of M.</span>
+<span class="s2">        We  divide it by det(M) to obtain the inverse of M*/</span>
+<span class="s2">        invM = invM / detM;</span>
+<span class="s2">    }</span>
+
+
+<span class="s2">      parameters {</span>
+<span class="s2">        //mean of the  hyperprior from which we sample the delta_i</span>
+<span class="s2">        real&lt;lower=deltaLow, upper=deltaHi&gt; delta0; </span>
+<span class="s2">        </span>
+<span class="s2">        //std of the hyperprior from which we sample the delta_i</span>
+<span class="s2">        real&lt;lower=std0Low, upper=std0Hi&gt; std0;</span>
+<span class="s2">        </span>
+<span class="s2">        //delta_i of each data set: vector of lenght q.</span>
+<span class="s2">        vector[q] delta;               </span>
+
+<span class="s2">        //sigma of each data set: : vector of lenght q.</span>
+<span class="s2">        vector&lt;lower=stdLow, upper=stdHi&gt;[q] sigma; </span>
+<span class="s2">        </span>
+<span class="s2">        /* the domain of (nu - 1) starts from 0</span>
+<span class="s2">        and can be given a gamma prior*/</span>
+<span class="s2">        real&lt;lower=0&gt; nuMinusOne; </span>
+<span class="s2">        </span>
+<span class="s2">        //parameters of the Gamma prior on nuMinusOne</span>
+<span class="s2">        real&lt;lower=lowerAlpha, upper=upperAlpha&gt; gammaAlpha;</span>
+<span class="s2">        real&lt;lower=lowerBeta, upper=upperBeta&gt; gammaBeta;</span>
+<span class="s2">        </span>
+<span class="s2">    }</span>
+
+<span class="s2">     transformed parameters {</span>
+<span class="s2">        //degrees of freedom</span>
+<span class="s2">        real&lt;lower=1&gt; nu ;</span>
+<span class="s2">        </span>
+<span class="s2">        /*difference between the data (x matrix) and </span>
+<span class="s2">        the vector of the q means.*/</span>
+<span class="s2">        matrix[q,Nsamples] diff; </span>
+<span class="s2">        </span>
+<span class="s2">        vector[q] diagQuad;</span>
+<span class="s2">        </span>
+<span class="s2">        /*vector of length q: </span>
+<span class="s2">        1 over the variance of each data set*/</span>
+<span class="s2">        vector[q] oneOverSigma2; </span>
+<span class="s2">        </span>
+<span class="s2">        vector[q] logDetSigma;</span>
+<span class="s2">        </span>
+<span class="s2">        vector[q] logLik;</span>
+<span class="s2">       </span>
+<span class="s2">        //degrees of freedom</span>
+<span class="s2">        nu = nuMinusOne + 1 ;</span>
+<span class="s2">        </span>
+<span class="s2">        //1 over the variance of each data set</span>
+<span class="s2">        oneOverSigma2 = rep_vector(1, q) ./ sigma;</span>
+<span class="s2">        oneOverSigma2 = oneOverSigma2 ./ sigma;</span>
+
+<span class="s2">        /*the data (x) minus a matrix done as follows:</span>
+<span class="s2">        the delta vector (of lenght q) pasted side by side Nsamples times*/</span>
+<span class="s2">        diff = x - rep_matrix(delta, Nsamples); </span>
+<span class="s2">        </span>
+<span class="s2">        //efficient matrix computation of the likelihood.</span>
+<span class="s2">        diagQuad = diagonal (quad_form (invM,diff&#39;));</span>
+<span class="s2">        logDetSigma = 2*Nsamples*log(sigma) + log(detM) ;</span>
+<span class="s2">        logLik = -0.5 * logDetSigma - 0.5*Nsamples*log(6.283);  </span>
+<span class="s2">        logLik = logLik - 0.5 * oneOverSigma2 .* diagQuad;</span>
+<span class="s2">        </span>
+<span class="s2">    }</span>
+
+<span class="s2">      model {</span>
+<span class="s2">        /*mu0 and std0 are not explicitly sampled here.</span>
+<span class="s2">        Stan automatically samples them: mu0 as uniform and std0 as</span>
+<span class="s2">        uniform over its domain (std0Low,std0Hi).*/</span>
+
+<span class="s2">        //sampling the degrees of freedom</span>
+<span class="s2">        nuMinusOne ~ gamma ( gammaAlpha, gammaBeta);</span>
+<span class="s2">        </span>
+<span class="s2">        //vectorial sampling of the delta_i of each data set</span>
+<span class="s2">        delta ~ student_t(nu, delta0, std0);</span>
+<span class="s2">        </span>
+<span class="s2">        //logLik is computed in the previous block </span>
+<span class="s2">        target += sum(logLik);   </span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">PLACKETT_LUCE_TEST</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        data {</span>
+<span class="s2">        int&lt;lower=1&gt; n; // number of instances</span>
+<span class="s2">        int&lt;lower=2&gt; m; // number of algorithms</span>
+
+<span class="s2">        // Matrix with all the rankings, one per row</span>
+<span class="s2">        int ranks [n,m];</span>
+
+<span class="s2">        real weights[n];</span>
+
+<span class="s2">        // Parameters for Dirichlet prior.</span>
+<span class="s2">        vector[m] alpha;</span>
+<span class="s2">    }</span>
+
+
+<span class="s2">    transformed data {</span>
+<span class="s2">      // The implementation of the probability of the PL model uses the order, rather</span>
+<span class="s2">      // than the rank</span>
+<span class="s2">      int order [n,m];</span>
+<span class="s2">      for (s in 1:n){</span>
+<span class="s2">        for (i in 1:m){</span>
+<span class="s2">          order[s, ranks[s, i]]=i;</span>
+<span class="s2">        }</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+
+<span class="s2">    parameters {</span>
+<span class="s2">        // Vector of ratings for each team.</span>
+<span class="s2">        // The simplex constrains the ratings to sum to 1</span>
+<span class="s2">        simplex[m] ratings;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    transformed parameters{</span>
+<span class="s2">      real loglik;</span>
+<span class="s2">      real rest;</span>
+
+<span class="s2">      loglik=0;</span>
+<span class="s2">      for (s in 1:n){</span>
+<span class="s2">        for (i in 1:(m-1)){</span>
+<span class="s2">          rest=0;</span>
+<span class="s2">          for (j in i:m){</span>
+<span class="s2">            rest = rest + ratings[order[s, j]];</span>
+<span class="s2">          }</span>
+<span class="s2">          loglik = loglik + log(weights[s] * ratings[order[s, i]] / rest);</span>
+<span class="s2">        }</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+
+<span class="s2">    model {</span>
+<span class="s2">        ratings ~ dirichlet(alpha); // Dirichlet prior</span>
+<span class="s2">        target += loglik;</span>
+<span class="s2">    }&quot;&quot;&quot;</span>
+    <span class="c1"># This test is adapted to STAN versions greater than 2.33</span>
+    <span class="c1"># Basically changes int ranks[n,m] to array[n,m] int ranks</span>
+    <span class="n">PLACKETT_LUCE_TEST_V3</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        data {</span>
+<span class="s2">        int&lt;lower=1&gt; n; // number of instances</span>
+<span class="s2">        int&lt;lower=2&gt; m; // number of algorithms</span>
+
+<span class="s2">        // Matrix with all the rankings, one per row</span>
+<span class="s2">        array[n,m] int ranks;</span>
+
+<span class="s2">        array[n] real weights;</span>
+
+<span class="s2">        // Parameters for Dirichlet prior.</span>
+<span class="s2">        vector[m] alpha;</span>
+<span class="s2">    }</span>
+
+
+<span class="s2">    transformed data {</span>
+<span class="s2">      // The implementation of the probability of the PL model uses the order, rather</span>
+<span class="s2">      // than the rank</span>
+<span class="s2">      array[n,m] int order;</span>
+<span class="s2">      for (s in 1:n){</span>
+<span class="s2">        for (i in 1:m){</span>
+<span class="s2">          order[s, ranks[s, i]]=i;</span>
+<span class="s2">        }</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+
+<span class="s2">    parameters {</span>
+<span class="s2">        // Vector of ratings for each team.</span>
+<span class="s2">        // The simplex constrains the ratings to sum to 1</span>
+<span class="s2">        simplex[m] ratings;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    transformed parameters{</span>
+<span class="s2">      real loglik;</span>
+<span class="s2">      real rest;</span>
+
+<span class="s2">      loglik=0;</span>
+<span class="s2">      for (s in 1:n){</span>
+<span class="s2">        for (i in 1:(m-1)){</span>
+<span class="s2">          rest=0;</span>
+<span class="s2">          for (j in i:m){</span>
+<span class="s2">            rest = rest + ratings[order[s, j]];</span>
+<span class="s2">          }</span>
+<span class="s2">          loglik = loglik + log(weights[s] * ratings[order[s, i]] / rest);</span>
+<span class="s2">        }</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+
+<span class="s2">    model {</span>
+<span class="s2">        ratings ~ dirichlet(alpha); // Dirichlet prior</span>
+<span class="s2">        target += loglik;</span>
+<span class="s2">    }&quot;&quot;&quot;</span></div>
+
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

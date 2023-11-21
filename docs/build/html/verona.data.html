@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>verona.data package</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="verona.evaluation package" href="verona.evaluation.html" />
+  <link rel="prev" title="API Reference" href="api.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="api.html">API Reference</a> &raquo;</li>
+    
+    <li>verona.data package</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="api.html"
+       title="previous chapter">← API Reference</a>
+  </li>
+  <li class="next">
+    <a href="verona.evaluation.html"
+       title="next chapter">verona.evaluation package →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="verona-data-package">
+<h1>verona.data package<a class="headerlink" href="#verona-data-package" title="Link to this heading">¶</a></h1>
+<section id="module-verona.data.download">
+<span id="verona-data-download-module"></span><h2>verona.data.download module<a class="headerlink" href="#module-verona.data.download" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.download.get_available_datasets">
+<span class="sig-prename descclassname"><span class="pre">verona.data.download.</span></span><span class="sig-name descname"><span class="pre">get_available_datasets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/download.html#get_available_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.download.get_available_datasets" title="Link to this definition">¶</a></dt>
+<dd><p>Display the list of available datasets from the official repository and return their identifiers.</p>
+<p>This function prints out the list of available datasets along with their names, as defined in the
+<cite>DATASETS_LIST</cite> dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of available dataset identifiers.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">available_datasets</span> <span class="o">=</span> <span class="n">get_available_datasets</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">available_datasets</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.download.get_dataset">
+<span class="sig-prename descclassname"><span class="pre">verona.data.download.</span></span><span class="sig-name descname"><span class="pre">get_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'xes'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'csv'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'both'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'xes'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/verona/data/download.html#get_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.download.get_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Download a specified dataset from the official repository and store it in a designated path.</p>
+<p>This function downloads the dataset in either ‘xes.gz’ or ‘csv’ format, based on the ‘extension’ argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_name</strong> (<em>str</em>) – Identifier of the dataset to download.</p></li>
+<li><p><strong>store_path</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The directory path where the dataset will be stored.
+If not specified, the dataset will be stored in the folder ~/.verona_datasets/</p></li>
+<li><p><strong>extension</strong> (<em>Literal</em><em>[</em><em>'xes'</em><em>, </em><em>'csv'</em><em>, </em><em>'both'</em><em>]</em>) – The format in which to save the dataset.
+Choose from ‘xes’ for ‘xes.gz’ format, ‘csv’ for ‘csv’ format, or ‘both’ to download both formats.
+Default is ‘xes’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The function stores the downloaded dataset in the ‘store_path’ and returns nothing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_dataset</span><span class="p">(</span><span class="s1">&#39;bpi2012a&#39;</span><span class="p">,</span> <span class="n">store_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-verona.data.extractor">
+<span id="verona-data-extractor-module"></span><h2>verona.data.extractor module<a class="headerlink" href="#module-verona.data.extractor" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.extractor.get_prefixes_and_targets">
+<span class="sig-prename descclassname"><span class="pre">verona.data.extractor.</span></span><span class="sig-name descname"><span class="pre">get_prefixes_and_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">~pandas.core.frame.DataFrame,</span> <span class="pre">prediction_task:</span> <span class="pre">~typing.Literal['next_activity',</span> <span class="pre">'activity_suffix',</span> <span class="pre">'next_timestamp',</span> <span class="pre">'remaining_time',</span> <span class="pre">'next_attribute',</span> <span class="pre">'attribute_suffix'],</span> <span class="pre">prefix_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">case_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'CaseID',</span> <span class="pre">activity_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">timestamp_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">attribute_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None)</span> <span class="pre">-&gt;</span> <span class="pre">(dict[slice(&lt;class</span> <span class="pre">'int'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'pandas.core.frame.DataFrame'&gt;,</span> <span class="pre">None)],</span> <span class="pre">dict[slice(&lt;class</span> <span class="pre">'int'&gt;,</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">array&gt;,</span> <span class="pre">None)]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/extractor.html#get_prefixes_and_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.extractor.get_prefixes_and_targets" title="Link to this definition">¶</a></dt>
+<dd><p>Extract prefixes and corresponding targets from a given dataset based on the prediction task.</p>
+<p>The function extracts prefixes of the specified or all possible sizes from the dataset,
+and returns targets corresponding to the selected prediction task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the event log.</p></li>
+<li><p><strong>prediction_task</strong> (<em>Literal</em>) – Specifies the type of prediction task.
+- ‘next_activity’: Predict the next activity.
+- ‘activity_suffix’: Predict the remaining sequence of activities.
+- ‘next_timestamp’: Predict the next event timestamp.
+- ‘remaining_time’: Predict the remaining time for the case to complete.
+- ‘next_attribute’: Predict the next attribute.
+- ‘attribute_suffix’: Predict the remaining sequence of attributes.</p></li>
+<li><p><strong>prefix_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>default=None</em>) – Length of the prefix to be used.
+If None, uses all possible sizes.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>default='CaseColumn'</em>) – Column name for the case identifier.</p></li>
+<li><p><strong>activity_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>default=None</em>) – Column name for the activity.
+Needed for ‘next_activity’ and ‘activity_suffix’.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>default=None</em>) – Column name for the timestamp.
+Needed for ‘next_timestamp’ and ‘remaining_time’.</p></li>
+<li><p><strong>attribute_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>default=None</em>) – Column name for the attribute.
+Needed for ‘next_attribute’ and ‘attribute_suffix’.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Default setting for “prefix_size” reproduces the expermiental setup of [1].</p>
+<p>[1]  Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process
+Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756.
+doi:10.1109/TSC.2021.3139807</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Returns two dictionaries:</dt><dd><ol class="arabic simple">
+<li><p>Mapping from prefix size to the DataFrame of prefixes.</p></li>
+<li><p>Mapping from prefix size to the corresponding targets in NumPy array format.</p></li>
+</ol>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[Dict[int, pd.DataFrame], Dict[int, np.array]]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the required column for a prediction task is not specified.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prefixes</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_prefixes_and_targets</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;next_activity&#39;</span><span class="p">,</span> <span class="n">prefix_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-verona.data.results">
+<span id="verona-data-results-module"></span><h2>verona.data.results module<a class="headerlink" href="#module-verona.data.results" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">AvailableMetrics</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.AvailableMetrics" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container class that holds available metrics for various predictive tasks in process mining.</p>
+<p>This class defines different metric types that can be calculated for different predictive
+tasks in process mining such as predicting the next activity, activity suffix, next timestamp,
+and remaining time.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity">
+<span class="sig-name descname"><span class="pre">NextActivity</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.NextActivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity" title="Link to this definition">¶</a></dt>
+<dd><p>Metrics for the ‘Next Activity’ prediction task.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.ActivitySuffix">
+<span class="sig-name descname"><span class="pre">ActivitySuffix</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.ActivitySuffix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.AvailableMetrics.ActivitySuffix" title="Link to this definition">¶</a></dt>
+<dd><p>Metrics for the ‘Activity Suffix’ prediction task.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextTimestamp">
+<span class="sig-name descname"><span class="pre">NextTimestamp</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.NextTimestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextTimestamp" title="Link to this definition">¶</a></dt>
+<dd><p>Metrics for the ‘Next Timestamp’ prediction task.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.RemainingTime">
+<span class="sig-name descname"><span class="pre">RemainingTime</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.RemainingTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.AvailableMetrics.RemainingTime" title="Link to this definition">¶</a></dt>
+<dd><p>Metrics for the ‘Remaining Time’ prediction task.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ActivitySuffix</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.ActivitySuffix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Metrics available for the task of predicting the suffix (sequence of remaining activities) in a
+process instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.ActivitySuffix.DAMERAU_LEVENSHTEIN">
+<span class="sig-name descname"><span class="pre">DAMERAU_LEVENSHTEIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='damerau_levenshtein',</span> <span class="pre">parent='suffix')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.ActivitySuffix.DAMERAU_LEVENSHTEIN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NextActivity</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.NextActivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Metrics available for the task of predicting the next activity in a process instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.ACCURACY">
+<span class="sig-name descname"><span class="pre">ACCURACY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='accuracy',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.ACCURACY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.BRIER_SCORE">
+<span class="sig-name descname"><span class="pre">BRIER_SCORE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='brier_score',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.BRIER_SCORE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.F1">
+<span class="sig-name descname"><span class="pre">F1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='f1',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.F1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.MCC">
+<span class="sig-name descname"><span class="pre">MCC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='mcc',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.MCC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.PRECISION">
+<span class="sig-name descname"><span class="pre">PRECISION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='precision',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.PRECISION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextActivity.RECALL">
+<span class="sig-name descname"><span class="pre">RECALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='recall',</span> <span class="pre">parent='next_activity')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextActivity.RECALL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NextTimestamp</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.NextTimestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Metrics available for the task of predicting the next timestamp in a process instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.NextTimestamp.MAE">
+<span class="sig-name descname"><span class="pre">MAE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='mae',</span> <span class="pre">parent='next_timestamp')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.NextTimestamp.MAE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RemainingTime</span></span><a class="reference internal" href="_modules/verona/data/results.html#AvailableMetrics.RemainingTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Metrics available for the task of predicting the remaining time for completion of a process instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.AvailableMetrics.RemainingTime.MAE">
+<span class="sig-name descname"><span class="pre">MAE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MetricValue(value='mae',</span> <span class="pre">parent='remaining_time')</span></em><a class="headerlink" href="#verona.data.results.AvailableMetrics.RemainingTime.MAE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="verona.data.results.MetricValue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">MetricValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/results.html#MetricValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.MetricValue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.MetricValue.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#verona.data.results.MetricValue.parent" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.MetricValue.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#verona.data.results.MetricValue.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="verona.data.results.MissingResultStrategy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">MissingResultStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/results.html#MissingResultStrategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.MissingResultStrategy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enum for specifying the strategy to use for handling missing data (NaNs) in the dataset when applying
+Bayesian models.</p>
+<p>This enum provides options for how to deal with missing data (NaN values) in the dataset when preparing
+data for Bayesian models. Options include deleting the entire dataset associated with the missing data,
+deleting only the approach (algorithm/method) associated with the missing data, or taking no action.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.MissingResultStrategy.DELETE_DATASET">
+<span class="sig-name descname"><span class="pre">DELETE_DATASET</span></span><a class="headerlink" href="#verona.data.results.MissingResultStrategy.DELETE_DATASET" title="Link to this definition">¶</a></dt>
+<dd><p>Delete the entire dataset associated with the missing data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.MissingResultStrategy.DELETE_APPROACH">
+<span class="sig-name descname"><span class="pre">DELETE_APPROACH</span></span><a class="headerlink" href="#verona.data.results.MissingResultStrategy.DELETE_APPROACH" title="Link to this definition">¶</a></dt>
+<dd><p>Delete only the approach (algorithm/method) associated with the missing data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.results.MissingResultStrategy.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><a class="headerlink" href="#verona.data.results.MissingResultStrategy.NONE" title="Link to this definition">¶</a></dt>
+<dd><p>Take no action on the missing data; it must be handled externally or downstream.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">DELETE_APPROACH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('delete_approach',)</span></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">DELETE_DATASET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('delete_dataset',)</span></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'none'</span></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.results.load_results_hierarchical">
+<span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">load_results_hierarchical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approach_1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Tax'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approach_2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TACO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MetricValue(value='accuracy',</span> <span class="pre">parent='next_activity')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">even_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MissingResultStrategy.DELETE_DATASET</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/results.html#load_results_hierarchical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.load_results_hierarchical" title="Link to this definition">¶</a></dt>
+<dd><p>Load and preprocess the results of two approaches for comparison using a hierarchical test.</p>
+<p>This function fetches the raw results from CSV files based on the selected metric, filters the data for the two
+approaches specified, and handles missing data according to the provided even_strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>approach_1</strong> (<em>str</em>) – The name of the first approach for which to load results. Default is “Tax”.</p></li>
+<li><p><strong>approach_2</strong> (<em>str</em>) – The name of the second approach for which to load results. Default is “TACO”.</p></li>
+<li><p><strong>metric</strong> (<a class="reference internal" href="#verona.data.results.AvailableMetrics" title="verona.data.results.AvailableMetrics"><em>AvailableMetrics</em></a>) – An enum specifying the metric on which the approaches should be compared.</p></li>
+<li><p><strong>even_strategy</strong> (<a class="reference internal" href="#verona.data.results.MissingResultStrategy" title="verona.data.results.MissingResultStrategy"><em>MissingResultStrategy</em></a>) – Enum specifying the strategy to apply for handling missing data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Two DataFrames containing the preprocessed results of the two approaches,
+and a list of common dataset names (indices).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame, pd.DataFrame, List[str]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If an unsupported metric or even_strategy is passed.</p></li>
+<li><p><strong>AssertionError</strong> – If the specified approaches are not available in the data.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">approach_1_df</span><span class="p">,</span> <span class="n">approach_2_df</span><span class="p">,</span> <span class="n">common_datasets</span> <span class="o">=</span> <span class="n">load_results_hierarchical</span><span class="p">(</span><span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>                 <span class="n">metric</span><span class="o">=</span><span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span> <span class="n">even_strategy</span><span class="o">=</span><span class="n">EvenStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">approach_1_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">approach_2_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">common_datasets</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function assumes that the raw result CSVs are present in a folder named “csv”.</p></li>
+<li><p>For the metrics “next_activity” and “suffix”, the values are multiplied by 100 so that they are consistent with</p></li>
+</ul>
+<p>the default rope values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.results.load_results_non_hierarchical">
+<span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">load_results_non_hierarchical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approach_1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Tax'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approach_2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TACO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MetricValue(value='accuracy',</span> <span class="pre">parent='next_activity')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">even_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MissingResultStrategy.DELETE_DATASET</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/results.html#load_results_non_hierarchical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.load_results_non_hierarchical" title="Link to this definition">¶</a></dt>
+<dd><p>Load and preprocess results for non-hierarchical statistical comparison of two approaches.</p>
+<p>This function initially loads results for all available approaches using the <cite>load_results_plackett_luce</cite> function.
+It then filters the results to include only the specified <cite>approach_1</cite> and <cite>approach_2</cite>, and applies an evenizing
+strategy to handle any missing values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>approach_1</strong> (<em>str</em>) – The name of the first approach to compare. Defaults to “Tax”.</p></li>
+<li><p><strong>approach_2</strong> (<em>str</em>) – The name of the second approach to compare. Defaults to “TACO”.</p></li>
+<li><p><strong>metric</strong> (<a class="reference internal" href="#verona.data.results.AvailableMetrics" title="verona.data.results.AvailableMetrics"><em>AvailableMetrics</em></a>) – The metric to consider for loading results. Defaults to
+<cite>AvailableMetrics.NextActivity.ACCURACY</cite>.</p></li>
+<li><p><strong>even_strategy</strong> (<a class="reference internal" href="#verona.data.results.MissingResultStrategy" title="verona.data.results.MissingResultStrategy"><em>MissingResultStrategy</em></a>) – <p>Strategy to apply when missing values are encountered. Determines whether
+rows (datasets) or columns (approaches) should be dropped. Defaults to</p>
+<blockquote>
+<div><p><cite>MissingResultStrategy.DELETE_DATASET</cite>.</p>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A NumPy array containing the filtered results for <cite>approach_1</cite>.
+np.ndarray: A NumPy array containing the filtered results for <cite>approach_2</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results_tax</span><span class="p">,</span> <span class="n">results_taco</span> <span class="o">=</span> <span class="n">load_results_non_hierarchical</span><span class="p">(</span><span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>                 <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.results.load_results_plackett_luce">
+<span class="sig-prename descclassname"><span class="pre">verona.data.results.</span></span><span class="sig-name descname"><span class="pre">load_results_plackett_luce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MetricValue(value='accuracy',</span> <span class="pre">parent='next_activity')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">even_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MissingResultStrategy.DELETE_DATASET</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/results.html#load_results_plackett_luce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.results.load_results_plackett_luce" title="Link to this definition">¶</a></dt>
+<dd><p>Load and preprocess the results for applying the Plackett-Luce model.</p>
+<p>This function loads a CSV file containing the raw results based on the given metric. It then computes the mean
+result for each pair of (approach, dataset), and finally applies an evenizing strategy to handle missing data,
+if any.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<a class="reference internal" href="#verona.data.results.AvailableMetrics" title="verona.data.results.AvailableMetrics"><em>AvailableMetrics</em></a>) – The metric for which results should be loaded. Defaults to
+<cite>AvailableMetrics.NextActivity.ACCURACY</cite>.</p></li>
+<li><p><strong>even_strategy</strong> (<a class="reference internal" href="#verona.data.results.MissingResultStrategy" title="verona.data.results.MissingResultStrategy"><em>MissingResultStrategy</em></a>) – Strategy to apply when missing values are encountered. Determines whether
+rows (datasets) or columns (approaches) should be dropped. Defaults to
+<cite>MissingResultStrategy.DELETE_DATASET</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the mean results, where each row represents a dataset and each column an approach.
+list: A list of approach names.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean_results</span><span class="p">,</span> <span class="n">approaches</span> <span class="o">=</span> <span class="n">load_results_plackett_luce</span><span class="p">(</span><span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>                 <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-verona.data.split">
+<span id="verona-data-split-module"></span><h2>verona.data.split module<a class="headerlink" href="#module-verona.data.split" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.split.make_crossvalidation">
+<span class="sig-prename descclassname"><span class="pre">verona.data.split.</span></span><span class="sig-name descname"><span class="pre">make_crossvalidation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv_folds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_from_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'case:concept:name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/verona/data/split.html#make_crossvalidation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.split.make_crossvalidation" title="Link to this definition">¶</a></dt>
+<dd><p>Split a given dataset following a cross-validation scheme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>str</em><em> | </em><em>pd.DataFrame</em>) – If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.</p></li>
+<li><p><strong>store_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path where the splits will be stored. Defaults to the current working directory.</p></li>
+<li><p><strong>cv_folds</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of folds for the cross-validation split. Default is 5.</p></li>
+<li><p><strong>val_from_train</strong> (<em>float</em><em>, </em><em>optional</em>) – Float value between 0 and 1 (0 included, 1 excluded), indicating the
+percentage of traces reserved for the validation partition within the cases of the training partition.
+Default is 0.2.</p></li>
+<li><p><strong>case_column</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier in the original dataset file.
+Default is ‘case:concept:name’.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Set a seed for reproducibility. Default is 42.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Returns a tuple containing the lists of</dt><dd><p>DataFrames for the train, validation, and test splits.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If an invalid value for cv_folds or val_from_train is provided.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">splits_paths</span> <span class="o">=</span> <span class="n">make_crossvalidation</span><span class="p">(</span><span class="s1">&#39;path/to/dataset.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>The default values for cv_folds, val_from_train, and seed reproduce the experimental setup from [1]</p>
+<dl class="simple">
+<dt>[1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:</dt><dd><p>Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.split.make_holdout">
+<span class="sig-prename descclassname"><span class="pre">verona.data.split.</span></span><span class="sig-name descname"><span class="pre">make_holdout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_from_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'case:concept:name'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/verona/data/split.html#make_holdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.split.make_holdout" title="Link to this definition">¶</a></dt>
+<dd><p>Split a given dataset following a holdout scheme (train-validation-test).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>str</em><em> | </em><em>pd.DataFrame</em>) – If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.</p></li>
+<li><p><strong>store_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path where the splits will be stored. Defaults to the DEFAULT_PATH</p></li>
+<li><p><strong>test_size</strong> (<em>float</em><em>, </em><em>optional</em>) – Float value between 0 and 1 (both excluded), indicating the percentage of traces
+reserved for the test partition. Default is 0.2.</p></li>
+<li><p><strong>val_from_train</strong> (<em>float</em><em>, </em><em>optional</em>) – Float value between 0 and 1 (0 included, 1 excluded), indicating the
+percentage of traces reserved for the validation partition within the cases of the training partition.
+Default is 0.2.</p></li>
+<li><p><strong>case_column</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier in the original dataset file.
+Default is ‘case:concept:name’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Returns a tuple containing the DataFrames for the train,</dt><dd><p>validation, and test splits.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If an invalid value for test_size or val_from_train is provided.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_df</span><span class="p">,</span> <span class="n">val_df</span><span class="p">,</span> <span class="n">test_df</span> <span class="o">=</span> <span class="n">make_holdout</span><span class="p">(</span><span class="s1">&#39;path/to/dataset.csv&#39;</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">val_from_train</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>The default values for test_size and val_from_train are based on the experimental setup from the first version
+of [1]</p>
+<dl class="simple">
+<dt>[1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:</dt><dd><p>Review and Benchmark. <a class="reference external" href="https://arxiv.org/abs/2009.13251v1">https://arxiv.org/abs/2009.13251v1</a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-verona.data.statistics">
+<span id="verona-data-statistics-module"></span><h2>verona.data.statistics module<a class="headerlink" href="#module-verona.data.statistics" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_activities_list">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_activities_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Activity'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_activities_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_activities_list" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the list of unique activities in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>activity_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the activity column in the DataFrame.
+Default is specified by <cite>DataFrameFields.ACTIVITY_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list containing unique activities in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the activity column does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;activity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activities_list</span> <span class="o">=</span> <span class="n">get_activities_list</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">activities_list</span><span class="p">)</span>
+<span class="go">[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_avg_duration_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_avg_duration_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_avg_duration_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_avg_duration_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the average case temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The average temporal duration of a case in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_avg_duration_event">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_avg_duration_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_avg_duration_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_avg_duration_event" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the average event temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The average temporal duration of an event in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_avg_len_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_avg_len_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_avg_len_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_avg_len_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the average case length in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The average case length in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the case identifier column does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_count_variants">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_count_variants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Activity'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_count_variants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_count_variants" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of times each variant appears in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>activity_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the activity column in the DataFrame.
+Default is specified by <cite>DataFrameFields.ACTIVITY_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary where the keys are the variants and the values are the count of occurrences of each variant</dt><dd><p>in the dataset.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or activity columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_max_duration_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_max_duration_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_max_duration_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_max_duration_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the maximum case temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The maximum temporal duration of a case in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_max_duration_event">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_max_duration_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_max_duration_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_max_duration_event" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the maximum event temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The maximum temporal duration of an event in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_max_len_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_max_len_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_max_len_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_max_len_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the maximum case length in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The maximum case length in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the case identifier column does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_min_duration_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_min_duration_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_min_duration_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_min_duration_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the minimum case temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The minimum temporal duration of a case in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_min_duration_event">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_min_duration_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Timestamp'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Timedelta</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_min_duration_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_min_duration_event" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the minimum event temporal duration in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>timestamp_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timestamp column in the DataFrame.
+Default is specified by <cite>DataFrameFields.TIMESTAMP_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The minimum temporal duration of an event in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Timedelta</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or timestamp columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_min_len_case">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_min_len_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_min_len_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_min_len_case" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the minimum case length in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The minimum case length in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the case identifier column does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_num_activities">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_num_activities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Activity'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_num_activities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_num_activities" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of unique activities in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>activity_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the activity column in the DataFrame.
+Default is specified by <cite>DataFrameFields.ACTIVITY_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of unique activities in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the activity column does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;activity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num_activities</span> <span class="o">=</span> <span class="n">get_num_activities</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">num_activities</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_num_cases">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_num_cases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_num_cases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_num_cases" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of unique cases in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of unique cases in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the case identifier column does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;case&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num_cases</span> <span class="o">=</span> <span class="n">get_num_cases</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;case&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">num_cases</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_num_values">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_num_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_num_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_num_values" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of unique values for the specified attribute in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>attribute_id</strong> (<em>str</em>) – Name of the attribute column in the DataFrame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of unique values for the specified attribute in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the attribute column does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;attribute&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num_values</span> <span class="o">=</span> <span class="n">get_num_values</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">num_values</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_num_variants">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_num_variants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CaseID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Activity'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_num_variants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_num_variants" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of unique cases (different sequences of activities) in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>case_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the case identifier column in the DataFrame.
+Default is specified by <cite>DataFrameFields.CASE_COLUMN</cite>.</p></li>
+<li><p><strong>activity_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the activity column in the DataFrame.
+Default is specified by <cite>DataFrameFields.ACTIVITY_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of variants (cases with different sequences of activities).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty, or the case identifier or activity columns do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.statistics.get_values_list">
+<span class="sig-prename descclassname"><span class="pre">verona.data.statistics.</span></span><span class="sig-name descname"><span class="pre">get_values_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Activity'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/verona/data/statistics.html#get_values_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.statistics.get_values_list" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the list of unique values for the specified attribute in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset to be analyzed.</p></li>
+<li><p><strong>attribute_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the attribute column in the DataFrame.
+Default is specified by <cite>DataFrameFields.ACTIVITY_COLUMN</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of unique values for the specified attribute in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the dataset is empty or the attribute column does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;attribute&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values_list</span> <span class="o">=</span> <span class="n">get_values_list</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">values_list</span><span class="p">)</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-verona.data.utils">
+<span id="verona-data-utils-module"></span><h2>verona.data.utils module<a class="headerlink" href="#module-verona.data.utils" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="verona.data.utils.DataFrameFields">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">DataFrameFields</span></span><a class="reference internal" href="_modules/verona/data/utils.html#DataFrameFields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.DataFrameFields" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Common column names that may be present in a csv log.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.DataFrameFields.ACTIVITY_COLUMN">
+<span class="sig-name descname"><span class="pre">ACTIVITY_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Activity'</span></em><a class="headerlink" href="#verona.data.utils.DataFrameFields.ACTIVITY_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.DataFrameFields.CASE_COLUMN">
+<span class="sig-name descname"><span class="pre">CASE_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CaseID'</span></em><a class="headerlink" href="#verona.data.utils.DataFrameFields.CASE_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.DataFrameFields.RESOURCE_COLUMN">
+<span class="sig-name descname"><span class="pre">RESOURCE_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Resource'</span></em><a class="headerlink" href="#verona.data.utils.DataFrameFields.RESOURCE_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.DataFrameFields.TIMESTAMP_COLUMN">
+<span class="sig-name descname"><span class="pre">TIMESTAMP_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Timestamp'</span></em><a class="headerlink" href="#verona.data.utils.DataFrameFields.TIMESTAMP_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">XesFields</span></span><a class="reference internal" href="_modules/verona/data/utils.html#XesFields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.XesFields" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Common xes fields that may be present in a xes log.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields.ACTIVITY_COLUMN">
+<span class="sig-name descname"><span class="pre">ACTIVITY_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'concept:name'</span></em><a class="headerlink" href="#verona.data.utils.XesFields.ACTIVITY_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields.CASE_COLUMN">
+<span class="sig-name descname"><span class="pre">CASE_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'case:concept:name'</span></em><a class="headerlink" href="#verona.data.utils.XesFields.CASE_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields.LIFECYCLE_COLUMN">
+<span class="sig-name descname"><span class="pre">LIFECYCLE_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lifecycle:transition'</span></em><a class="headerlink" href="#verona.data.utils.XesFields.LIFECYCLE_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields.RESOURCE_COLUMN">
+<span class="sig-name descname"><span class="pre">RESOURCE_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'org:resource'</span></em><a class="headerlink" href="#verona.data.utils.XesFields.RESOURCE_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="verona.data.utils.XesFields.TIMESTAMP_COLUMN">
+<span class="sig-name descname"><span class="pre">TIMESTAMP_COLUMN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time:timestamp'</span></em><a class="headerlink" href="#verona.data.utils.XesFields.TIMESTAMP_COLUMN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.utils.categorize_attribute">
+<span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">categorize_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr:</span> <span class="pre">~pandas.core.series.Series)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'pandas.core.series.Series'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'dict'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/data/utils.html#categorize_attribute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.categorize_attribute" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the attribute column type in the Pandas DataFrame dataset to
+categorical (integer indexes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attr</strong> (<em>pd.Series</em>) – Pandas Series of the attribute column in the dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Pandas Series representing the attribute column with the integer indexes</dt><dd><p>instead of the original values.</p>
+</dd>
+</dl>
+<p>dict: A dictionary with the conversions (key: categorical index, value: original value).
+dict: The reverse dictionary (key: original value, value: categorical index).</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.utils.get_labels_from_onehot">
+<span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">get_labels_from_onehot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onehots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/verona/data/utils.html#get_labels_from_onehot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.get_labels_from_onehot" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the labels represented in the one-hot vectors passed as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>onehots</strong> (<em>np.array</em>) – NumPy Array containing the one-hot vectors.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>NumPy Array containing the labels extracted from the one-hot vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.utils.get_onehot_representation">
+<span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">get_onehot_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/verona/data/utils.html#get_onehot_representation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.get_onehot_representation" title="Link to this definition">¶</a></dt>
+<dd><p>Gets attribute values as labels and converts them to their one-hot representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attribute</strong> (<em>np.array</em>) – Pandas Series or NumPy Array containing the categorical values of the attribute.</p></li>
+<li><p><strong>num_elements</strong> (<em>int</em>) – Integer indicating the number of unique values of the attribute, which is the
+size of the one-hot vector. If not specified, the vector size is calculated from
+the number of unique elements in ‘attribute’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas Series or NumPy Array (depending on the type of ‘attribute’) containing the one-hot vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.data.utils.unify_activity_and_lifecycle">
+<span class="sig-prename descclassname"><span class="pre">verona.data.utils.</span></span><span class="sig-name descname"><span class="pre">unify_activity_and_lifecycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'concept:name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lifecycle_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lifecycle:transition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_lifecycle_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/verona/data/utils.html#unify_activity_and_lifecycle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.data.utils.unify_activity_and_lifecycle" title="Link to this definition">¶</a></dt>
+<dd><p>Gets real activities by unifying the values in the activity and lifecycle columns,
+like it’s done in [1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – DataFrame containing the dataset.</p></li>
+<li><p><strong>activity_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the activity column in the DataFrame.
+Defaults to XesFields.ACTIVITY_COLUMN.</p></li>
+<li><p><strong>lifecycle_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the lifecycle column in the DataFrame.
+Defaults to XesFields.LIFECYCLE_COLUMN.</p></li>
+<li><p><strong>drop_lifecycle_column</strong> (<em>bool</em><em>, </em><em>optional</em>) – Delete the lifecycle column after the conversion. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dataset, as Pandas DataFrame, updated.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:</dt><dd><p>Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="api.html"
+       title="previous chapter">← API Reference</a>
+  </li>
+  <li class="next">
+    <a href="verona.evaluation.html"
+       title="next chapter">verona.evaluation package →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

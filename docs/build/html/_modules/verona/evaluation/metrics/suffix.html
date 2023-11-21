@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.evaluation.metrics.suffix</title>
+    
+          <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.evaluation.metrics.suffix</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.evaluation.metrics.suffix</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">verona.data.utils</span> <span class="kn">import</span> <span class="n">get_labels_from_onehot</span>
+
+
+<div class="viewcode-block" id="get_damerau_levenshtein_score">
+<a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.suffix.get_damerau_levenshtein_score">[docs]</a>
+<span class="k">def</span> <span class="nf">get_damerau_levenshtein_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span>
+                                  <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                                  <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                                  <span class="n">eoc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the Damerau-Levenshtein score between the predictions and the real values.</span>
+
+<span class="sd">    The Damerau-Levenshtein distance represents the number of insertions, deletions,</span>
+<span class="sd">    substitutions, and transpositions required to change the first sequence into the second.</span>
+<span class="sd">    In this function, the score is normalized by the size of the longest sequence, and the</span>
+<span class="sd">    value is obtained by subtracting the normalized distance from 1.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (list[np.array]): List containing the predicted suffixes as NumPy Arrays.</span>
+<span class="sd">        ground_truths (list[np.array]): List containing the ground truth suffixes as NumPy Arrays.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions. If &#39;label&#39;,</span>
+<span class="sd">            the predictions array contains the labels of the activities/attributes predicted.</span>
+<span class="sd">            If &#39;onehot&#39;, the predictions array contains vectors of probabilities, and the labels</span>
+<span class="sd">            are internally extracted based on the highest value element for the metric calculation.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truth. If &#39;label&#39;,</span>
+<span class="sd">            the ground truth array contains the labels of the correct activities/attributes.</span>
+<span class="sd">            If &#39;onehot&#39;, the ground truth array contains the one-hot representation of the</span>
+<span class="sd">            correct values, and the labels are internally extracted for the metric calculation.</span>
+<span class="sd">        eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that</span>
+<span class="sd">            signifies the end of the trace/suffix.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Damerau-Levenshtein score between 0 and 1. A lower value indicates worse suffix</span>
+<span class="sd">        prediction, whereas a higher value indicates a prediction closer to the actual suffix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span>
+
+    <span class="n">list_dl_scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">gt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">):</span>
+        <span class="n">dl_distance</span><span class="p">,</span> <span class="n">len_preds</span><span class="p">,</span> <span class="n">len_gts</span> <span class="o">=</span> <span class="n">__damerau_levenshtein_similarity</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">gt</span><span class="p">,</span> <span class="n">eoc</span><span class="p">)</span>
+        <span class="n">dl_score</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">dl_distance</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">len_preds</span><span class="p">,</span> <span class="n">len_gts</span><span class="p">))</span>
+        <span class="n">list_dl_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dl_score</span><span class="p">)</span>
+
+    <span class="n">dl_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">list_dl_scores</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">dl_score</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">__damerau_levenshtein_similarity</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                                     <span class="n">code_end</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">code_end</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">predictions</span> <span class="o">==</span> <span class="n">code_end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ground_truths</span> <span class="o">==</span> <span class="n">code_end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">ground_truths</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">l1</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">l2</span> <span class="o">=</span> <span class="n">ground_truths</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+
+    <span class="n">matrix</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">l1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))]</span> <span class="o">*</span> <span class="p">(</span><span class="n">l2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">l2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">l1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">predictions</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ground_truths</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>         <span class="c1"># Deletion</span>
+                               <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>         <span class="c1"># Insertion</span>
+                               <span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">)</span>  <span class="c1"># Substitution</span>
+
+            <span class="c1"># Check for transposition</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">predictions</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ground_truths</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> \
+                    <span class="n">predictions</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">ground_truths</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">)</span>  <span class="c1"># Transposition</span>
+
+    <span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">l2</span><span class="p">][</span><span class="n">l1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">distance</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

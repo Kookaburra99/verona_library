@@ -13,8 +13,8 @@ The main features of **VERONA** are:
 
 * Allows downloading an extensive collection of real process event logs used by the process mining community.
 * Provides functions to cover data preprocessing, partitioning, prefix and target extraction, model evaluation and result visualization from the PPM workflow in a clear and transparent manner for the user.
-* Implement the reference benchmark of Rama-Maneiro et al. :footcite:`benchmark_rama_2023` to fairly compare deep learning-based PPM proposals.
-* Port the statistical tests of the R-implemented ``scmamp`` :footcite:`scmamp_calvo_2016` to Python, allowing statistical comparison of different machine learning approaches.
+* Implements the reference benchmark of Rama-Maneiro et al. :footcite:`benchmark_rama_2023` to fairly compare deep learning-based PPM approaches.
+* Ports the statistical tests of the R-implemented ``scmamp`` :footcite:`scmamp_calvo_2016` to Python, allowing statistical comparison of different machine learning approaches.
 
 .. note::
    This project is under active development.
@@ -25,6 +25,9 @@ Contents
    :maxdepth: 2
 
    overview
+   installation
+   api
+   citation
 
 References
 ----------

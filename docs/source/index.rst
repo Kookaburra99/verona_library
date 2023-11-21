@@ -25,6 +25,9 @@ Contents
    :maxdepth: 2
 
    overview
+   installation
+   api
+   citation
 
 References
 ----------
