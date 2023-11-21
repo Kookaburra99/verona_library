@@ -28,6 +28,14 @@ verona.evaluation.metrics.time module
    :undoc-members:
    :show-inheritance:
 
+verona.evaluation.metrics.utils module
+--------------------------------------
+
+.. automodule:: verona.evaluation.metrics.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

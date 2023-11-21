@@ -28,6 +28,14 @@ verona.evaluation.stattests.plackettluce module
    :undoc-members:
    :show-inheritance:
 
+verona.evaluation.stattests.signed\_rank module
+-----------------------------------------------
+
+.. automodule:: verona.evaluation.stattests.signed_rank
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 verona.evaluation.stattests.stan\_codes module
 ----------------------------------------------
 

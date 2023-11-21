@@ -11,17 +11,6 @@ Subpackages
    verona.evaluation
    verona.visualization
 
-Submodules
-----------
-
-verona.evaluation module
-------------------------
-
-.. automodule:: verona.evaluation
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

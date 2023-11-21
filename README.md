@@ -1,4 +1,4 @@
-# VERONA: predicti<i>VE</i> p<i>R</i>ocesss m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
+# VERONA: predicti<i>VE</i> p<i>R</i>ocess m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
 
 **Version:** v1.0.0 (October 2023)
 
