@@ -27,21 +27,21 @@ library into their projects and research workflows.
 ## Instalation
 You can install the library from this repository as follows:
 - Create a virtual environment (preferably a Conda environment):
-```bash
-conda create -n verona_env python==3.11
-```
+    ```bash
+    conda create -n verona_env python==3.11
+    ```
 - Initialize the environment:
-```bash
-conda activate verona_env
-```
+    ```bash
+    conda activate verona_env
+    ```
 - Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 - Install the code as library:
-```bash
-python setup.py install
-```
+    ```bash
+    python setup.py install
+    ```
 
 Or you can just install it using pip:
 ```bash
