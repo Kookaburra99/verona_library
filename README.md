@@ -96,7 +96,7 @@ pip install verona
   
     targets = np.array(list(targets.values()))
     # Calculate F1-Score
-    f1_score = event.get_accuracy(predictions, targets, preds_format='onehot', gt_format='labels')
+    f1_score = event.get_f1_score(predictions, targets, preds_format='onehot', gt_format='labels')
     ```
 
 - Calculate statistical tests:
