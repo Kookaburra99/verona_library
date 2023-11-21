@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Literal, Tuple, List
+from typing import Literal, Tuple, List, Union
 
 import pandas as pd
 import pm4py
@@ -9,14 +9,15 @@ from verona.data.download import DEFAULT_PATH
 from verona.data.utils import XesFields
 
 
-def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0.2,
+def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test_size: float = 0.2,
                  val_from_train: float = 0.2,
                  case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Split a given dataset following a holdout scheme (train-validation-test).
 
     Parameters:
-        dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
+        dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
         store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
         test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces
             reserved for the test partition. Default is 0.2.
@@ -44,18 +45,26 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
             Review and Benchmark. https://arxiv.org/abs/2009.13251v1.
     """
 
-    dataset_name = Path(dataset_path).stem
-    if len(dataset_name.split('.')) == 1:
-        dataset_name += '.csv'
-    dataset_name, input_extension = dataset_name.split('.')
+    if type(dataset) == str:
+        dataset_name = Path(dataset).stem
+        if len(dataset_name.split('.')) == 1:
+            dataset_name += '.csv'
+        dataset_name, input_extension = dataset_name.split('.')
 
-    if input_extension == "xes":
-        df_log = pm4py.read_xes(dataset_path)
-    elif input_extension == "csv":
-        df_log = pd.read_csv(dataset_path)
+        if input_extension == "xes":
+            df_log = pm4py.read_xes(dataset)
+        elif input_extension == "csv":
+            df_log = pd.read_csv(dataset)
+        else:
+            raise ValueError(f'Wrong dataset extension: {input_extension}. '
+                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
+
+    elif type(dataset) == pd.DataFrame:
+        df_log = dataset
+
     else:
-        raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                         f'Only .csv, .xes and .xes.gz datasets are allowed.')
+        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
+                        f'Only str and pd.DataFrame types are allowed.')
 
     df_groupby = df_log.groupby(case_column)
     cases = [case for _, case in df_groupby]
@@ -94,14 +103,15 @@ def make_holdout(dataset_path: str, store_path: str = None, test_size: float = 0
     return train_df, val_df, test_df
 
 
-def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: int = 5,
+def make_crossvalidation(dataset: Union[str | pd.DataFrame], store_path: str = None, cv_folds: int = 5,
                          val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN,
                          seed: int = 42) -> Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]:
     """
     Split a given dataset following a cross-validation scheme.
 
     Parameters:
-        dataset_path (str): Full path to the dataset to be split. Only csv, xes, and xes.gz datasets are allowed.
+        dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
         store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.
         cv_folds (int, optional): Number of folds for the cross-validation split. Default is 5.
         val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the
@@ -128,18 +138,26 @@ def make_crossvalidation(dataset_path: str, store_path: str = None, cv_folds: in
             Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
     """
 
-    dataset_name = Path(dataset_path).stem
-    if len(dataset_name.split('.')) == 1:
-        dataset_name += '.csv'
-    dataset_name, input_extension = dataset_name.split('.')
+    if type(dataset) == str:
+        dataset_name = Path(dataset).stem
+        if len(dataset_name.split('.')) == 1:
+            dataset_name += '.csv'
+        dataset_name, input_extension = dataset_name.split('.')
 
-    if input_extension == "xes":
-        df_log = pm4py.read_xes(dataset_path)
-    elif input_extension == "csv":
-        df_log = pd.read_csv(dataset_path)
+        if input_extension == "xes":
+            df_log = pm4py.read_xes(dataset)
+        elif input_extension == "csv":
+            df_log = pd.read_csv(dataset)
+        else:
+            raise ValueError(f'Wrong dataset extension: {input_extension}. '
+                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
+
+    elif type(dataset) == pd.DataFrame:
+        df_log = dataset
+
     else:
-        raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                         f'Only .csv, .xes and .xes.gz datasets are allowed.')
+        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
+                        f'Only str and pd.DataFrame types are allowed.')
 
     unique_case_ids = list(df_log[case_column].unique())
     kfold = KFold(n_splits=cv_folds, random_state=seed, shuffle=True)

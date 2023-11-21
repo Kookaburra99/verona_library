@@ -7,7 +7,7 @@ import requests
 from tqdm import tqdm
 
 # TODO: this should be in a yaml
-DEFAULT_PATH = "~/.verona_datasets/"
+DEFAULT_PATH = "./"
 DATASETS_LIST = {
     'bpi2011': {
         'name': 'BPI Challenge 2011',
@@ -173,9 +173,7 @@ def get_dataset(dataset_name: str, store_path: str = None,
 
     if store_path is None:
         # By default, os does not expand the '~' character to the user home.
-        store_path = os.path.expanduser(DEFAULT_PATH)
-        print("Creating directory in: ", store_path)
-        print(os.listdir("~"))
+        store_path = DEFAULT_PATH
         if not os.path.exists(store_path):
             os.mkdir(store_path)
 
