@@ -155,7 +155,7 @@ def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=Availa
         >>> print(approach_2_df.head())
         >>> print(common_datasets)
 
-    Notes:
+    Note:
         - The function assumes that the raw result CSVs are present in a folder named "csv".
         - For the metrics "next_activity" and "suffix", the values are multiplied by 100 so that they are consistent with
         the default rope values.

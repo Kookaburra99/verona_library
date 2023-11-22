@@ -32,12 +32,3 @@ verona.evaluation.stattests.signed\_rank module
    :members:
    :undoc-members:
    :show-inheritance:
-
-verona.evaluation.stattests.stan\_codes module
-----------------------------------------------
-
-.. automodule:: verona.evaluation.stattests.stan_codes
-   :members:
-   :undoc-members:
-   :show-inheritance:
-

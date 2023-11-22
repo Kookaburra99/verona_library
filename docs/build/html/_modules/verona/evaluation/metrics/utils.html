@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,9 +9,10 @@
           <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -90,7 +91,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -131,15 +150,13 @@
 <span class="kn">from</span> <span class="nn">verona.evaluation.metrics</span> <span class="kn">import</span> <span class="n">event</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">time</span>
 
 
-<div class="viewcode-block" id="get_metric_by_prefix_len">
-<a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.utils.get_metric_by_prefix_len">[docs]</a>
-<span class="k">def</span> <span class="nf">get_metric_by_prefix_len</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="get_metric_by_prefix_len"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.utils.get_metric_by_prefix_len">[docs]</a><span class="k">def</span> <span class="nf">get_metric_by_prefix_len</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span>
                                              <span class="s1">&#39;mcc&#39;</span><span class="p">,</span> <span class="s1">&#39;brier_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">],</span>
                              <span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
                              <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span> <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
                              <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="n">eoc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the value of the specified metric individually for each prefix size.</span>
 
 <span class="sd">    Generates a Pandas DataFrame in which each column represents a prefix size with: 1- its corresponding value</span>
@@ -197,7 +214,6 @@
     <span class="k">return</span> <span class="n">df_result</span></div>
 
 
-
 <span class="k">def</span> <span class="nf">__apply_metric</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span>
                                    <span class="s1">&#39;mcc&#39;</span><span class="p">,</span> <span class="s1">&#39;brier_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">],</span>
                    <span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
@@ -237,7 +253,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

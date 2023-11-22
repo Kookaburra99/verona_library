@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,9 +9,10 @@
           <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -90,7 +91,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -129,10 +148,8 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">dirichlet</span>
 
 
-<div class="viewcode-block" id="BayesianSignedRankTestResult">
-<a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult">[docs]</a>
-<span class="k">class</span> <span class="nc">BayesianSignedRankTestResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BayesianSignedRankTestResult"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult">[docs]</a><span class="k">class</span> <span class="nc">BayesianSignedRankTestResult</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents the results of a Bayesian Signed Rank Test.</span>
 
 <span class="sd">    Attributes:</span>
@@ -145,7 +162,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">posterior_probs</span><span class="p">,</span> <span class="n">approximated</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes a new instance of the BayesianSignedRankTestResult class.</span>
 
 <span class="sd">        Args:</span>
@@ -160,11 +177,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span></div>
 
 
-
-<div class="viewcode-block" id="BayesianSignedRankTest">
-<a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest">[docs]</a>
-<span class="k">class</span> <span class="nc">BayesianSignedRankTest</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BayesianSignedRankTest"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest">[docs]</a><span class="k">class</span> <span class="nc">BayesianSignedRankTest</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Bayesian equivalent to Wilcoxon&#39;s signed-rank test.</span>
 
 <span class="sd">    This function implements the Bayesian version of the signed-rank test as</span>
@@ -187,7 +201,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the BayesianSignedRankTest class.</span>
 
 <span class="sd">        Args:</span>
@@ -200,11 +214,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span> <span class="o">=</span> <span class="n">approaches</span>
 
-<div class="viewcode-block" id="BayesianSignedRankTest.run">
-<a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rope</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">nsim</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BayesianSignedRankTestResult</span><span class="p">:</span>
+<div class="viewcode-block" id="BayesianSignedRankTest.run"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rope</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">nsim</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BayesianSignedRankTestResult</span><span class="p">:</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to 0.5.</span>
 <span class="sd">            z0 (float, optional): Position of the pseudo-observation associated to the prior Dirichlet Process.</span>
@@ -279,9 +291,7 @@
             <span class="p">{</span><span class="n">left_str</span><span class="p">:</span> <span class="n">left_prob</span><span class="p">,</span> <span class="n">rope_str</span><span class="p">:</span> <span class="n">rope_prob</span><span class="p">,</span> <span class="n">right_str</span><span class="p">:</span> <span class="n">right_prob</span><span class="p">},</span>
             <span class="kc">True</span><span class="p">,</span>
             <span class="n">posterior_distribution</span>
-        <span class="p">)</span></div>
-</div>
-
+        <span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -290,7 +300,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

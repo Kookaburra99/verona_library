@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,9 +9,10 @@
           <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="../../../_static/documentation_options.js?v=8d563738"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -90,7 +91,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -134,12 +153,10 @@
 <span class="kn">from</span> <span class="nn">verona.data.utils</span> <span class="kn">import</span> <span class="n">XesFields</span>
 
 
-<div class="viewcode-block" id="make_holdout">
-<a class="viewcode-back" href="../../../verona.data.html#verona.data.split.make_holdout">[docs]</a>
-<span class="k">def</span> <span class="nf">make_holdout</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">test_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+<div class="viewcode-block" id="make_holdout"><a class="viewcode-back" href="../../../verona.data.html#verona.data.split.make_holdout">[docs]</a><span class="k">def</span> <span class="nf">make_holdout</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">test_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
                  <span class="n">val_from_train</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
                  <span class="n">case_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">XesFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split a given dataset following a holdout scheme (train-validation-test).</span>
 
 <span class="sd">    Parameters:</span>
@@ -156,7 +173,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train,</span>
-<span class="sd">            validation, and test splits.</span>
+<span class="sd">        validation, and test splits.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If an invalid value for test_size or val_from_train is provided.</span>
@@ -164,12 +181,12 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; train_df, val_df, test_df = make_holdout(&#39;path/to/dataset.csv&#39;, test_size=0.3, val_from_train=0.1)</span>
 
-<span class="sd">    Notes:</span>
-<span class="sd">        The default values for test_size and val_from_train are based on the experimental setup from the first version</span>
-<span class="sd">        of [1]</span>
+<span class="sd">    Note:</span>
+<span class="sd">        The default values for **test_size** and **val_from_train** are based on the experimental setup from the first</span>
+<span class="sd">        version of [1].</span>
 
 <span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:</span>
-<span class="sd">            Review and Benchmark. https://arxiv.org/abs/2009.13251v1.</span>
+<span class="sd">        Review and Benchmark. https://arxiv.org/abs/2009.13251v1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
@@ -230,13 +247,10 @@
     <span class="k">return</span> <span class="n">train_df</span><span class="p">,</span> <span class="n">val_df</span><span class="p">,</span> <span class="n">test_df</span></div>
 
 
-
-<div class="viewcode-block" id="make_crossvalidation">
-<a class="viewcode-back" href="../../../verona.data.html#verona.data.split.make_crossvalidation">[docs]</a>
-<span class="k">def</span> <span class="nf">make_crossvalidation</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cv_folds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<div class="viewcode-block" id="make_crossvalidation"><a class="viewcode-back" href="../../../verona.data.html#verona.data.split.make_crossvalidation">[docs]</a><span class="k">def</span> <span class="nf">make_crossvalidation</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cv_folds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
                          <span class="n">val_from_train</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">case_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">XesFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                          <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split a given dataset following a cross-validation scheme.</span>
 
 <span class="sd">    Parameters:</span>
@@ -253,7 +267,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of</span>
-<span class="sd">            DataFrames for the train, validation, and test splits.</span>
+<span class="sd">        DataFrames for the train, validation, and test splits.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If an invalid value for cv_folds or val_from_train is provided.</span>
@@ -261,11 +275,12 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; splits_paths = make_crossvalidation(&#39;path/to/dataset.csv&#39;)</span>
 
-<span class="sd">    References:</span>
-<span class="sd">        The default values for cv_folds, val_from_train, and seed reproduce the experimental setup from [1]</span>
+<span class="sd">    Tip:</span>
+<span class="sd">        Leaving the default values for **cv_folds**, **val_from_train** and **seed** reproduces the expermiental</span>
+<span class="sd">        setup of [1].</span>
 
 <span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:</span>
-<span class="sd">            Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</span>
+<span class="sd">        Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
@@ -334,7 +349,6 @@
     <span class="k">return</span> <span class="n">train_folds</span><span class="p">,</span> <span class="n">val_folds</span><span class="p">,</span> <span class="n">test_folds</span></div>
 
 
-
 <span class="k">def</span> <span class="nf">__save_split_to_file</span><span class="p">(</span><span class="n">cases</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                          <span class="n">split</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">fold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="n">df_split</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">cases</span><span class="p">)</span>
@@ -357,7 +371,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

@@ -26,6 +26,7 @@ Contents
 
    overview
    installation
+   architecture
    api
    citation
 

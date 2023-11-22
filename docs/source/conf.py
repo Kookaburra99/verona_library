@@ -40,6 +40,10 @@ extensions = [
 
 bibtex_bibfiles = ['biblio.bib']
 
+autodoc_mock_imports = ["pm4py", "cmdstanpy"]
+
+napoleon_use_admonition_for_notes = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

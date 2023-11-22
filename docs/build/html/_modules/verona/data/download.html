@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,9 +9,10 @@
           <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="../../../_static/documentation_options.js?v=8d563738"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -90,7 +91,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -245,10 +264,8 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="get_available_datasets">
-<a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_available_datasets">[docs]</a>
-<span class="k">def</span> <span class="nf">get_available_datasets</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="get_available_datasets"><a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_available_datasets">[docs]</a><span class="k">def</span> <span class="nf">get_available_datasets</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display the list of available datasets from the official repository and return their identifiers.</span>
 
 <span class="sd">    This function prints out the list of available datasets along with their names, as defined in the</span>
@@ -271,12 +288,9 @@
     <span class="k">return</span> <span class="n">dataset_ids_list</span></div>
 
 
-
-<div class="viewcode-block" id="get_dataset">
-<a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_dataset">[docs]</a>
-<span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="get_dataset"><a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_dataset">[docs]</a><span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">extension</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;xes&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Download a specified dataset from the official repository and store it in a designated path.</span>
 
 <span class="sd">    This function downloads the dataset in either &#39;xes.gz&#39; or &#39;csv&#39; format, based on the &#39;extension&#39; argument.</span>
@@ -313,7 +327,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Wrong dataset identifier: </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> is not available. &#39;</span>
                          <span class="sa">f</span><span class="s1">&#39;Check the list of available datasets with get_available_datasets()&#39;</span><span class="p">)</span></div>
-
 
 
 <span class="k">def</span> <span class="nf">__download_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -360,7 +373,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

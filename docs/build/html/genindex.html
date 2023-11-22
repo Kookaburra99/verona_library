@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,9 +10,10 @@
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="_static/documentation_options.js?v=8d563738"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -91,7 +92,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -138,7 +157,6 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
@@ -341,10 +359,6 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE.HIERARCHICAL_TEST">HIERARCHICAL_TEST (verona.evaluation.stattests.stan_codes.STAN_CODE attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest">HierarchicalBayesianTest (class in verona.evaluation.stattests.hierarchical)</a>
 </li>
   </ul></td>
@@ -421,8 +435,6 @@
 </li>
         <li><a href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.signed_rank">verona.evaluation.stattests.signed_rank</a>
 </li>
-        <li><a href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.stan_codes">verona.evaluation.stattests.stan_codes</a>
-</li>
         <li><a href="verona.visualization.html#module-verona.visualization.metrics">verona.visualization.metrics</a>
 </li>
         <li><a href="verona.visualization.html#module-verona.visualization.stattests">verona.visualization.stattests</a>
@@ -456,20 +468,16 @@
       </ul></li>
       <li><a href="verona.data.html#verona.data.results.MetricValue.parent">parent (verona.data.results.MetricValue attribute)</a>
 </li>
-      <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST">PLACKETT_LUCE_TEST (verona.evaluation.stattests.stan_codes.STAN_CODE attribute)</a>
-</li>
-      <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST_V3">PLACKETT_LUCE_TEST_V3 (verona.evaluation.stattests.stan_codes.STAN_CODE attribute)</a>
-</li>
       <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.plackettluce.PlackettLuceRanking">PlackettLuceRanking (class in verona.evaluation.stattests.plackettluce)</a>
 </li>
       <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.plackettluce.PlackettLuceResults">PlackettLuceResults (class in verona.evaluation.stattests.plackettluce)</a>
 </li>
       <li><a href="verona.visualization.html#verona.visualization.metrics.plot_metric_by_prefixes_len">plot_metric_by_prefixes_len() (in module verona.visualization.metrics)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="verona.visualization.html#verona.visualization.stattests.plot_posteriors_plackett">plot_posteriors_plackett() (in module verona.visualization.stattests)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior">posterior (verona.evaluation.stattests.correlated_t_test.BayesianTTestResult attribute)</a>
 
       <ul>
@@ -516,14 +524,6 @@
         <li><a href="verona.evaluation.stattests.html#id1">(verona.evaluation.stattests.signed_rank.BayesianSignedRankTest method)</a>, <a href="verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE">STAN_CODE (class in verona.evaluation.stattests.stan_codes)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -653,13 +653,6 @@
 </li>
       </ul></li>
       <li>
-    verona.evaluation.stattests.stan_codes
-
-      <ul>
-        <li><a href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.stan_codes">module</a>
-</li>
-      </ul></li>
-      <li>
     verona.visualization.metrics
 
       <ul>
@@ -712,7 +705,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

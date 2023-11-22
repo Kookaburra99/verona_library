@@ -29,7 +29,7 @@ def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test
 
     Returns:
         Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train,
-            validation, and test splits.
+        validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for test_size or val_from_train is provided.
@@ -37,12 +37,12 @@ def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test
     Examples:
         >>> train_df, val_df, test_df = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
 
-    Notes:
-        The default values for test_size and val_from_train are based on the experimental setup from the first version
-        of [1]
+    Note:
+        The default values for **test_size** and **val_from_train** are based on the experimental setup from the first
+        version of [1].
 
         [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:
-            Review and Benchmark. https://arxiv.org/abs/2009.13251v1.
+        Review and Benchmark. https://arxiv.org/abs/2009.13251v1.
     """
 
     if type(dataset) == str:
@@ -103,7 +103,7 @@ def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test
     return train_df, val_df, test_df
 
 
-def make_crossvalidation(dataset: Union[str | pd.DataFrame], store_path: str = None, cv_folds: int = 5,
+def make_crossvalidation(dataset: Union[str, pd.DataFrame], store_path: str = None, cv_folds: int = 5,
                          val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN,
                          seed: int = 42) -> Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]:
     """
@@ -123,7 +123,7 @@ def make_crossvalidation(dataset: Union[str | pd.DataFrame], store_path: str = N
 
     Returns:
         Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of
-            DataFrames for the train, validation, and test splits.
+        DataFrames for the train, validation, and test splits.
 
     Raises:
         ValueError: If an invalid value for cv_folds or val_from_train is provided.
@@ -131,11 +131,12 @@ def make_crossvalidation(dataset: Union[str | pd.DataFrame], store_path: str = N
     Examples:
         >>> splits_paths = make_crossvalidation('path/to/dataset.csv')
 
-    References:
-        The default values for cv_folds, val_from_train, and seed reproduce the experimental setup from [1]
+    Tip:
+        Leaving the default values for **cv_folds**, **val_from_train** and **seed** reproduces the expermiental
+        setup of [1].
 
         [1] Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:
-            Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
+        Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807
     """
 
     if type(dataset) == str:

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
       <title>verona.evaluation.stattests package</title>
     
@@ -10,9 +10,10 @@
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="_static/documentation_options.js?v=8d563738"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -93,7 +94,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="citation.html" class="reference internal ">Cite the paper</a>
             
 
             
@@ -136,21 +155,21 @@
           <div class="content" role="main" v-pre>
             
   <section id="verona-evaluation-stattests-package">
-<h1>verona.evaluation.stattests package<a class="headerlink" href="#verona-evaluation-stattests-package" title="Link to this heading">¶</a></h1>
+<h1>verona.evaluation.stattests package<a class="headerlink" href="#verona-evaluation-stattests-package" title="Permalink to this headline">¶</a></h1>
 <section id="module-verona.evaluation.stattests.correlated_t_test">
-<span id="verona-evaluation-stattests-correlated-t-test-module"></span><h2>verona.evaluation.stattests.correlated_t_test module<a class="headerlink" href="#module-verona.evaluation.stattests.correlated_t_test" title="Link to this heading">¶</a></h2>
+<span id="verona-evaluation-stattests-correlated-t-test-module"></span><h2>verona.evaluation.stattests.correlated_t_test module<a class="headerlink" href="#module-verona.evaluation.stattests.correlated_t_test" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.correlated_t_test.</span></span><span class="sig-name descname"><span class="pre">BayesianTTestResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posterior_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#BayesianTTestResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.correlated_t_test.</span></span><span class="sig-name descname"><span class="pre">BayesianTTestResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posterior_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#BayesianTTestResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents the results of a Bayesian Correlated t-test.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior_probabilities">
-<span class="sig-name descname"><span class="pre">posterior_probabilities</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior_probabilities" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">posterior_probabilities</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior_probabilities" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary containing the probabilities
 for the left, rope, and right regions of the posterior distribution.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -158,11 +177,11 @@ for the left, rope, and right regions of the posterior distribution.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.approximated">
-<span class="sig-name descname"><span class="pre">approximated</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.approximated" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">approximated</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.approximated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates if the posterior distribution is approximated
 (True if approximated, e.g., by MCMC sampling, and False if exact).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -170,11 +189,11 @@ for the left, rope, and right regions of the posterior distribution.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.parameters" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>The parameters used for running the Bayesian t-test,
 specifically ‘rho’ and ‘rope’.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -182,11 +201,11 @@ specifically ‘rho’ and ‘rope’.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior">
-<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.posterior" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary containing the density, cumulative, and
 quantile functions for the posterior distribution.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -194,11 +213,11 @@ quantile functions for the posterior distribution.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.additional">
-<span class="sig-name descname"><span class="pre">additional</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.additional" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">additional</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult.additional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Additional details about the posterior distribution,
 such as degrees of freedom, mean, and standard deviation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -208,7 +227,7 @@ such as degrees of freedom, mean, and standard deviation.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.correlated_t_test.</span></span><span class="sig-name descname"><span class="pre">CorrelatedBayesianTTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.correlated_t_test.</span></span><span class="sig-name descname"><span class="pre">CorrelatedBayesianTTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Bayesian equivalent to the correlated t-test.</p>
 <p>This class offers a Bayesian alternative to the traditional frequentist correlated t-test,
@@ -220,10 +239,10 @@ which provides not just point estimates, but also credible intervals and posteri
 that can more informatively capture the uncertainty around the true parameter values.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.x" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>First sample.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like</p>
 </dd>
 </dl>
@@ -231,10 +250,10 @@ that can more informatively capture the uncertainty around the true parameter va
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Second sample. If not provided, x is assumed to be the difference. approaches (array-like):</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like</p>
 </dd>
 </dl>
@@ -247,10 +266,10 @@ that can more informatively capture the uncertainty around the true parameter va
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.approaches">
-<span class="sig-name descname"><span class="pre">approaches</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.approaches" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">approaches</span></span><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.approaches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Names of the two methods or approaches to be compared.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like</p>
 </dd>
 </dl>
@@ -258,7 +277,7 @@ that can more informatively capture the uncertainty around the true parameter va
 
 <dl class="py method">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.run" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the Bayesian t-test.</p>
 </dd></dl>
 
@@ -275,21 +294,21 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult" title="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult"><span class="pre">BayesianTTestResult</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult" title="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult"><span class="pre">verona.evaluation.stattests.correlated_t_test.BayesianTTestResult</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/correlated_t_test.html#CorrelatedBayesianTTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the Bayesian t-test.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rho</strong> (<em>float</em><em>, </em><em>optional</em>) – Correlation factor between the paired samples. Defaults to 0.2.</p></li>
-<li><p><strong>independent</strong> (<em>- A rho</em><em> of </em><em>0 implies that the paired samples are entirely</em>) – </p></li>
+<li><p><strong>independent</strong> (<em>- A rho of 0 implies that the paired samples are entirely</em>) – </p></li>
 <li><p><strong>into</strong> (<em>essentially converting the test</em>) – </p></li>
 <li><p><strong>t-test.</strong> (<em>a standard Bayesian</em>) – </p></li>
-<li><p><strong>correlated</strong> (<em>- A rho</em><em> of </em><em>1 implies that the paired samples are perfectly</em>) – </p></li>
+<li><p><strong>correlated</strong> (<em>- A rho of 1 implies that the paired samples are perfectly</em>) – </p></li>
 <li><p><strong>trivial.</strong> (<em>making the test</em>) – </p></li>
-<li><p><strong>paired</strong> (<em>- Values between 0 and 1 adjust the test to account for the degree</em><em> of </em><em>correlation between the</em>) – </p></li>
+<li><p><strong>paired</strong> (<em>- Values between 0 and 1 adjust the test to account for the degree of correlation between the</em>) – </p></li>
 <li><p><strong>instance</strong> (<em>samples. For</em>) – </p></li>
-<li><p><strong>learning</strong> (<em>in the context</em><em> of </em><em>machine</em>) – </p></li>
-<li><p><strong>test</strong> (<em>rho could be set to the proportion</em><em> of </em><em>the</em>) – </p></li>
+<li><p><strong>learning</strong> (<em>in the context of machine</em>) – </p></li>
+<li><p><strong>test</strong> (<em>rho could be set to the proportion of the</em>) – </p></li>
 <li><p><strong>k-fold</strong> (<em>set size to the total dataset size to account for data reuse across different folds in</em>) – </p></li>
 <li><p><strong>cross-validation.</strong> – </p></li>
 <li><p><strong>rope</strong> (<em>list</em><em>, </em><em>optional</em>) – Interval for the difference considered as “irrelevant” or “equivalent”. Defaults to</p></li>
@@ -297,7 +316,7 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 <li><p><strong>1</strong><strong>]</strong><strong>.</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>An instance of the BayesianTTestResult class that contains the following:</p>
 <ul class="simple">
 <li><p><cite>posterior_probabilities</cite>: Probabilities for the left, rope, and right regions.</p></li>
@@ -308,7 +327,7 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 </ul>
 </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult" title="verona.evaluation.stattests.correlated_t_test.BayesianTTestResult">BayesianTTestResult</a></p>
 </dd>
 </dl>
@@ -322,25 +341,25 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 </section>
 <section id="module-verona.evaluation.stattests.hierarchical">
-<span id="verona-evaluation-stattests-hierarchical-module"></span><h2>verona.evaluation.stattests.hierarchical module<a class="headerlink" href="#module-verona.evaluation.stattests.hierarchical" title="Link to this heading">¶</a></h2>
+<span id="verona-evaluation-stattests-hierarchical-module"></span><h2>verona.evaluation.stattests.hierarchical module<a class="headerlink" href="#module-verona.evaluation.stattests.hierarchical" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.hierarchical.</span></span><span class="sig-name descname"><span class="pre">BayesianHierarchicalResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_wins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_sign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#BayesianHierarchicalResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.hierarchical.</span></span><span class="sig-name descname"><span class="pre">BayesianHierarchicalResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_wins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_sign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#BayesianHierarchicalResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.hierarchical.</span></span><span class="sig-name descname"><span class="pre">HierarchicalBayesianTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.hierarchical.</span></span><span class="sig-name descname"><span class="pre">HierarchicalBayesianTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.pt_scaled">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pt_scaled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest.pt_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.pt_scaled" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pt_scaled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest.pt_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.pt_scaled" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function emulates the function pt.scaled from the “metRology” R package. That function computes the
 cumulative distribution function of a T-Student for a given number of degrees of freedom (df). This computation
 is scaled and shifted by mean, and sd, respectively.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>q</strong> – quantile</p></li>
 <li><p><strong>df</strong> – degrees of freedom</p></li>
@@ -348,7 +367,7 @@ is scaled and shifted by mean, and sd, respectively.</p>
 <li><p><strong>sd</strong> – shift (standard deviation)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Cumulative distribution function shifted and scaled.</p>
 </dd>
 </dl>
@@ -356,7 +375,7 @@ is scaled and shifted by mean, and sd, respectively.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d0_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d0_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults" title="verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults"><span class="pre">BayesianHierarchicalResults</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.run" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-</span> <span class="pre">1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d0_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d0_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults" title="verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults"><span class="pre">verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/hierarchical.html#HierarchicalBayesianTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a Bayesian hierarchical model tailored for comparing the performance of two machine learning algorithms
 across multiple datasets based on cross-validation results.</p>
 <p>This model employs a two-level hierarchical structure to account for both dataset-specific variations and global
@@ -369,17 +388,17 @@ frequentist methods which may not fully capture the uncertainty in the metrics.<
 <p>This implementation is ported from the Bayesian hierarchical model implemented in [2], which provides posterior
 probabilities for a richer interpretation of the comparison.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rope</strong> (<em>List</em><em>, </em><em>default=</em><em>[</em><em>-1</em><em>, </em><em>1</em><em>]</em>) – Region of Practical Equivalence, defines the interval within which performance</p></li>
 <li><p><strong>&quot;insignificant&quot;.</strong> (<em>differences are considered &quot;irrelevant&quot; or</em>) – </p></li>
 <li><p><strong>rho</strong> (<em>float</em><em>, </em><em>default=0.2</em>) – A hyperparameter representing the correlation factor across datasets. A higher</p></li>
-<li><p><strong>performance.</strong> (<em>value indicates stronger correlation between datasets in terms</em><em> of </em><em>algorithm</em>) – </p></li>
+<li><p><strong>performance.</strong> (<em>value indicates stronger correlation between datasets in terms of algorithm</em>) – </p></li>
 <li><p><strong>n_chains</strong> (<em>int</em><em>, </em><em>default=4</em>) – The number of Markov Chains to be used in the simulation. Half of the simulations</p></li>
 <li><p><strong>warm-up.</strong> (<em>are used for</em>) – </p></li>
 <li><p><strong>num_samples</strong> (<em>int</em><em>, </em><em>default=300000</em>) – The total number of samples (per chain) used for estimating the posterior</p></li>
 <li><p><strong>default</strong> (<em>distribution. By</em>) – </p></li>
-<li><p><strong>phase.</strong> (<em>half</em><em> of </em><em>these samples are used for the burn-in</em>) – </p></li>
+<li><p><strong>phase.</strong> (<em>half of these samples are used for the burn-in</em>) – </p></li>
 <li><p><strong>std_upper</strong> (<em>int</em><em>, </em><em>default=1000</em>) – A scaling factor that sets the upper bounds for the hyperparameters sigma_i</p></li>
 <li><p><strong>sigma_0</strong> (<em>and</em>) – </p></li>
 <li><p><strong>variability</strong> (<em>which represent dataset-specific and global</em>) – </p></li>
@@ -398,7 +417,8 @@ probabilities for a richer interpretation of the comparison.</p>
 </ul>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
 <p>The results includes the typical information relative to the three areas of the posterior density (left,
 right and rope probabilities), both global and per dataset (in the additional information). Also, the
 simulation results are included.</p>
@@ -409,8 +429,9 @@ should not modify them unless you know what you are doing.</p>
 Multiple Classifiers Through Bayesian Analysis. emph{Journal of Machine Learning Research}, 18, 1-36.
 [2] Borja Calvo and Guzmán Santafé (2016) scmamp: Statistical Comparison of Multiple Algorithms in Multiple
 Problems. <em>The R Journal</em>, 8(1), 248-256. [DOI: 10.32614/RJ-2016-017](<a class="reference external" href="https://doi.org/10.32614/RJ-2016-017">https://doi.org/10.32614/RJ-2016-017</a>)</p>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>BayesianHierarchicalResults</dt><dd><p>An object containing the following attributes:
 - <cite>approximated</cite> : Boolean value that indicates whether the posterior distribution is approximated
@@ -450,20 +471,20 @@ rope).
 
 </section>
 <section id="module-verona.evaluation.stattests.plackettluce">
-<span id="verona-evaluation-stattests-plackettluce-module"></span><h2>verona.evaluation.stattests.plackettluce module<a class="headerlink" href="#module-verona.evaluation.stattests.plackettluce" title="Link to this heading">¶</a></h2>
+<span id="verona-evaluation-stattests-plackettluce-module"></span><h2>verona.evaluation.stattests.plackettluce module<a class="headerlink" href="#module-verona.evaluation.stattests.plackettluce" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceRanking">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.plackettluce.</span></span><span class="sig-name descname"><span class="pre">PlackettLuceRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceRanking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceRanking" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.plackettluce.</span></span><span class="sig-name descname"><span class="pre">PlackettLuceRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceRanking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceRanking" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceRanking.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'max'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults" title="verona.evaluation.stattests.plackettluce.PlackettLuceResults"><span class="pre">PlackettLuceResults</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceRanking.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceRanking.run" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'max'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults" title="verona.evaluation.stattests.plackettluce.PlackettLuceResults"><span class="pre">verona.evaluation.stattests.plackettluce.PlackettLuceResults</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceRanking.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceRanking.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute the Plackett-Luce ranking model to estimate the rank and probabilities of each algorithm
 based on their performance metrics.</p>
 <p>The method employs Markov Chain Monte Carlo (MCMC) sampling, leveraging the STAN backend,
 to estimate the posterior distribution of the rank and probabilities.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n_chains</strong> – number of chains used ot perform the sampling</p></li>
 <li><p><strong>num_samples</strong> – number of samples to considerate in the MCMC</p></li>
@@ -471,12 +492,12 @@ to estimate the posterior distribution of the rank and probabilities.</p>
 <li><p><strong>algorithm.</strong> (<em>the better the</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>expected probability of each algorithm having the best ranking
 expected_rank : expected rank of each algorithm
 posterior : posterior</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>expected_prob</p>
 </dd>
 </dl>
@@ -500,7 +521,7 @@ posterior : posterior</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceResults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.plackettluce.</span></span><span class="sig-name descname"><span class="pre">PlackettLuceResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.plackettluce.</span></span><span class="sig-name descname"><span class="pre">PlackettLuceResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/plackettluce.html#PlackettLuceResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Encapsulates the results from running the Plackett-Luce ranking model.</p>
 <p>This class serves as a container for the results obtained after fitting the Plackett-Luce
@@ -508,11 +529,11 @@ model using MCMC sampling. It provides structured access to important quantities
 the expected probabilities, expected ranks, and the posterior distributions of these metrics.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_prob">
-<span class="sig-name descname"><span class="pre">expected_prob</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_prob" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">expected_prob</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_prob" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pandas Series object representing the expected probabilities for each algorithm.
 It quantifies the estimated likelihood that each algorithm is the best among the ones compared.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pd.Series</p>
 </dd>
 </dl>
@@ -520,11 +541,11 @@ It quantifies the estimated likelihood that each algorithm is the best among the
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_rank">
-<span class="sig-name descname"><span class="pre">expected_rank</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_rank" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">expected_rank</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.expected_rank" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pandas Series object representing the expected ranks for each algorithm.
 The rank is a numerical ordering where lower values indicate better performance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pd.Series</p>
 </dd>
 </dl>
@@ -532,12 +553,12 @@ The rank is a numerical ordering where lower values indicate better performance.
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.plackettluce.PlackettLuceResults.posterior">
-<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.posterior" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.plackettluce.PlackettLuceResults.posterior" title="Permalink to this definition">¶</a></dt>
 <dd><p>A container (e.g., dictionary) that holds the posterior distributions for the rank
 and probabilities of each algorithm. These distributions capture the uncertainties
 in the point estimates and are essential for Bayesian inference.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict or similar container</p>
 </dd>
 </dl>
@@ -547,10 +568,10 @@ in the point estimates and are essential for Bayesian inference.</p>
 
 </section>
 <section id="module-verona.evaluation.stattests.signed_rank">
-<span id="verona-evaluation-stattests-signed-rank-module"></span><h2>verona.evaluation.stattests.signed_rank module<a class="headerlink" href="#module-verona.evaluation.stattests.signed_rank" title="Link to this heading">¶</a></h2>
+<span id="verona-evaluation-stattests-signed-rank-module"></span><h2>verona.evaluation.stattests.signed_rank module<a class="headerlink" href="#module-verona.evaluation.stattests.signed_rank" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.signed_rank.</span></span><span class="sig-name descname"><span class="pre">BayesianSignedRankTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.signed_rank.</span></span><span class="sig-name descname"><span class="pre">BayesianSignedRankTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approaches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Bayesian equivalent to Wilcoxon’s signed-rank test.</p>
 <p>This function implements the Bayesian version of the signed-rank test as
@@ -559,10 +580,10 @@ difference between two related samples (or one sample against a zero null hypoth
 and provides probabilities for three regions: left, rope, and right.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.x" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>First sample.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like</p>
 </dd>
 </dl>
@@ -570,10 +591,10 @@ and provides probabilities for three regions: left, rope, and right.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Second sample. If not provided, x is assumed to be the difference.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like, optional</p>
 </dd>
 </dl>
@@ -581,10 +602,10 @@ and provides probabilities for three regions: left, rope, and right.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.approaches">
-<span class="sig-name descname"><span class="pre">approaches</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.approaches" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">approaches</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.approaches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Names of the two methods or approaches to be compared.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>array-like</p>
 </dd>
 </dl>
@@ -592,7 +613,7 @@ and provides probabilities for three regions: left, rope, and right.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the Bayesian test.</p>
 </dd></dl>
 
@@ -602,9 +623,9 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult" title="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult"><span class="pre">BayesianSignedRankTestResult</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult" title="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult"><span class="pre">verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult</span></a></span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTest.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>s</strong> (<em>float</em><em>, </em><em>optional</em>) – Scale parameter of the prior Dirichlet Process. Defaults to 0.5.</p></li>
 <li><p><strong>z0</strong> (<em>float</em><em>, </em><em>optional</em>) – Position of the pseudo-observation associated to the prior Dirichlet Process.</p></li>
@@ -614,7 +635,7 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 <li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Optional parameter used to fix the random seed. Defaults to None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl>
 <dt>A dictionary containing:</dt><dd><ul class="simple">
 <li><p>method: a string with the name of the method used</p></li>
@@ -628,7 +649,7 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -642,15 +663,15 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 <dl class="py class">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.signed_rank.</span></span><span class="sig-name descname"><span class="pre">BayesianSignedRankTestResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posterior_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTestResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.signed_rank.</span></span><span class="sig-name descname"><span class="pre">BayesianSignedRankTestResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posterior_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posterior</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/stattests/signed_rank.html#BayesianSignedRankTestResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents the results of a Bayesian Signed Rank Test.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.method">
-<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.method" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.method" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the statistical method used.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -658,10 +679,10 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior_probabilities">
-<span class="sig-name descname"><span class="pre">posterior_probabilities</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior_probabilities" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">posterior_probabilities</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior_probabilities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probabilities for the left, rope, and right regions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -669,10 +690,10 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.approximated">
-<span class="sig-name descname"><span class="pre">approximated</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.approximated" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">approximated</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.approximated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the posterior distribution is approximated.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -680,10 +701,10 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.parameters" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters used in the Bayesian Signed Rank Test.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -691,39 +712,14 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior">
-<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult.posterior" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sampled probabilities for left, rope, and right areas.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-verona.evaluation.stattests.stan_codes">
-<span id="verona-evaluation-stattests-stan-codes-module"></span><h2>verona.evaluation.stattests.stan_codes module<a class="headerlink" href="#module-verona.evaluation.stattests.stan_codes" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="verona.evaluation.stattests.stan_codes.STAN_CODE">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">verona.evaluation.stattests.stan_codes.</span></span><span class="sig-name descname"><span class="pre">STAN_CODE</span></span><a class="reference internal" href="_modules/verona/evaluation/stattests/stan_codes.html#STAN_CODE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.stattests.stan_codes.STAN_CODE" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>STAN codes for the different statistical tests directly ported from scmamp.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="verona.evaluation.stattests.stan_codes.STAN_CODE.HIERARCHICAL_TEST">
-<span class="sig-name descname"><span class="pre">HIERARCHICAL_TEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Bound</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">delta_0</span> <span class="pre">parameter\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">deltaLow;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">deltaHi;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//bounds</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">sigma</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">higher-level</span> <span class="pre">distribution\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">std0Low;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">std0Hi;</span> <span class="pre">\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//bounds</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">domain</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">sigma</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">stdLow;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">stdHi;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//number</span> <span class="pre">of</span> <span class="pre">results</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set.</span> <span class="pre">Typically</span> <span class="pre">100</span> <span class="pre">(10</span> <span class="pre">runs</span> <span class="pre">of</span> <span class="pre">10-folds</span> <span class="pre">cv)\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=2&gt;</span> <span class="pre">Nsamples;</span> <span class="pre">\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//number</span> <span class="pre">of</span> <span class="pre">data</span> <span class="pre">sets\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=1&gt;</span> <span class="pre">q;</span> <span class="pre">\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//difference</span> <span class="pre">of</span> <span class="pre">accuracy</span> <span class="pre">between</span> <span class="pre">the</span> <span class="pre">two</span> <span class="pre">classifier,</span> <span class="pre">on</span> <span class="pre">each</span> <span class="pre">fold</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">matrix[q,Nsamples]</span> <span class="pre">x;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//correlation</span> <span class="pre">(typically,</span> <span class="pre">for</span> <span class="pre">cross</span> <span class="pre">validation,</span> <span class="pre">1/(number</span> <span class="pre">of</span> <span class="pre">folds))\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">rho;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">upper</span> <span class="pre">and</span> <span class="pre">lower</span> <span class="pre">bound</span> <span class="pre">for</span> <span class="pre">alpha</span> <span class="pre">and</span> <span class="pre">beta,</span> <span class="pre">which</span> <span class="pre">are</span> <span class="pre">the</span> <span class="pre">parameters</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Gamma</span> <span class="pre">distribution\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">used</span> <span class="pre">as</span> <span class="pre">a</span> <span class="pre">prior</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">degress</span> <span class="pre">of</span> <span class="pre">freedom.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">As</span> <span class="pre">a</span> <span class="pre">default</span> <span class="pre">we</span> <span class="pre">suggest:</span> <span class="pre">lowerAlpha=0.5;</span> <span class="pre">upperAlpha=</span> <span class="pre">5;</span> <span class="pre">lowerBeta=0.05;</span> <span class="pre">upperBeta</span> <span class="pre">=</span> <span class="pre">.15\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">upperAlpha;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">lowerAlpha;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">upperBeta;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">lowerBeta;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n\n\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//vector</span> <span class="pre">of</span> <span class="pre">1s</span> <span class="pre">appearing</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">likelihood</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[Nsamples]</span> <span class="pre">H;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//vector</span> <span class="pre">of</span> <span class="pre">0s:</span> <span class="pre">the</span> <span class="pre">mean</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">mvn</span> <span class="pre">noise</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[Nsamples]</span> <span class="pre">zeroMeanVec;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*</span> <span class="pre">M</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">correlation</span> <span class="pre">matrix</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">mvn</span> <span class="pre">noise.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">invM</span> <span class="pre">is</span> <span class="pre">its</span> <span class="pre">inverse,</span> <span class="pre">detM</span> <span class="pre">its</span> <span class="pre">determinant</span> <span class="pre">*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">matrix[Nsamples,Nsamples]</span> <span class="pre">invM;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">detM;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//The</span> <span class="pre">determinant</span> <span class="pre">of</span> <span class="pre">M</span> <span class="pre">is</span> <span class="pre">analytically</span> <span class="pre">known\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">detM</span> <span class="pre">=</span> <span class="pre">(1+(Nsamples-1)*rho)*(1-rho)^(Nsamples-1);\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//build</span> <span class="pre">H</span> <span class="pre">and</span> <span class="pre">invM.</span> <span class="pre">They</span> <span class="pre">do</span> <span class="pre">not</span> <span class="pre">depend</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">data.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(j</span> <span class="pre">in</span> <span class="pre">1:Nsamples){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">zeroMeanVec[j]</span> <span class="pre">=</span> <span class="pre">0;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">H[j]</span> <span class="pre">=</span> <span class="pre">1;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">1:Nsamples){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">if</span> <span class="pre">(j==i)\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">invM[j,i]</span> <span class="pre">=</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">(Nsamples-2)*rho)*pow((1-rho),Nsamples-2);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">else\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">invM[j,i]</span> <span class="pre">=</span> <span class="pre">-rho</span> <span class="pre">*</span> <span class="pre">pow((1-rho),Nsamples-2);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*at</span> <span class="pre">this</span> <span class="pre">point</span> <span class="pre">invM</span> <span class="pre">contains</span> <span class="pre">the</span> <span class="pre">adjugate</span> <span class="pre">of</span> <span class="pre">M.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">We</span>&#160; <span class="pre">divide</span> <span class="pre">it</span> <span class="pre">by</span> <span class="pre">det(M)</span> <span class="pre">to</span> <span class="pre">obtain</span> <span class="pre">the</span> <span class="pre">inverse</span> <span class="pre">of</span> <span class="pre">M*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">invM</span> <span class="pre">=</span> <span class="pre">invM</span> <span class="pre">/</span> <span class="pre">detM;\n</span>&#160;&#160;&#160; <span class="pre">}\n\n\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">parameters</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//mean</span> <span class="pre">of</span> <span class="pre">the</span>&#160; <span class="pre">hyperprior</span> <span class="pre">from</span> <span class="pre">which</span> <span class="pre">we</span> <span class="pre">sample</span> <span class="pre">the</span> <span class="pre">delta_i\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=deltaLow,</span> <span class="pre">upper=deltaHi&gt;</span> <span class="pre">delta0;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//std</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">hyperprior</span> <span class="pre">from</span> <span class="pre">which</span> <span class="pre">we</span> <span class="pre">sample</span> <span class="pre">the</span> <span class="pre">delta_i\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=std0Low,</span> <span class="pre">upper=std0Hi&gt;</span> <span class="pre">std0;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//delta_i</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set:</span> <span class="pre">vector</span> <span class="pre">of</span> <span class="pre">lenght</span> <span class="pre">q.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[q]</span> <span class="pre">delta;</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//sigma</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set:</span> <span class="pre">:</span> <span class="pre">vector</span> <span class="pre">of</span> <span class="pre">lenght</span> <span class="pre">q.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector&lt;lower=stdLow,</span> <span class="pre">upper=stdHi&gt;[q]</span> <span class="pre">sigma;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*</span> <span class="pre">the</span> <span class="pre">domain</span> <span class="pre">of</span> <span class="pre">(nu</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">starts</span> <span class="pre">from</span> <span class="pre">0\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">and</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">given</span> <span class="pre">a</span> <span class="pre">gamma</span> <span class="pre">prior*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=0&gt;</span> <span class="pre">nuMinusOne;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//parameters</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Gamma</span> <span class="pre">prior</span> <span class="pre">on</span> <span class="pre">nuMinusOne\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=lowerAlpha,</span> <span class="pre">upper=upperAlpha&gt;</span> <span class="pre">gammaAlpha;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=lowerBeta,</span> <span class="pre">upper=upperBeta&gt;</span> <span class="pre">gammaBeta;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">parameters</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//degrees</span> <span class="pre">of</span> <span class="pre">freedom\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real&lt;lower=1&gt;</span> <span class="pre">nu</span> <span class="pre">;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*difference</span> <span class="pre">between</span> <span class="pre">the</span> <span class="pre">data</span> <span class="pre">(x</span> <span class="pre">matrix)</span> <span class="pre">and</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">the</span> <span class="pre">vector</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">q</span> <span class="pre">means.*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">matrix[q,Nsamples]</span> <span class="pre">diff;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[q]</span> <span class="pre">diagQuad;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*vector</span> <span class="pre">of</span> <span class="pre">length</span> <span class="pre">q:</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span> <span class="pre">over</span> <span class="pre">the</span> <span class="pre">variance</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[q]</span> <span class="pre">oneOverSigma2;</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[q]</span> <span class="pre">logDetSigma;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[q]</span> <span class="pre">logLik;\n</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//degrees</span> <span class="pre">of</span> <span class="pre">freedom\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">nu</span> <span class="pre">=</span> <span class="pre">nuMinusOne</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//1</span> <span class="pre">over</span> <span class="pre">the</span> <span class="pre">variance</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">oneOverSigma2</span> <span class="pre">=</span> <span class="pre">rep_vector(1,</span> <span class="pre">q)</span> <span class="pre">./</span> <span class="pre">sigma;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">oneOverSigma2</span> <span class="pre">=</span> <span class="pre">oneOverSigma2</span> <span class="pre">./</span> <span class="pre">sigma;\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*the</span> <span class="pre">data</span> <span class="pre">(x)</span> <span class="pre">minus</span> <span class="pre">a</span> <span class="pre">matrix</span> <span class="pre">done</span> <span class="pre">as</span> <span class="pre">follows:\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">the</span> <span class="pre">delta</span> <span class="pre">vector</span> <span class="pre">(of</span> <span class="pre">lenght</span> <span class="pre">q)</span> <span class="pre">pasted</span> <span class="pre">side</span> <span class="pre">by</span> <span class="pre">side</span> <span class="pre">Nsamples</span> <span class="pre">times*/\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">diff</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">rep_matrix(delta,</span> <span class="pre">Nsamples);</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//efficient</span> <span class="pre">matrix</span> <span class="pre">computation</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">likelihood.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">diagQuad</span> <span class="pre">=</span> <span class="pre">diagonal</span> <span class="pre">(quad_form</span> <span class="pre">(invM,diff'));\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">logDetSigma</span> <span class="pre">=</span> <span class="pre">2*Nsamples*log(sigma)</span> <span class="pre">+</span> <span class="pre">log(detM)</span> <span class="pre">;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">logLik</span> <span class="pre">=</span> <span class="pre">-0.5</span> <span class="pre">*</span> <span class="pre">logDetSigma</span> <span class="pre">-</span> <span class="pre">0.5*Nsamples*log(6.283);</span>&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">logLik</span> <span class="pre">=</span> <span class="pre">logLik</span> <span class="pre">-</span> <span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">oneOverSigma2</span> <span class="pre">.*</span> <span class="pre">diagQuad;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">model</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">/*mu0</span> <span class="pre">and</span> <span class="pre">std0</span> <span class="pre">are</span> <span class="pre">not</span> <span class="pre">explicitly</span> <span class="pre">sampled</span> <span class="pre">here.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Stan</span> <span class="pre">automatically</span> <span class="pre">samples</span> <span class="pre">them:</span> <span class="pre">mu0</span> <span class="pre">as</span> <span class="pre">uniform</span> <span class="pre">and</span> <span class="pre">std0</span> <span class="pre">as\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">uniform</span> <span class="pre">over</span> <span class="pre">its</span> <span class="pre">domain</span> <span class="pre">(std0Low,std0Hi).*/\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//sampling</span> <span class="pre">the</span> <span class="pre">degrees</span> <span class="pre">of</span> <span class="pre">freedom\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">nuMinusOne</span> <span class="pre">~</span> <span class="pre">gamma</span> <span class="pre">(</span> <span class="pre">gammaAlpha,</span> <span class="pre">gammaBeta);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//vectorial</span> <span class="pre">sampling</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">delta_i</span> <span class="pre">of</span> <span class="pre">each</span> <span class="pre">data</span> <span class="pre">set\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">delta</span> <span class="pre">~</span> <span class="pre">student_t(nu,</span> <span class="pre">delta0,</span> <span class="pre">std0);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//logLik</span> <span class="pre">is</span> <span class="pre">computed</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">previous</span> <span class="pre">block</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">target</span> <span class="pre">+=</span> <span class="pre">sum(logLik);</span>&#160;&#160; <span class="pre">\n</span>&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160; <span class="pre">&quot;</span></em><a class="headerlink" href="#verona.evaluation.stattests.stan_codes.STAN_CODE.HIERARCHICAL_TEST" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST">
-<span class="sig-name descname"><span class="pre">PLACKETT_LUCE_TEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=1&gt;</span> <span class="pre">n;</span> <span class="pre">//</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">instances\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=2&gt;</span> <span class="pre">m;</span> <span class="pre">//</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">algorithms\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Matrix</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">rankings,</span> <span class="pre">one</span> <span class="pre">per</span> <span class="pre">row\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int</span> <span class="pre">ranks</span> <span class="pre">[n,m];\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">weights[n];\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Parameters</span> <span class="pre">for</span> <span class="pre">Dirichlet</span> <span class="pre">prior.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[m]</span> <span class="pre">alpha;\n</span>&#160;&#160;&#160; <span class="pre">}\n\n\n</span>&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">The</span> <span class="pre">implementation</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">probability</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">PL</span> <span class="pre">model</span> <span class="pre">uses</span> <span class="pre">the</span> <span class="pre">order,</span> <span class="pre">rather\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">than</span> <span class="pre">the</span> <span class="pre">rank\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">int</span> <span class="pre">order</span> <span class="pre">[n,m];\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(s</span> <span class="pre">in</span> <span class="pre">1:n){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">1:m){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">order[s,</span> <span class="pre">ranks[s,</span> <span class="pre">i]]=i;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">parameters</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Vector</span> <span class="pre">of</span> <span class="pre">ratings</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">team.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">The</span> <span class="pre">simplex</span> <span class="pre">constrains</span> <span class="pre">the</span> <span class="pre">ratings</span> <span class="pre">to</span> <span class="pre">sum</span> <span class="pre">to</span> <span class="pre">1\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">simplex[m]</span> <span class="pre">ratings;\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">parameters{\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">loglik;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">rest;\n\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">loglik=0;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(s</span> <span class="pre">in</span> <span class="pre">1:n){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">1:(m-1)){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">rest=0;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(j</span> <span class="pre">in</span> <span class="pre">i:m){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">rest</span> <span class="pre">=</span> <span class="pre">rest</span> <span class="pre">+</span> <span class="pre">ratings[order[s,</span> <span class="pre">j]];\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">loglik</span> <span class="pre">=</span> <span class="pre">loglik</span> <span class="pre">+</span> <span class="pre">log(weights[s]</span> <span class="pre">*</span> <span class="pre">ratings[order[s,</span> <span class="pre">i]]</span> <span class="pre">/</span> <span class="pre">rest);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">model</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">ratings</span> <span class="pre">~</span> <span class="pre">dirichlet(alpha);</span> <span class="pre">//</span> <span class="pre">Dirichlet</span> <span class="pre">prior\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">target</span> <span class="pre">+=</span> <span class="pre">loglik;\n</span>&#160;&#160;&#160; <span class="pre">}'</span></em><a class="headerlink" href="#verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST_V3">
-<span class="sig-name descname"><span class="pre">PLACKETT_LUCE_TEST_V3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=1&gt;</span> <span class="pre">n;</span> <span class="pre">//</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">instances\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">int&lt;lower=2&gt;</span> <span class="pre">m;</span> <span class="pre">//</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">algorithms\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Matrix</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">rankings,</span> <span class="pre">one</span> <span class="pre">per</span> <span class="pre">row\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">array[n,m]</span> <span class="pre">int</span> <span class="pre">ranks;\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">array[n]</span> <span class="pre">real</span> <span class="pre">weights;\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Parameters</span> <span class="pre">for</span> <span class="pre">Dirichlet</span> <span class="pre">prior.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">vector[m]</span> <span class="pre">alpha;\n</span>&#160;&#160;&#160; <span class="pre">}\n\n\n</span>&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">data</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">The</span> <span class="pre">implementation</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">probability</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">PL</span> <span class="pre">model</span> <span class="pre">uses</span> <span class="pre">the</span> <span class="pre">order,</span> <span class="pre">rather\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">than</span> <span class="pre">the</span> <span class="pre">rank\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">array[n,m]</span> <span class="pre">int</span> <span class="pre">order;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(s</span> <span class="pre">in</span> <span class="pre">1:n){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">1:m){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">order[s,</span> <span class="pre">ranks[s,</span> <span class="pre">i]]=i;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">parameters</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">Vector</span> <span class="pre">of</span> <span class="pre">ratings</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">team.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">//</span> <span class="pre">The</span> <span class="pre">simplex</span> <span class="pre">constrains</span> <span class="pre">the</span> <span class="pre">ratings</span> <span class="pre">to</span> <span class="pre">sum</span> <span class="pre">to</span> <span class="pre">1\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">simplex[m]</span> <span class="pre">ratings;\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">transformed</span> <span class="pre">parameters{\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">loglik;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">real</span> <span class="pre">rest;\n\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">loglik=0;\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(s</span> <span class="pre">in</span> <span class="pre">1:n){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">1:(m-1)){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">rest=0;\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">for</span> <span class="pre">(j</span> <span class="pre">in</span> <span class="pre">i:m){\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">rest</span> <span class="pre">=</span> <span class="pre">rest</span> <span class="pre">+</span> <span class="pre">ratings[order[s,</span> <span class="pre">j]];\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">loglik</span> <span class="pre">=</span> <span class="pre">loglik</span> <span class="pre">+</span> <span class="pre">log(weights[s]</span> <span class="pre">*</span> <span class="pre">ratings[order[s,</span> <span class="pre">i]]</span> <span class="pre">/</span> <span class="pre">rest);\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">}\n</span>&#160;&#160;&#160; <span class="pre">}\n\n</span>&#160;&#160;&#160; <span class="pre">model</span> <span class="pre">{\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">ratings</span> <span class="pre">~</span> <span class="pre">dirichlet(alpha);</span> <span class="pre">//</span> <span class="pre">Dirichlet</span> <span class="pre">prior\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">target</span> <span class="pre">+=</span> <span class="pre">loglik;\n</span>&#160;&#160;&#160; <span class="pre">}'</span></em><a class="headerlink" href="#verona.evaluation.stattests.stan_codes.STAN_CODE.PLACKETT_LUCE_TEST_V3" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -745,7 +741,7 @@ Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18,
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

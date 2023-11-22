@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html >
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
       <title>API Reference</title>
     
@@ -10,9 +10,10 @@
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script src="_static/documentation_options.js?v=8d563738"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -22,7 +23,7 @@
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
   <link rel="next" title="verona.data package" href="verona.data.html" />
-  <link rel="prev" title="Installation" href="installation.html" /> 
+  <link rel="prev" title="Software architecture" href="architecture.html" /> 
   </head>
 
   <body>
@@ -91,6 +92,15 @@
           </li>
 
         
+          <li class="toctree-l1 ">
+            
+              <a href="architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
           <li class="toctree-l1 current">
             
               <a href="#" class="reference internal current">API Reference</a>
@@ -102,6 +112,15 @@
                   <li class="toctree-l2"><a href="#api-reference" class="reference internal">API Reference</a></li>
                 
               </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="citation.html" class="reference internal ">Cite the paper</a>
+            
+
             
           </li>
 
@@ -124,8 +143,8 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="installation.html"
-       title="previous chapter">← Installation</a>
+    <a href="architecture.html"
+       title="previous chapter">← Software architecture</a>
   </li>
   <li class="next">
     <a href="verona.data.html"
@@ -138,169 +157,40 @@
           <div class="content" role="main" v-pre>
             
   <section id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <p>This page details all public packages, subpackages, modules,
 classes and functions included in the <strong>VERONA</strong> library.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="verona.data.html">verona.data package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.download">verona.data.download module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.download.get_available_datasets"><code class="docutils literal notranslate"><span class="pre">get_available_datasets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.download.get_dataset"><code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.extractor">verona.data.extractor module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.extractor.get_prefixes_and_targets"><code class="docutils literal notranslate"><span class="pre">get_prefixes_and_targets()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.results">verona.data.results module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.AvailableMetrics"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.AvailableMetrics.NextActivity"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.NextActivity</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.AvailableMetrics.ActivitySuffix"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.ActivitySuffix</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.AvailableMetrics.NextTimestamp"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.NextTimestamp</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.AvailableMetrics.RemainingTime"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.RemainingTime</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id0"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.ActivitySuffix</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id1"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.NextActivity</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id2"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.NextTimestamp</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id3"><code class="docutils literal notranslate"><span class="pre">AvailableMetrics.RemainingTime</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.MetricValue"><code class="docutils literal notranslate"><span class="pre">MetricValue</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.MetricValue.parent"><code class="docutils literal notranslate"><span class="pre">MetricValue.parent</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.MetricValue.value"><code class="docutils literal notranslate"><span class="pre">MetricValue.value</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.MissingResultStrategy"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.MissingResultStrategy.DELETE_DATASET"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.DELETE_DATASET</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.MissingResultStrategy.DELETE_APPROACH"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.DELETE_APPROACH</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.results.MissingResultStrategy.NONE"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.NONE</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id4"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.DELETE_APPROACH</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id5"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.DELETE_DATASET</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#id6"><code class="docutils literal notranslate"><span class="pre">MissingResultStrategy.NONE</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.load_results_hierarchical"><code class="docutils literal notranslate"><span class="pre">load_results_hierarchical()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.load_results_non_hierarchical"><code class="docutils literal notranslate"><span class="pre">load_results_non_hierarchical()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.results.load_results_plackett_luce"><code class="docutils literal notranslate"><span class="pre">load_results_plackett_luce()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.split">verona.data.split module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.split.make_crossvalidation"><code class="docutils literal notranslate"><span class="pre">make_crossvalidation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.split.make_holdout"><code class="docutils literal notranslate"><span class="pre">make_holdout()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.statistics">verona.data.statistics module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_activities_list"><code class="docutils literal notranslate"><span class="pre">get_activities_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_avg_duration_case"><code class="docutils literal notranslate"><span class="pre">get_avg_duration_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_avg_duration_event"><code class="docutils literal notranslate"><span class="pre">get_avg_duration_event()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_avg_len_case"><code class="docutils literal notranslate"><span class="pre">get_avg_len_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_count_variants"><code class="docutils literal notranslate"><span class="pre">get_count_variants()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_max_duration_case"><code class="docutils literal notranslate"><span class="pre">get_max_duration_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_max_duration_event"><code class="docutils literal notranslate"><span class="pre">get_max_duration_event()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_max_len_case"><code class="docutils literal notranslate"><span class="pre">get_max_len_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_min_duration_case"><code class="docutils literal notranslate"><span class="pre">get_min_duration_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_min_duration_event"><code class="docutils literal notranslate"><span class="pre">get_min_duration_event()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_min_len_case"><code class="docutils literal notranslate"><span class="pre">get_min_len_case()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_num_activities"><code class="docutils literal notranslate"><span class="pre">get_num_activities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_num_cases"><code class="docutils literal notranslate"><span class="pre">get_num_cases()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_num_values"><code class="docutils literal notranslate"><span class="pre">get_num_values()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_num_variants"><code class="docutils literal notranslate"><span class="pre">get_num_variants()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.statistics.get_values_list"><code class="docutils literal notranslate"><span class="pre">get_values_list()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.utils">verona.data.utils module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.DataFrameFields"><code class="docutils literal notranslate"><span class="pre">DataFrameFields</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.DataFrameFields.ACTIVITY_COLUMN"><code class="docutils literal notranslate"><span class="pre">DataFrameFields.ACTIVITY_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.DataFrameFields.CASE_COLUMN"><code class="docutils literal notranslate"><span class="pre">DataFrameFields.CASE_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.DataFrameFields.RESOURCE_COLUMN"><code class="docutils literal notranslate"><span class="pre">DataFrameFields.RESOURCE_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.DataFrameFields.TIMESTAMP_COLUMN"><code class="docutils literal notranslate"><span class="pre">DataFrameFields.TIMESTAMP_COLUMN</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields"><code class="docutils literal notranslate"><span class="pre">XesFields</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields.ACTIVITY_COLUMN"><code class="docutils literal notranslate"><span class="pre">XesFields.ACTIVITY_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields.CASE_COLUMN"><code class="docutils literal notranslate"><span class="pre">XesFields.CASE_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields.LIFECYCLE_COLUMN"><code class="docutils literal notranslate"><span class="pre">XesFields.LIFECYCLE_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields.RESOURCE_COLUMN"><code class="docutils literal notranslate"><span class="pre">XesFields.RESOURCE_COLUMN</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.data.html#verona.data.utils.XesFields.TIMESTAMP_COLUMN"><code class="docutils literal notranslate"><span class="pre">XesFields.TIMESTAMP_COLUMN</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.categorize_attribute"><code class="docutils literal notranslate"><span class="pre">categorize_attribute()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.get_labels_from_onehot"><code class="docutils literal notranslate"><span class="pre">get_labels_from_onehot()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.get_onehot_representation"><code class="docutils literal notranslate"><span class="pre">get_onehot_representation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.data.html#verona.data.utils.unify_activity_and_lifecycle"><code class="docutils literal notranslate"><span class="pre">unify_activity_and_lifecycle()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.download">verona.data.download module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.extractor">verona.data.extractor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.results">verona.data.results module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.split">verona.data.split module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.statistics">verona.data.statistics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.data.html#module-verona.data.utils">verona.data.utils module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="verona.evaluation.html">verona.evaluation package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="verona.evaluation.metrics.html">verona.evaluation.metrics package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.event">verona.evaluation.metrics.event module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_accuracy"><code class="docutils literal notranslate"><span class="pre">get_accuracy()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_brier_loss"><code class="docutils literal notranslate"><span class="pre">get_brier_loss()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_f1_score"><code class="docutils literal notranslate"><span class="pre">get_f1_score()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_fbeta"><code class="docutils literal notranslate"><span class="pre">get_fbeta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_mcc"><code class="docutils literal notranslate"><span class="pre">get_mcc()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_precision"><code class="docutils literal notranslate"><span class="pre">get_precision()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_recall"><code class="docutils literal notranslate"><span class="pre">get_recall()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.suffix">verona.evaluation.metrics.suffix module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.suffix.get_damerau_levenshtein_score"><code class="docutils literal notranslate"><span class="pre">get_damerau_levenshtein_score()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.time">verona.evaluation.metrics.time module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.time.get_mae"><code class="docutils literal notranslate"><span class="pre">get_mae()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.time.get_mse"><code class="docutils literal notranslate"><span class="pre">get_mse()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.utils">verona.evaluation.metrics.utils module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.metrics.html#verona.evaluation.metrics.utils.get_metric_by_prefix_len"><code class="docutils literal notranslate"><span class="pre">get_metric_by_prefix_len()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.event">verona.evaluation.metrics.event module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.suffix">verona.evaluation.metrics.suffix module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.time">verona.evaluation.metrics.time module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.metrics.html#module-verona.evaluation.metrics.utils">verona.evaluation.metrics.utils module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="verona.evaluation.stattests.html">verona.evaluation.stattests package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.correlated_t_test">verona.evaluation.stattests.correlated_t_test module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.correlated_t_test.BayesianTTestResult"><code class="docutils literal notranslate"><span class="pre">BayesianTTestResult</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.correlated_t_test.CorrelatedBayesianTTest"><code class="docutils literal notranslate"><span class="pre">CorrelatedBayesianTTest</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.hierarchical">verona.evaluation.stattests.hierarchical module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.hierarchical.BayesianHierarchicalResults"><code class="docutils literal notranslate"><span class="pre">BayesianHierarchicalResults</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.hierarchical.HierarchicalBayesianTest"><code class="docutils literal notranslate"><span class="pre">HierarchicalBayesianTest</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.plackettluce">verona.evaluation.stattests.plackettluce module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.plackettluce.PlackettLuceRanking"><code class="docutils literal notranslate"><span class="pre">PlackettLuceRanking</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.plackettluce.PlackettLuceResults"><code class="docutils literal notranslate"><span class="pre">PlackettLuceResults</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.signed_rank">verona.evaluation.stattests.signed_rank module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest"><code class="docutils literal notranslate"><span class="pre">BayesianSignedRankTest</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult"><code class="docutils literal notranslate"><span class="pre">BayesianSignedRankTestResult</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.stan_codes">verona.evaluation.stattests.stan_codes module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="verona.evaluation.stattests.html#verona.evaluation.stattests.stan_codes.STAN_CODE"><code class="docutils literal notranslate"><span class="pre">STAN_CODE</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.correlated_t_test">verona.evaluation.stattests.correlated_t_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.hierarchical">verona.evaluation.stattests.hierarchical module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.plackettluce">verona.evaluation.stattests.plackettluce module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="verona.evaluation.stattests.html#module-verona.evaluation.stattests.signed_rank">verona.evaluation.stattests.signed_rank module</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="verona.visualization.html">verona.visualization package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="verona.visualization.html#module-verona.visualization.metrics">verona.visualization.metrics module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.metrics.bar_plot_metric"><code class="docutils literal notranslate"><span class="pre">bar_plot_metric()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.metrics.box_plot_metric"><code class="docutils literal notranslate"><span class="pre">box_plot_metric()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.metrics.error_plot_metric"><code class="docutils literal notranslate"><span class="pre">error_plot_metric()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.metrics.line_plot_metric"><code class="docutils literal notranslate"><span class="pre">line_plot_metric()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.metrics.plot_metric_by_prefixes_len"><code class="docutils literal notranslate"><span class="pre">plot_metric_by_prefixes_len()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="verona.visualization.html#module-verona.visualization.stattests">verona.visualization.stattests module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="verona.visualization.html#verona.visualization.stattests.plot_posteriors_plackett"><code class="docutils literal notranslate"><span class="pre">plot_posteriors_plackett()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="verona.visualization.html#module-verona.visualization.metrics">verona.visualization.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verona.visualization.html#module-verona.visualization.stattests">verona.visualization.stattests module</a></li>
 </ul>
 </li>
 </ul>
@@ -312,8 +202,8 @@ classes and functions included in the <strong>VERONA</strong> library.</p>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="installation.html"
-       title="previous chapter">← Installation</a>
+    <a href="architecture.html"
+       title="previous chapter">← Software architecture</a>
   </li>
   <li class="next">
     <a href="verona.data.html"
@@ -322,7 +212,7 @@ classes and functions included in the <strong>VERONA</strong> library.</p>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>
