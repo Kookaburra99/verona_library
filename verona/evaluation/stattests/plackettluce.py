@@ -197,6 +197,6 @@ class PlackettLuceRanking:
         # Set the approaches names so the figure generated has meaningful names
         posterior.columns = self.approaches
         ranks = (posterior * -1).rank(axis=1)
-        expected_prob = posterior.mean(axis=0)
-        expected_rank = ranks.mean(axis=0)
+        expected_prob = posterior.mean(axis=0).sort_values(ascending=False)
+        expected_rank = ranks.mean(axis=0).sort_values(ascending=True)
         return expected_prob, expected_rank, posterior

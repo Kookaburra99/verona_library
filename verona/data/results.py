@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 
+
 @dataclass(frozen=True)
 class MetricValue:
     value: str
@@ -114,7 +115,7 @@ def __load_csv_results(metric: MetricValue):
     if metric.parent == "next_activity":
         resource_path = f'{metric.value}_raw_results.csv'
     elif metric.parent == "suffix":
-        resource_path = 'suffix_raw_results.csv'
+        resource_path = 'suffix_full_results.csv'
     elif metric.parent == "next_timestamp":
         resource_path = 'nt_mae_raw_results.csv'
     elif metric.parent == "remaining_time":
@@ -260,4 +261,42 @@ def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=Av
     if metric.parent == "next_activity" or metric.parent == "suffix":
         results = results * 100
     return results[approach_1].to_numpy(), results[approach_2].to_numpy()
+
+if __name__ == "__main__":
+    from verona.evaluation.stattests.plackettluce import PlackettLuceRanking
+    mean_results, approaches = load_results_plackett_luce(AvailableMetrics.ActivitySuffix.DAMERAU_LEVENSHTEIN, MissingResultStrategy.DELETE_DATASET)
+    approaches.remove("ASTON")
+    mean_results = mean_results.drop(columns=["ASTON"])
+    print(mean_results)
+    print(approaches)
+    ranking = PlackettLuceRanking(mean_results, approaches)
+    results = ranking.run()
+    print(results.expected_prob)
+    print(results.expected_rank)
+
+    from verona.visualization.stattests import plot_posteriors_plackett
+    plot = plot_posteriors_plackett(results, save_path="./posteriors.png", use_latex=True)
+
+    pd.set_option('display.max_rows', None)  # or an arbitrarily large number instead of None
+    pd.set_option('display.max_columns', None)  # or the specific number of columns in your df
+    pd.set_option('display.width', None)  # or an estimated width that fits your screen
+    pd.set_option('display.max_colwidth', None)  # or a large number if you have long text in cells
+
+    from verona.evaluation.stattests.hierarchical import HierarchicalBayesianTest
+    approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("DOGE", "Camargo_random", metric=AvailableMetrics.ActivitySuffix.DAMERAU_LEVENSHTEIN)
+
+    hierarchical_test = HierarchicalBayesianTest(approach_1_df, approach_2_df, approaches=["DOGE", "Camargo_random"], datasets=common_datasets)
+    results = hierarchical_test.run()
+    print(results.per_dataset)
+    print(results.global_wins)
+
+    approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("DOGE", "Evermann", metric=AvailableMetrics.ActivitySuffix.DAMERAU_LEVENSHTEIN)
+
+    hierarchical_test = HierarchicalBayesianTest(approach_1_df, approach_2_df, approaches=["DOGE", "Evermann"], datasets=common_datasets)
+    results = hierarchical_test.run()
+    print(results.per_dataset)
+    print(results.global_wins)
+
+
+
 

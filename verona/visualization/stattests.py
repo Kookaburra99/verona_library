@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from verona.evaluation.stattests.plackettluce import PlackettLuceResults, PlackettLuceRanking
 
 
-def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=None):
+def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=None, use_latex=False):
     """
     Plot the posteriors of the Plackett-Luce model (quantiles 95%, 05% and 50%). If two approaches do not overlap,
     they have a significative different ranking.
@@ -32,7 +32,14 @@ def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=No
     y50 = posterior.quantile(q=0.5, axis=0)
     df_boxplot = pd.concat([y05, y50, y95], axis=1)
     df_boxplot.columns = ["y05", "y50", "y95"]
-    df_boxplot["Approaches"] = posterior.columns
+
+    if use_latex:
+        probability_str = "$\\text{Probability}$"
+        approaches = [r"$\text{ " + str(col) + "}$" for col in posterior.columns]
+        df_boxplot["Approaches"] = approaches
+    else:
+        probability_str = "Probability"
+        df_boxplot["Approaches"] = posterior.columns
 
     y50 = df_boxplot["y50"]
     yerr_lower = df_boxplot["y50"] - df_boxplot["y05"]
@@ -50,9 +57,10 @@ def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=No
 
     fig.update_layout(
         xaxis_title="",
-        yaxis_title="Probability",
+        yaxis_title=probability_str,
         xaxis=dict(tickmode='array', tickvals=list(range(len(df_boxplot["Approaches"]))),
-                   ticktext=df_boxplot["Approaches"])
+                   ticktext=df_boxplot["Approaches"]),
+        margin={'l': 10, 'r': 5, 't': 5, 'b': 5}
     )
 
     if save_path is not None:
