@@ -68,7 +68,7 @@ class PlackettLuceRanking:
         except:
             install_cmdstan()
 
-    def run(self, n_chains=8, num_samples=300000, mode="max") -> PlackettLuceResults:
+    def run(self, n_chains=8, num_samples=300000, mode="max", suppress_output=False) -> PlackettLuceResults:
         """
         Execute the Plackett-Luce ranking model to estimate the rank and probabilities of each algorithm
         based on their performance metrics.
@@ -107,7 +107,7 @@ class PlackettLuceRanking:
         assert num_samples > 0
 
         rank_matrix = self._get_rank_matrix(result_matrix=self.result_matrix, mode=mode)
-        stan_result = self._run_stan(rank_matrix=rank_matrix, n_chains=n_chains, num_samples=num_samples)
+        stan_result = self._run_stan(rank_matrix=rank_matrix, n_chains=n_chains, num_samples=num_samples, suppress_output=suppress_output)
         expected_prob, expected_rank, posterior = self._get_results_from_stan(stan_results=stan_result)
         self.posterior = posterior
         results = PlackettLuceResults(expected_prob, expected_rank, posterior)
@@ -136,7 +136,7 @@ class PlackettLuceRanking:
 
         return rank_matrix
 
-    def _run_stan(self, rank_matrix, n_chains=8, num_samples=300000) -> pd.DataFrame:
+    def _run_stan(self, rank_matrix, n_chains=8, num_samples=300000, suppress_output=False) -> pd.DataFrame:
         """
         Execute the STAN program for the Plackett-Luce ranking model.
 
@@ -169,7 +169,7 @@ class PlackettLuceRanking:
 
         model = CmdStanModel(stan_file=temp_file_name)
         fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=num_samples,
-                           iter_warmup=int(num_samples/4), seed=42)
+                           iter_warmup=int(num_samples/4), seed=42, show_progress=not suppress_output)
 
         results = fit.draws_pd()
 

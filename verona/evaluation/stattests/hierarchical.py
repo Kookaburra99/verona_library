@@ -1,4 +1,5 @@
 import tempfile
+import sys
 from typing import List
 
 import numpy as np
@@ -86,7 +87,7 @@ class HierarchicalBayesianTest:
             install_cmdstan()
 
     def run(self, rope=[-1,1], rho=0.2, n_chains=4, num_samples=300000, std_upper=1000, alpha_lower=0.5, alpha_upper=5,
-            beta_lower=0.05, beta_upper=0.15, d0_lower=None, d0_upper=None) -> BayesianHierarchicalResults:
+            beta_lower=0.05, beta_upper=0.15, d0_lower=None, d0_upper=None, suppress_output=False) -> BayesianHierarchicalResults:
         """
         Executes a Bayesian hierarchical model tailored for comparing the performance of two machine learning algorithms
         across multiple datasets based on cross-validation results.
@@ -125,6 +126,7 @@ class HierarchicalBayesianTest:
             differences. If not provided, the smallest observed difference is used as the lower bound.
             d0_upper (float, optional): Upper bound for the prior distribution of mu_0. If not provided, the largest
             observed difference is used as the upper bound.
+            suppress_output (bool, optional): Whether or not suppress the tqdm outputs.
 
         Notes:
             The results includes the typical information relative to the three areas of the posterior density (left,
@@ -169,14 +171,16 @@ class HierarchicalBayesianTest:
             d3                        0.619778                        0.337055                         0.043167
             d4                        0.039968                        0.937468                         0.022563
         """
-        return self._run_stan(x_matrix=self.x_result, y_matrix=self.y_result, rope=rope, rho=rho,
+        results = self._run_stan(x_matrix=self.x_result, y_matrix=self.y_result, rope=rope, rho=rho,
                               n_chains=n_chains, stan_samples=num_samples, std_upper=std_upper,
                               alpha_lower=alpha_lower, alpha_upper=alpha_upper, beta_lower=beta_lower,
-                              beta_upper=beta_upper, d0_lower=d0_lower, d0_upper=d0_upper)
+                              beta_upper=beta_upper, d0_lower=d0_lower, d0_upper=d0_upper, suppress_output=suppress_output)
+        return results
+
 
     def _run_stan(self, x_matrix: pd.DataFrame, y_matrix: pd.DataFrame, rope: List, rho=0.2, n_chains=4,
                   stan_samples=1000, std_upper=1000, alpha_lower=0.5, alpha_upper=5, beta_lower=0.05, beta_upper=0.15,
-                  d0_lower=None, d0_upper=None, seed=42) -> BayesianHierarchicalResults:
+                  d0_lower=None, d0_upper=None, seed=42, suppress_output=False) -> BayesianHierarchicalResults:
         # TODO: refactor this method since it follows the structure of the original code, but it is not very pythonic
 
         assert len(rope) == 2, "The number of elements of rope must be 2"
@@ -251,7 +255,7 @@ class HierarchicalBayesianTest:
 
         model = CmdStanModel(stan_file=temp_file_name)
         fit = model.sample(data=stan_data, chains=n_chains, iter_sampling=int(stan_samples/2),
-                           iter_warmup=int(stan_samples/2), seed=42)
+                           iter_warmup=int(stan_samples/2), seed=42, show_progress=not suppress_output)
 
         results = fit.draws_pd()
 
