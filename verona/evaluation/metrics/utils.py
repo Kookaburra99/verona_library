@@ -19,8 +19,7 @@ def get_metric_by_prefix_len(metric: Literal['accuracy', 'fbeta', 'f1_score', 'p
     for the selected metric, 2- the number of prefixes with that length.
 
     Args:
-        metric (Literal['accuracy', 'fbeta', 'f1_score', 'precision', 'recall',
-                        'mcc', 'brier_loss', 'damerau_levenshtein', 'mae', 'mse']): Metric to be calculated.
+        metric (Literal['accuracy', 'fbeta', 'f1_score', 'precision', 'recall', 'mcc', 'brier_loss', 'damerau_levenshtein', 'mae', 'mse']): Metric to be calculated.
         predictions (np.array): Array of shape (n_samples, n_classes) containing the predictions done by the
             model as probabilities. The predictions on the array should respect the same order as their respective
             prefixes and their ground_truths.
@@ -28,20 +27,19 @@ def get_metric_by_prefix_len(metric: Literal['accuracy', 'fbeta', 'f1_score', 'p
             the same order as their respective prefixes and predictions.
         prefixes (list[pd.DataFrame]): List containing the prefixes as Pandas DataFrame. The prefixes on the
             list should respect the same order as their respective predicates and ground_truths.
-        preds_format (Literal['labels', 'onehot'], optional): Format of the predictions. 'label' for labels and
-            'onehot' for one-hot vectors.
-        gt_format (Literal['labels', 'onehot'], optional): Format of the ground truths. 'label' for labels and
-            'onehot' for one-hot vectors.
+        preds_format (Literal['labels', 'onehot'], optional): Format of the predictions. ``'label'`` for labels and
+            ``'onehot'`` for one-hot vectors.
+        gt_format (Literal['labels', 'onehot'], optional): Format of the ground truths. ``'label'`` for labels and
+            ``'onehot'`` for one-hot vectors.
         average (Literal['micro', 'macro', 'weighted'], optional): Type of averaging to be performed on data.
-            Only needed for 'fbeta', 'f1_score', 'precision' and 'recall' value in metric parameter.
-        beta (float, optional): Ratio of recall importance to precision importance. Only needed for 'fbeta' value in
+            Only needed for ``'fbeta'``, ``'f1_score'``, ``'precision'`` and ``'recall'`` value in metric parameter.
+        beta (float, optional): Ratio of recall importance to precision importance. Only needed for ``'fbeta'`` value in
             metric parameter.
         eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that
-            signifies the end of the trace/suffix. Only needed for 'damerau_levenshtein' value in metric parameter.
+            signifies the end of the trace/suffix. Only needed for ``'damerau_levenshtein'`` value in metric parameter.
 
     Returns:
-        df_results: Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate:
-            1- the value of the metric, 2- the number of prefixes with that size.
+        df_results: Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate: 1- the value of the metric, 2- the number of prefixes with that size.
     """
 
     preds_by_lens = {}

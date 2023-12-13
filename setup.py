@@ -16,6 +16,6 @@ setup(
         'verona.data.csv': ['*.csv'],  # Include all CSV files under the 'csv' directory
     },
     requires=['requests', 'pm4py', 'pandas', 'numpy', 'scikit-learn', 'tqdm', 'jellyfish', 'pytest', 'cmdstanpy',
-              "matplotlib", "plotly", "sphinx", "sphinx_bootstrap_theme"],
+              "matplotlib", "plotly", "sphinx", "sphinx-press-theme, sphinxcontrib-bibtex"],
     packages=find_packages()
 )

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.evaluation.stattests.signed_rank</title>
+    
+          <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.evaluation.stattests.signed_rank</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.evaluation.stattests.signed_rank</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">dirichlet</span>
+
+
+<div class="viewcode-block" id="BayesianSignedRankTestResult"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTestResult">[docs]</a><span class="k">class</span> <span class="nc">BayesianSignedRankTestResult</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the results of a Bayesian Signed Rank Test.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        method (str): The name of the statistical method used.</span>
+<span class="sd">        posterior_probabilities (dict): Probabilities for the left, rope, and right regions.</span>
+<span class="sd">        approximated (bool): Whether the posterior distribution is approximated.</span>
+<span class="sd">        parameters (dict): Parameters used in the Bayesian Signed Rank Test.</span>
+<span class="sd">        posterior (pd.DataFrame): Sampled probabilities for left, rope, and right areas.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">posterior_probs</span><span class="p">,</span> <span class="n">approximated</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes a new instance of the BayesianSignedRankTestResult class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            method (str): The name of the method used.</span>
+<span class="sd">            posterior_probs (dict): Probabilities for the left, rope, and right regions.</span>
+<span class="sd">            approximated (bool): Whether the posterior distribution is approximated.</span>
+<span class="sd">            parameters (dict): Parameters used in the Bayesian Signed Rank Test.</span>
+<span class="sd">            posterior (pd.DataFrame): Sampled probabilities for the regions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posterior_probabilities</span> <span class="o">=</span> <span class="n">posterior_probs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">approximated</span> <span class="o">=</span> <span class="n">approximated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span></div>
+
+
+<div class="viewcode-block" id="BayesianSignedRankTest"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest">[docs]</a><span class="k">class</span> <span class="nc">BayesianSignedRankTest</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bayesian equivalent to Wilcoxon&#39;s signed-rank test.</span>
+
+<span class="sd">    This function implements the Bayesian version of the signed-rank test as</span>
+<span class="sd">    presented in Benavoli et al., 2017. This Bayesian test aims to evaluate the</span>
+<span class="sd">    difference between two related samples (or one sample against a zero null hypothesis)</span>
+<span class="sd">    and provides probabilities for three regions: left, rope, and right.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        x (array-like): First sample.</span>
+<span class="sd">        y (array-like, optional): Second sample. If not provided, x is assumed to be the difference.</span>
+<span class="sd">        approaches (array-like): Names of the two methods or approaches to be compared.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        run: Executes the Bayesian test.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
+<span class="sd">        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the BayesianSignedRankTest class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (array-like): Results for the first approach.</span>
+<span class="sd">            y (array-like): Results for the second approach.</span>
+<span class="sd">            approaches (array-like): Names of the two methods or approaches to be compared.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span> <span class="o">=</span> <span class="n">approaches</span>
+
+<div class="viewcode-block" id="BayesianSignedRankTest.run"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.signed_rank.BayesianSignedRankTest.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rope</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">nsim</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BayesianSignedRankTestResult</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to ``0.5``.</span>
+<span class="sd">            z0 (float, optional): Position of the pseudo-observation associated to the prior Dirichlet Process.</span>
+<span class="sd">            Defaults to 0.</span>
+<span class="sd">            rope (tuple, optional): Interval for the difference considered as &quot;irrelevant&quot;. Defaults to ``(-1, 1)``.</span>
+<span class="sd">            nsim (int, optional): Number of samples used to estimate the posterior distribution. Defaults to ``100000``.</span>
+<span class="sd">            seed (int, optional): Optional parameter used to fix the random seed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing:</span>
+<span class="sd">                - method: A string with the name of the method used.</span>
+<span class="sd">                - posterior_probabilities: A dictionary with the left, rope and right probabilities.</span>
+<span class="sd">                - approximate: A boolean, ``True`` if the posterior distribution is approximated (sampled) and ``False`` if it is exact.</span>
+<span class="sd">                - parameters: A dictionary of parameters used by the method.</span>
+<span class="sd">                - posterior: A list of dictionaries containing the sampled probabilities.</span>
+
+
+<span class="sd">        References:</span>
+<span class="sd">            - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
+<span class="sd">            - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">rope</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">rope</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Rope parameter should contain ordered limits. They will be swapped.&quot;</span><span class="p">)</span>
+            <span class="n">rope</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rope</span><span class="p">)</span>
+
+        <span class="c1"># Convert data to differences</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># Create the parameter vector for the sampling of the weights</span>
+        <span class="n">weights_dir_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)))</span>
+        <span class="c1"># Add the pseudo-observation due to the prior to the sample vector</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+        <span class="c1"># Sample from the Dirichlet distribution</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">weights_dir_params</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the terms for all pairs i, j</span>
+        <span class="n">sample_matrix</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">sample</span>
+        <span class="n">left_matrix</span> <span class="o">=</span> <span class="n">sample_matrix</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rope</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">right_matrix</span> <span class="o">=</span> <span class="n">sample_matrix</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rope</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rope_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample_matrix</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rope</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sample_matrix</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rope</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">posterior_distribution</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">left_str</span> <span class="o">=</span> <span class="s2">&quot;left (&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &lt; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+        <span class="n">right_str</span> <span class="o">=</span> <span class="s2">&quot;right (&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &gt; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+        <span class="n">rope_str</span> <span class="o">=</span> <span class="s2">&quot;rope (&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsim</span><span class="p">):</span>
+            <span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">left_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">left_matrix</span> <span class="o">*</span> <span class="n">weight_matrix</span><span class="p">)</span>
+            <span class="n">rope_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rope_matrix</span> <span class="o">*</span> <span class="n">weight_matrix</span><span class="p">)</span>
+            <span class="n">right_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">right_matrix</span> <span class="o">*</span> <span class="n">weight_matrix</span><span class="p">)</span>
+
+            <span class="n">posterior_distribution</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">left_str</span><span class="p">:</span> <span class="n">left_prob</span><span class="p">,</span> <span class="n">rope_str</span><span class="p">:</span> <span class="n">rope_prob</span><span class="p">,</span> <span class="n">right_str</span><span class="p">:</span> <span class="n">right_prob</span><span class="p">})</span>
+
+        <span class="c1"># Calculate posterior probabilities</span>
+        <span class="n">posterior_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">d</span><span class="p">[</span><span class="n">left_str</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">rope_str</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">right_str</span><span class="p">]]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">posterior_distribution</span><span class="p">])</span>
+        <span class="n">max_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">posterior_probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">left_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">max_indices</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">rope_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">max_indices</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">right_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">max_indices</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">BayesianSignedRankTestResult</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">left_str</span><span class="p">:</span> <span class="n">left_prob</span><span class="p">,</span> <span class="n">rope_str</span><span class="p">:</span> <span class="n">rope_prob</span><span class="p">,</span> <span class="n">right_str</span><span class="p">:</span> <span class="n">right_prob</span><span class="p">},</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">posterior_distribution</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

@@ -13,7 +13,7 @@ def plot_posteriors_plackett(plackett_results: PlackettLuceResults, save_path=No
         save_path: String that indicates the path where the plot will be saved. If None, the plot will not be saved.
 
     Returns
-        fig.figure : matplotlib figure of the aforementioned plot
+        Matplotlib Figure : ``Matplotlib Figure of the aforementioned plot
 
     Examples:
         >>> result_matrix = pd.DataFrame([[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]])

@@ -56,10 +56,11 @@ def unify_activity_and_lifecycle(dataset: pd.DataFrame, activity_id: str = XesFi
     Args:
         dataset (pd.DataFrame): DataFrame containing the dataset.
         activity_id (str, optional): Name of the activity column in the DataFrame.
-            Defaults to XesFields.ACTIVITY_COLUMN.
+            Default is ``XesFields.ACTIVITY_COLUMN``.
         lifecycle_id (str, optional): Name of the lifecycle column in the DataFrame.
-            Defaults to XesFields.LIFECYCLE_COLUMN.
-        drop_lifecycle_column (bool, optional): Delete the lifecycle column after the conversion. Defaults to True.
+            Default is ``XesFields.LIFECYCLE_COLUMN``.
+        drop_lifecycle_column (bool, optional): Delete the lifecycle column after the conversion.
+            Default is ``True``.
 
     Returns:
         pd.DataFrame: The dataset, as Pandas DataFrame, updated.

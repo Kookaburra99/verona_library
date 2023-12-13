@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.data.utils</title>
+    
+          <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.data.utils</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.data.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="XesFields"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.XesFields">[docs]</a><span class="k">class</span> <span class="nc">XesFields</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Common xes fields that may be present in a xes log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CASE_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;case:concept:name&quot;</span>
+    <span class="n">ACTIVITY_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;concept:name&quot;</span>
+    <span class="n">TIMESTAMP_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;time:timestamp&quot;</span>
+    <span class="n">LIFECYCLE_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;lifecycle:transition&quot;</span>
+    <span class="n">RESOURCE_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;org:resource&quot;</span></div>
+
+
+<div class="viewcode-block" id="DataFrameFields"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.DataFrameFields">[docs]</a><span class="k">class</span> <span class="nc">DataFrameFields</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Common column names that may be present in a csv log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CASE_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;CaseID&quot;</span>
+    <span class="n">ACTIVITY_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;Activity&quot;</span>
+    <span class="n">TIMESTAMP_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;Timestamp&quot;</span>
+    <span class="n">RESOURCE_COLUMN</span> <span class="o">=</span> <span class="s2">&quot;Resource&quot;</span></div>
+
+
+<div class="viewcode-block" id="categorize_attribute"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.categorize_attribute">[docs]</a><span class="k">def</span> <span class="nf">categorize_attribute</span><span class="p">(</span><span class="n">attr</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the attribute column type in the Pandas DataFrame dataset to</span>
+<span class="sd">    categorical (integer indexes).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        attr (pd.Series): Pandas Series of the attribute column in the dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Series: Pandas Series representing the attribute column with the integer indexes</span>
+<span class="sd">            instead of the original values.</span>
+<span class="sd">        dict: A dictionary with the conversions (key: categorical index, value: original value).</span>
+<span class="sd">        dict: The reverse dictionary (key: original value, value: categorical index).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">uniq_attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">attr_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">uniq_attr</span><span class="p">)}</span>
+    <span class="n">reverse_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">value</span><span class="p">:</span> <span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">attr_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">attr_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">reverse_dict</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">attr</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">attr_cat</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">,</span> <span class="n">reverse_dict</span></div>
+
+
+<div class="viewcode-block" id="unify_activity_and_lifecycle"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.unify_activity_and_lifecycle">[docs]</a><span class="k">def</span> <span class="nf">unify_activity_and_lifecycle</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">XesFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">,</span>
+                                 <span class="n">lifecycle_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">XesFields</span><span class="o">.</span><span class="n">LIFECYCLE_COLUMN</span><span class="p">,</span>
+                                 <span class="n">drop_lifecycle_column</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets real activities by unifying the values in the activity and lifecycle columns,</span>
+<span class="sd">    like it&#39;s done in [1].</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset.</span>
+<span class="sd">        activity_id (str, optional): Name of the activity column in the DataFrame.</span>
+<span class="sd">            Default is ``XesFields.ACTIVITY_COLUMN``.</span>
+<span class="sd">        lifecycle_id (str, optional): Name of the lifecycle column in the DataFrame.</span>
+<span class="sd">            Default is ``XesFields.LIFECYCLE_COLUMN``.</span>
+<span class="sd">        drop_lifecycle_column (bool, optional): Delete the lifecycle column after the conversion.</span>
+<span class="sd">            Default is ``True``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: The dataset, as Pandas DataFrame, updated.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:</span>
+<span class="sd">            Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">lifecycle_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Wrong lifecycle identifier: </span><span class="si">{</span><span class="n">lifecycle_id</span><span class="si">}</span><span class="s1"> is not a column in the dataframe.&#39;</span><span class="p">)</span>
+
+    <span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">activity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="n">dataset</span><span class="p">[</span><span class="n">lifecycle_id</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">drop_lifecycle_column</span><span class="p">:</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">lifecycle_id</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataset</span></div>
+
+
+<div class="viewcode-block" id="get_onehot_representation"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.get_onehot_representation">[docs]</a><span class="k">def</span> <span class="nf">get_onehot_representation</span><span class="p">(</span><span class="n">attribute</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">num_elements</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets attribute values as labels and converts them to their one-hot representation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        attribute (np.array): Pandas Series or NumPy Array containing the categorical values of the attribute.</span>
+<span class="sd">        num_elements (int): Integer indicating the number of unique values of the attribute, which is the</span>
+<span class="sd">                            size of the one-hot vector. If not specified, the vector size is calculated from</span>
+<span class="sd">                            the number of unique elements in &#39;attribute&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.array: Pandas Series or NumPy Array (depending on the type of &#39;attribute&#39;) containing the one-hot vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">num_elements</span><span class="p">:</span>
+        <span class="n">num_elements</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">if</span> <span class="n">attribute</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">attribute</span> <span class="o">=</span> <span class="n">attribute</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">onehot_attr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">attribute</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">num_elements</span><span class="p">))</span>
+    <span class="n">onehot_attr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">attribute</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">onehot_attr</span></div>
+
+
+<div class="viewcode-block" id="get_labels_from_onehot"><a class="viewcode-back" href="../../../verona.data.html#verona.data.utils.get_labels_from_onehot">[docs]</a><span class="k">def</span> <span class="nf">get_labels_from_onehot</span><span class="p">(</span><span class="n">onehots</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the labels represented in the one-hot vectors passed as input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        onehots (np.array): NumPy Array containing the one-hot vectors.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.array: NumPy Array containing the labels extracted from the one-hot vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">onehots</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

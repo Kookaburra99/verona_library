@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>verona.evaluation.metrics package</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="verona.evaluation.stattests package" href="verona.evaluation.stattests.html" />
+  <link rel="prev" title="verona.evaluation package" href="verona.evaluation.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="api.html">API Reference</a> &raquo;</li>
+    
+      <li><a href="verona.evaluation.html">verona.evaluation package</a> &raquo;</li>
+    
+    <li>verona.evaluation.metrics package</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="verona.evaluation.html"
+       title="previous chapter">← verona.evaluation package</a>
+  </li>
+  <li class="next">
+    <a href="verona.evaluation.stattests.html"
+       title="next chapter">verona.evaluation.stattests package →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="verona-evaluation-metrics-package">
+<h1>verona.evaluation.metrics package<a class="headerlink" href="#verona-evaluation-metrics-package" title="Permalink to this headline">¶</a></h1>
+<section id="module-verona.evaluation.metrics.event">
+<span id="verona-evaluation-metrics-event-module"></span><h2>verona.evaluation.metrics.event module<a class="headerlink" href="#module-verona.evaluation.metrics.event" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_accuracy">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">predictions:</span> <span class="pre">numpy.array,</span> <span class="pre">ground_truths:</span> <span class="pre">numpy.array,</span> <span class="pre">preds_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'],</span> <span class="pre">gt_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'])</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the accuracy score, including the ratio of correct predictions,
+total number of correct predicted values, and total number of predictions.
+Both predictions and ground truth can be specified as labels or one-hot vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the model’s predictions.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Float indicating the accuracy ratio, integer for the number of correct predictions,</dt><dd><p>and integer for the total number of predictions.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_onehot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy</span><span class="p">,</span> <span class="n">correct</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">get_accuracy</span><span class="p">(</span><span class="n">preds_onehot</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">correct</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.25 - 1 - 4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_brier_loss">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_brier_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_brier_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_brier_loss" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Calculates the Brier Score Loss adapted to multi-class predictions.
+The formula for the Brier Score Loss is [  ext{BSL} =</p>
+</div></blockquote>
+<dl>
+<dt>rac{1}{N} sum_{i=1}^{N} (f_i - o_i)^2 ]</dt><dd><p>where ( f_i ) is the predicted probability for the true class for observation ( i ),
+( o_i ) is the actual outcome for observation ( i ) (1 if true class, 0 otherwise),
+and ( N ) is the total number of observations.</p>
+<p>As a measure of loss, the closer to 0, the better the predictions, while higher values
+indicate worse predictions.</p>
+<dl>
+<dt>Args:</dt><dd><p>predictions (np.array): Array of shape (n_samples, n_classes) containing
+the predictions done by the model as probabilities.
+ground_truths (np.array): Array containing the ground truths.
+gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truth. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
+the ground truth array contains the labels of the correct activities/attributes,
+from which the one-hot vectors are internally extracted. If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>,
+the ground truths array contains the one-hot representation of the correct values.</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: Brier Score Loss, a value equal or greater than zero. Smaller values (close to 0)
+indicate smaller error (better predictions), and larger values indicate larger error
+(worse predictions).</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_onehot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">brier_loss</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_brier_loss</span><span class="p">(</span><span class="n">preds_onehot</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">brier_loss</span><span class="p">)</span>
+<span class="go">1.06235</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_f1_score">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_f1_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">predictions:</span> <span class="pre">numpy.array,</span> <span class="pre">ground_truths:</span> <span class="pre">numpy.array,</span> <span class="pre">average:</span> <span class="pre">typing.Literal['micro',</span> <span class="pre">'macro',</span> <span class="pre">'weighted'],</span> <span class="pre">preds_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'],</span> <span class="pre">gt_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'])</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_f1_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_f1_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the F1-Score, which is the harmonic mean of precision and recall,
+between the predictions and the ground truth. Equivalent to F-beta score with ‘beta’ = 1.
+Returns the F1-score, precision, and recall used for the calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the model’s predictions.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
+<li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em>) – Type of averaging to be performed on data.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float for the F1-score, float for the precision, and float for the recall.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span> <span class="o">=</span> <span class="n">get_f1_score</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f1</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.13333333333333333 - 0.1 - 0.2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_fbeta">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_fbeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">predictions:</span> <span class="pre">numpy.array,</span> <span class="pre">ground_truths:</span> <span class="pre">numpy.array,</span> <span class="pre">beta:</span> <span class="pre">float,</span> <span class="pre">average:</span> <span class="pre">typing.Literal['micro',</span> <span class="pre">'macro',</span> <span class="pre">'weighted'],</span> <span class="pre">preds_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'],</span> <span class="pre">gt_format:</span> <span class="pre">typing.Literal['labels',</span> <span class="pre">'onehot'])</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_fbeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_fbeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the F-beta score between the predictions and the ground truth.
+The F-beta score is the weighted harmonic mean of precision and recall.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the model’s predictions.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – Ratio of recall importance to precision importance.</p></li>
+<li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em>) – Type of averaging to be performed on data.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+‘onehot’ for one-hot vectors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float for the F-beta score, float for the precision, and float for the recall.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span> <span class="o">=</span> <span class="n">get_fbeta</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fbeta</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.1388888888888889 - 0.125 - 0.25</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_mcc">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_mcc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_mcc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_mcc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Matthews correlation coefficient (MCC), a value between -1 and +1.
+A coefficient of +1 represents a perfect prediction, 0 an average random prediction,
+and -1 an inverse prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – Array of predictions from the model.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – Array of ground truth labels.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matthews Correlation Coefficient, between -1 and +1.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcc</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_mcc</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
+<span class="go">0.09128709291752768</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_precision">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_precision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'micro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'macro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'weighted'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_precision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_precision" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Calculates the precision using the formula (</p>
+</div></blockquote>
+<dl>
+<dt>rac{{        ext{{tp}}}}{{   ext{{tp}} +     ext{{fp}}}} )</dt><dd><p>where ‘tp’ is the number of true positives and ‘fp’ the number of false positives.</p>
+<dl>
+<dt>Args:</dt><dd><p>predictions (np.array): Array of predictions from the model.
+ground_truths (np.array): Array of ground truth labels.
+average (Literal[‘micro’, ‘macro’, ‘weighted’]): Type of averaging performed on the data.
+preds_format (Literal[‘labels’, ‘onehot’]): Format of the predictions.
+gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truths.</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: Precision score between 0 and 1.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">precision</span> <span class="o">=</span> <span class="n">get_precision</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
+<span class="go">0.1</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.event.get_recall">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.event.</span></span><span class="sig-name descname"><span class="pre">get_recall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'micro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'macro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'weighted'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/event.html#get_recall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.event.get_recall" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Calculates the recall using the formula (</p>
+</div></blockquote>
+<dl>
+<dt>rac{{   ext{{tp}}}}{{   ext{{tp}} +     ext{{fn}}}} )</dt><dd><p>where ‘tp’ is the number of true positives and ‘fn’ the number of false negatives.</p>
+<dl>
+<dt>Args:</dt><dd><p>predictions (np.array): Array of predictions from the model.
+ground_truths (np.array): Array of ground truth labels.
+average (Literal[‘micro’, ‘macro’, ‘weighted’]): Type of averaging performed on the data.
+preds_format (Literal[‘labels’, ‘onehot’]): Format of the predictions.
+gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truths.</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: Recall score between 0 and 1.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recall</span> <span class="o">=</span> <span class="n">get_recall</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
+<span class="go">0.2</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-verona.evaluation.metrics.suffix">
+<span id="verona-evaluation-metrics-suffix-module"></span><h2>verona.evaluation.metrics.suffix module<a class="headerlink" href="#module-verona.evaluation.metrics.suffix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.suffix.get_damerau_levenshtein_score">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.suffix.</span></span><span class="sig-name descname"><span class="pre">get_damerau_levenshtein_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eoc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/suffix.html#get_damerau_levenshtein_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.suffix.get_damerau_levenshtein_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Damerau-Levenshtein score between the predictions and the real values.</p>
+<p>The Damerau-Levenshtein distance represents the number of insertions, deletions,
+substitutions, and transpositions required to change the first sequence into the second.
+In this function, the score is normalized by the size of the longest sequence, and the
+value is obtained by subtracting the normalized distance from 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>list</em><em>[</em><em>np.array</em><em>]</em>) – List containing the predicted suffixes as NumPy Arrays.</p></li>
+<li><p><strong>ground_truths</strong> (<em>list</em><em>[</em><em>np.array</em><em>]</em>) – List containing the ground truth suffixes as NumPy Arrays.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
+the predictions array contains the labels of the activities/attributes predicted.
+If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>, the predictions array contains vectors of probabilities, and the labels
+are internally extracted based on the highest value element for the metric calculation.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truth. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
+the ground truth array contains the labels of the correct activities/attributes.
+If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>, the ground truth array contains the one-hot representation of the
+correct values, and the labels are internally extracted for the metric calculation.</p></li>
+<li><p><strong>eoc</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Label of the End-of-Case (EOC) which is an element that
+signifies the end of the trace/suffix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Damerau-Levenshtein score between 0 and 1. A lower value indicates worse suffix
+prediction, whereas a higher value indicates a prediction closer to the actual suffix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truths</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dl_score</span> <span class="o">=</span> <span class="n">suffix</span><span class="o">.</span><span class="n">get_damerau_levenshtein_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">dl_score</span><span class="p">)</span>
+<span class="go">0.4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-verona.evaluation.metrics.time">
+<span id="verona-evaluation-metrics-time-module"></span><h2>verona.evaluation.metrics.time module<a class="headerlink" href="#module-verona.evaluation.metrics.time" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.time.get_mae">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.time.</span></span><span class="sig-name descname"><span class="pre">get_mae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'mean'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/time.html#get_mae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.time.get_mae" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Mean Absolute Error (MAE) between the predicted and real times.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the predicted times as floats.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the real times as floats.</p></li>
+<li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'none'</em><em>]</em><em>, </em><em>optional</em>) – Determines the type of reduction applied to the MAE.
+If <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>, calculates the average MAE for all pairs of prediction and ground truth.
+If <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, returns all MAE values for the individual pairs without reduction.
+Default is <code class="docutils literal notranslate"><span class="pre">'mean'</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>MAE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is <code class="docutils literal notranslate"><span class="pre">'none'</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, np.array]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.time.get_mse">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.time.</span></span><span class="sig-name descname"><span class="pre">get_mse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'mean'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/time.html#get_mse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.time.get_mse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Mean Square Error (MSE) between the predicted and real times.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the predicted times as floats.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the real times as floats.</p></li>
+<li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'none'</em><em>]</em><em>, </em><em>optional</em>) – Determines the type of reduction applied to the MSE.
+If <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>, calculates the average MSE for all pairs of prediction and ground truth.
+If <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, returns all MSE values for the individual pairs without reduction.
+DEfault is <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>MSE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is <code class="docutils literal notranslate"><span class="pre">'none'</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, np.array]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-verona.evaluation.metrics.utils">
+<span id="verona-evaluation-metrics-utils-module"></span><h2>verona.evaluation.metrics.utils module<a class="headerlink" href="#module-verona.evaluation.metrics.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="verona.evaluation.metrics.utils.get_metric_by_prefix_len">
+<span class="sig-prename descclassname"><span class="pre">verona.evaluation.metrics.utils.</span></span><span class="sig-name descname"><span class="pre">get_metric_by_prefix_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'accuracy'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'fbeta'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'f1_score'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'precision'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'recall'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mcc'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'brier_loss'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'damerau_levenshtein'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mae'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mse'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefixes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'labels'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onehot'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'micro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'macro'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'weighted'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eoc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="_modules/verona/evaluation/metrics/utils.html#get_metric_by_prefix_len"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#verona.evaluation.metrics.utils.get_metric_by_prefix_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the value of the specified metric individually for each prefix size.</p>
+<p>Generates a Pandas DataFrame in which each column represents a prefix size with: 1- its corresponding value
+for the selected metric, 2- the number of prefixes with that length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<em>Literal</em><em>[</em><em>'accuracy'</em><em>, </em><em>'fbeta'</em><em>, </em><em>'f1_score'</em><em>, </em><em>'precision'</em><em>, </em><em>'recall'</em><em>, </em><em>'mcc'</em><em>, </em><em>'brier_loss'</em><em>, </em><em>'damerau_levenshtein'</em><em>, </em><em>'mae'</em><em>, </em><em>'mse'</em><em>]</em>) – Metric to be calculated.</p></li>
+<li><p><strong>predictions</strong> (<em>np.array</em>) – Array of shape (n_samples, n_classes) containing the predictions done by the
+model as probabilities. The predictions on the array should respect the same order as their respective
+prefixes and their ground_truths.</p></li>
+<li><p><strong>ground_truths</strong> (<em>np.array</em>) – Array containing the ground truths. The grounds truths on the array should respect
+the same order as their respective prefixes and predictions.</p></li>
+<li><p><strong>prefixes</strong> (<em>list</em><em>[</em><em>pd.DataFrame</em><em>]</em>) – List containing the prefixes as Pandas DataFrame. The prefixes on the
+list should respect the same order as their respective predicates and ground_truths.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em><em>, </em><em>optional</em>) – Type of averaging to be performed on data.
+Only needed for <code class="docutils literal notranslate"><span class="pre">'fbeta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'f1_score'</span></code>, <code class="docutils literal notranslate"><span class="pre">'precision'</span></code> and <code class="docutils literal notranslate"><span class="pre">'recall'</span></code> value in metric parameter.</p></li>
+<li><p><strong>beta</strong> (<em>float</em><em>, </em><em>optional</em>) – Ratio of recall importance to precision importance. Only needed for <code class="docutils literal notranslate"><span class="pre">'fbeta'</span></code> value in
+metric parameter.</p></li>
+<li><p><strong>eoc</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Label of the End-of-Case (EOC) which is an element that
+signifies the end of the trace/suffix. Only needed for <code class="docutils literal notranslate"><span class="pre">'damerau_levenshtein'</span></code> value in metric parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate: 1- the value of the metric, 2- the number of prefixes with that size.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df_results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="verona.evaluation.html"
+       title="previous chapter">← verona.evaluation package</a>
+  </li>
+  <li class="next">
+    <a href="verona.evaluation.stattests.html"
+       title="next chapter">verona.evaluation.stattests package →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

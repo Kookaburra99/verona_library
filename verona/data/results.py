@@ -19,12 +19,6 @@ class AvailableMetrics:
     This class defines different metric types that can be calculated for different predictive
     tasks in process mining such as predicting the next activity, activity suffix, next timestamp,
     and remaining time.
-
-    Attributes:
-        NextActivity: Metrics for the 'Next Activity' prediction task.
-        ActivitySuffix: Metrics for the 'Activity Suffix' prediction task.
-        NextTimestamp: Metrics for the 'Next Timestamp' prediction task.
-        RemainingTime: Metrics for the 'Remaining Time' prediction task.
     """
 
     class NextActivity:
@@ -66,14 +60,9 @@ class MissingResultStrategy(Enum):
     This enum provides options for how to deal with missing data (NaN values) in the dataset when preparing
     data for Bayesian models. Options include deleting the entire dataset associated with the missing data, 
     deleting only the approach (algorithm/method) associated with the missing data, or taking no action.
-
-    Attributes:
-        DELETE_DATASET: Delete the entire dataset associated with the missing data.
-        DELETE_APPROACH: Delete only the approach (algorithm/method) associated with the missing data.
-        NONE: Take no action on the missing data; it must be handled externally or downstream.
     """
-    DELETE_DATASET = "delete_dataset",
-    DELETE_APPROACH = "delete_approach",
+    DELETE_DATASET = "delete_dataset"
+    DELETE_APPROACH = "delete_approach"
     NONE = "none"
 
 
@@ -126,19 +115,27 @@ def __load_csv_results(metric: MetricValue):
         return pd.read_csv(f)
 
 
-def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=AvailableMetrics.NextActivity.ACCURACY,
-                              even_strategy=MissingResultStrategy.DELETE_DATASET):
+def load_results_hierarchical(approach_1: str = "Tax", approach_2: str = "TACO",
+                              metric: MetricValue = AvailableMetrics.NextActivity.ACCURACY,
+                              even_strategy: MissingResultStrategy = MissingResultStrategy.DELETE_DATASET):
     """
     Load and preprocess the results of two approaches for comparison using a hierarchical test.
 
     This function fetches the raw results from CSV files based on the selected metric, filters the data for the two
-    approaches specified, and handles missing data according to the provided even_strategy.
+    approaches specified, and handles missing data according to the provided **even_strategy**.
 
     Args:
-        approach_1 (str): The name of the first approach for which to load results. Default is "Tax".
-        approach_2 (str): The name of the second approach for which to load results. Default is "TACO".
-        metric (AvailableMetrics): An enum specifying the metric on which the approaches should be compared.
-        even_strategy (MissingResultStrategy): Enum specifying the strategy to apply for handling missing data.
+        approach_1 (str, optional): The name of the first approach for which to load results. Default is ``'Tax'``.
+        approach_2 (str, optional): The name of the second approach for which to load results.
+            Default is ``'TACO'``.
+        metric (MetricValue, optional): An enum specifying the metric on which the approaches should be compared.
+            Default is ``AvailableMetrics.NextActivity.ACCURACY``.
+        even_strategy (MissingResultStrategy, optional): Enum specifying the strategy to apply for handling missing data.
+            Default is ``MissingResultStrategy.DELETE_DATASET``.
+
+    Note:
+        For the metrics "next_activity" and "suffix", the values are multiplied by 100 so that they are consistent
+            with the default rope values.
 
     Returns:
         pd.DataFrame, pd.DataFrame, List[str]: Two DataFrames containing the preprocessed results of the two approaches,
@@ -149,16 +146,10 @@ def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=Availa
         AssertionError: If the specified approaches are not available in the data.
 
     Examples:
-        >>> approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("Tax", "TACO", \
-                metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=EvenStrategy.DELETE_DATASET)
+        >>> approach_1_df, approach_2_df, common_datasets = load_results_hierarchical("Tax", "TACO", metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=EvenStrategy.DELETE_DATASET)
         >>> print(approach_1_df.head())
         >>> print(approach_2_df.head())
         >>> print(common_datasets)
-
-    Notes:
-        - The function assumes that the raw result CSVs are present in a folder named "csv".
-        - For the metrics "next_activity" and "suffix", the values are multiplied by 100 so that they are consistent with
-        the default rope values.
     """
 
     results = __load_csv_results(metric)
@@ -193,29 +184,29 @@ def load_results_hierarchical(approach_1="Tax", approach_2="TACO", metric=Availa
     return approach_1_df, approach_2_df, approach_1_df.index.to_list()
 
 
-def load_results_plackett_luce(metric=AvailableMetrics.NextActivity.ACCURACY,
-                               even_strategy=MissingResultStrategy.DELETE_DATASET):
+def load_results_plackett_luce(metric: MetricValue = AvailableMetrics.NextActivity.ACCURACY,
+                               even_strategy: MissingResultStrategy = MissingResultStrategy.DELETE_DATASET):
     """
     Load and preprocess the results for applying the Plackett-Luce model.
 
     This function loads a CSV file containing the raw results based on the given metric. It then computes the mean
-    result for each pair of (approach, dataset), and finally applies an evenizing strategy to handle missing data,
+    result for each pair of *(approach, dataset)*, and finally applies an evenizing strategy to handle missing data,
     if any.
 
     Args:
-        metric (AvailableMetrics): The metric for which results should be loaded. Defaults to
-            `AvailableMetrics.NextActivity.ACCURACY`.
-        even_strategy (MissingResultStrategy): Strategy to apply when missing values are encountered. Determines whether
-            rows (datasets) or columns (approaches) should be dropped. Defaults to
-            `MissingResultStrategy.DELETE_DATASET`.
+        metric (AvailableMetrics, optional): The metric for which results should be loaded.
+            Default is ``AvailableMetrics.NextActivity.ACCURACY``.
+        even_strategy (MissingResultStrategy, optional): Strategy to apply when missing values are encountered.
+            Determines whether rows (datasets) or columns (approaches) should be dropped.
+            Default is ``MissingResultStrategy.DELETE_DATASET``.
 
     Returns:
-        pd.DataFrame: A DataFrame containing the mean results, where each row represents a dataset and each column an approach.
+        pd.DataFrame: A DataFrame containing the mean results, where each row represents a dataset and each column an
+            approach.
         list: A list of approach names.
 
     Examples:
-        >>> mean_results, approaches = load_results_plackett_luce(AvailableMetrics.NextActivity.ACCURACY, \
-                MissingResultStrategy.DELETE_DATASET)
+        >>> mean_results, approaches = load_results_plackett_luce(AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
     """
     results = __load_csv_results(metric)
 
@@ -228,8 +219,9 @@ def load_results_plackett_luce(metric=AvailableMetrics.NextActivity.ACCURACY,
     return mean_results, mean_results.columns.to_list()
 
 
-def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=AvailableMetrics.NextActivity.ACCURACY,
-                                  even_strategy=MissingResultStrategy.DELETE_DATASET):
+def load_results_non_hierarchical(approach_1: str = "Tax", approach_2: str = "TACO",
+                                  metric: MetricValue = AvailableMetrics.NextActivity.ACCURACY,
+                                  even_strategy: MissingResultStrategy = MissingResultStrategy.DELETE_DATASET):
     """
     Load and preprocess results for non-hierarchical statistical comparison of two approaches.
 
@@ -238,21 +230,20 @@ def load_results_non_hierarchical(approach_1="Tax", approach_2="TACO", metric=Av
     strategy to handle any missing values.
 
     Args:
-        approach_1 (str): The name of the first approach to compare. Defaults to "Tax".
-        approach_2 (str): The name of the second approach to compare. Defaults to "TACO".
-        metric (AvailableMetrics): The metric to consider for loading results. Defaults to
-            `AvailableMetrics.NextActivity.ACCURACY`.
-        even_strategy (MissingResultStrategy): Strategy to apply when missing values are encountered. Determines whether
-            rows (datasets) or columns (approaches) should be dropped. Defaults to
-                `MissingResultStrategy.DELETE_DATASET`.
+        approach_1 (str, optional): The name of the first approach to compare. Default is ``'Tax'``.
+        approach_2 (str, optional): The name of the second approach to compare. Default is ``'TACO'``.
+        metric (AvailableMetrics, optional): The metric to consider for loading results.
+            Default is ``AvailableMetrics.NextActivity.ACCURACY``.
+        even_strategy (MissingResultStrategy, optional): Strategy to apply when missing values are encountered.
+            Determines whether rows (datasets) or columns (approaches) should be dropped.
+            Default is ``MissingResultStrategy.DELETE_DATASET``.
 
     Returns:
         np.ndarray: A NumPy array containing the filtered results for `approach_1`.
         np.ndarray: A NumPy array containing the filtered results for `approach_2`.
 
     Examples:
-        >>> results_tax, results_taco = load_results_non_hierarchical("Tax", "TACO", \
-                AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
+        >>> results_tax, results_taco = load_results_non_hierarchical("Tax", "TACO", AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)
     """
     results, approaches = load_results_plackett_luce(metric, even_strategy=MissingResultStrategy.NONE)
     results = results.loc[:, [approach_1, approach_2]]

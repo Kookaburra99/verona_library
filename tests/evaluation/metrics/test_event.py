@@ -46,16 +46,16 @@ def test_get_f1_score():
     ground_truth = np.array([1, 3, 4, 0])
     preds_labels = np.array([1, 2, 0, 1])
 
-    f1, precision, recall = event.get_fbeta(preds_labels, ground_truth, beta=1,
+    f1, precision, recall = event.get_f1_score(preds_labels, ground_truth,
                                             average='micro', preds_format='labels', gt_format='labels')
     print(f'{f1} - {precision} - {recall}')
 
-    f1, precision, recall = event.get_fbeta(preds_labels, ground_truth, beta=1,
+    f1, precision, recall = event.get_f1_score(preds_labels, ground_truth,
                                             average='macro', preds_format='labels', gt_format='labels')
     print(f'{f1} - {precision} - {recall}')
 
-    f1, precision, recall = event.get_fbeta(preds_labels, ground_truth, beta=1,
-                                            average='weighted', preds_format='labels', gt_format='labels')
+    f1, precision, recall = event.get_f1_score(preds_labels, ground_truth,
+                                               average='weighted', preds_format='labels', gt_format='labels')
     print(f'{f1} - {precision} - {recall}')
 
 

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>Overview</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Installation" href="installation.html" />
+  <link rel="prev" title="VERONA: predictiVE pRocess mOnitoring beNchmArk" href="index.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Overview</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#introduction-to-predictive-process-monitoring" class="reference internal">Introduction to Predictive Process Monitoring</a></li>
+                
+                  <li class="toctree-l2"><a href="#the-ppm-workflow" class="reference internal">The PPM workflow</a></li>
+                
+                  <li class="toctree-l2"><a href="#benchmarking-deep-learning-based-approaches" class="reference internal">Benchmarking deep learning-based approaches</a></li>
+                
+                  <li class="toctree-l2"><a href="#the-importance-of-verona-library" class="reference internal">The importance of VERONA library</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Overview</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← VERONA: predictiVE pRocess mOnitoring beNchmArk</a>
+  </li>
+  <li class="next">
+    <a href="installation.html"
+       title="next chapter">Installation →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<section id="introduction-to-predictive-process-monitoring">
+<h2>Introduction to Predictive Process Monitoring<a class="headerlink" href="#introduction-to-predictive-process-monitoring" title="Permalink to this headline">¶</a></h2>
+<p>Business processes, ranging from the assembly line of a car manufacturing plant to the
+chaos of a hospital emergency department, govern the day-to-day operations of companies
+and institutions. The ability to understand and analyze the process flow and, most
+importantly, predict how it will evolve over time is critical to optimize resource
+utilization, minimize waiting times, reduce costs, improve services and products quality,
+and achieve many other benefits to both organizations and users.</p>
+<p>Predictive process monitoring (PPM), a subfield of process mining, focuses on tackling
+all these predictive problems. For this purpose, PPM techniques train a predictive model
+using <em>event logs</em>,  which provide information about the event execution of the
+business process, including the case identifier, the recorded activity, its timestamp,
+and various attributes, such as the resource information, as shown in <a class="reference internal" href="#tab-event-log"><span class="std std-numref">Table 1</span></a>.
+Although there are some datasets containing publicly available real-life event logs,
+each author tends to utilize a distinct subset of these under widely different
+experimental setups, which complicates the task of making a meaningful comparison
+between approaches.</p>
+<span id="tab-event-log"></span><table class="docutils align-center" id="id5">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Extract from a real event log.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CaseID</p></th>
+<th class="head"><p>Activity</p></th>
+<th class="head"><p>Timestamp</p></th>
+<th class="head"><p>Resource</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Case3814</p></td>
+<td><p>Assign seriousness</p></td>
+<td><p>2012-05-04 15:23:08</p></td>
+<td><p>Value 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Case3814</p></td>
+<td><p>Take in charge ticket</p></td>
+<td><p>2012-05-07 07:01:12</p></td>
+<td><p>Value 6</p></td>
+</tr>
+<tr class="row-even"><td><p>Case3814</p></td>
+<td><p>Resolve ticket</p></td>
+<td><p>2012-05-24 15:25:23</p></td>
+<td><p>Value 12</p></td>
+</tr>
+<tr class="row-odd"><td><p>Case3814</p></td>
+<td><p>Closed</p></td>
+<td><p>2012-06-08 15:25:48</p></td>
+<td><p>Value 5</p></td>
+</tr>
+<tr class="row-even"><td><p>Case3815</p></td>
+<td><p>Assign seriousness</p></td>
+<td><p>2010-09-08 10:36:14</p></td>
+<td><p>Value 2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Case3815</p></td>
+<td><p>Wait</p></td>
+<td><p>2010-09-08 15:32:25</p></td>
+<td><p>Value 14</p></td>
+</tr>
+<tr class="row-even"><td><p>Case3815</p></td>
+<td><p>Take in charge ticket</p></td>
+<td><p>2010-09-13 09:01:56</p></td>
+<td><p>Value 2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-ppm-workflow">
+<h2>The PPM workflow<a class="headerlink" href="#the-ppm-workflow" title="Permalink to this headline">¶</a></h2>
+<figure class="align-default" id="id6">
+<span id="fig-ppm-workflow"></span><a class="reference internal image-reference" href="_images/predictive_monitoring.png"><img alt="_images/predictive_monitoring.png" src="_images/predictive_monitoring.png" style="width: 501.5px; height: 303.0px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Predictive monitoring workflow</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-ppm-workflow"><span class="std std-numref">Fig. 1</span></a> shows the usual workflow in PPM. Normally, predictive
+monitoring approaches receive as inputs a sequence of events from a running case up to a
+certain point (<em>event prefix</em>). This information serves as historical knowledge which is
+then used to train a predictive model with the objective of forecasting any variable of
+interest from the future events that will happen after that point in time (<em>event suffix</em>).
+Some of the most common predictive tasks include predicting the next event or sequence of
+events to the end of the case, the remaining time until the end of the case, or the future
+sequence of activities to be executed (<em>activity suffix</em>). Note that the fact of extracting
+the prefixes and their corresponding targets is a time-consuming task that often takes a large
+part of the approach coding effort and is highly prone to software bugs.</p>
+</section>
+<section id="benchmarking-deep-learning-based-approaches">
+<h2>Benchmarking deep learning-based approaches<a class="headerlink" href="#benchmarking-deep-learning-based-approaches" title="Permalink to this headline">¶</a></h2>
+<p>A plethora of machine learning techniques have been applied to the predictive monitoring problem,
+such as decision trees, support vector machines, and, more recently, deep learning-based
+architectures, with the latter being the most successful and popular. Despite the abundance of
+new approaches, most of them rely on very different experimental setups, so it is hard to draw
+definitive conclusions about their performance according to the inner characteristics of the event
+log. To tackle this issue, <a class="footnote-reference brackets" href="#footcite-benchmark-rama-2023" id="id1">1</a> presents an empirical comparison of the most
+relevant deep learning-based predictive monitoring approaches, standardizing data partitioning
+type and performance metrics, and including statistical tests to determine statistically
+significant differences between proposals. Unfortunately, this approach is difficult to replicate
+and requires a significant amount of work to integrate into the usual workflow of a data scientist
+or researcher who intends to develop a new predictive monitoring approach.</p>
+</section>
+<section id="the-importance-of-verona-library">
+<h2>The importance of VERONA library<a class="headerlink" href="#the-importance-of-verona-library" title="Permalink to this headline">¶</a></h2>
+<p>The VERONA library aims to address all of the mentioned challenges by implementing the necessary
+functions to develop the PPM workflow and reproduce the benchmark of <a class="footnote-reference brackets" href="#footcite-benchmark-rama-2023" id="id2">1</a>
+in an easy and user-friendly manner. This library provides primitives for event log retrieval and
+pre-processing, data partitioning, evaluation with benchmark metrics, and visualization of results
+with plots. Furthermore, it also includes the R implementation of the Bayesian statistical comparison
+proposed in <a class="footnote-reference brackets" href="#footcite-scmamp-calvo-2016" id="id3">2</a> into the Python language, which is one of the core pillars
+of the benchmark. Finally, it allows importing the results of the original benchmark as well as three
+additional approaches, so that any new approach can be easily compared with the ones already evaluated.
+Designed for easy integration, VERONA facilitates the encoding, execution, and evaluation of common
+predictive monitoring tasks with minimal code.</p>
+<p class="rubric">References</p>
+<div class="docutils container" id="id4">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-benchmark-rama-2023"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Efrén Rama-Maneiro, Juan C. Vidal, and Manuel Lama. Deep learning for predictive business process monitoring: review and benchmark. <em>IEEE Transactions on Services Computing</em>, 16(1):739–756, 2023. <a class="reference external" href="https://doi.org/10.1109/TSC.2021.3139807">doi:10.1109/TSC.2021.3139807</a>.</p>
+</dd>
+<dt class="label" id="footcite-scmamp-calvo-2016"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Borja Calvo and Guzmán Santafé. Scmamp: statistical comparison of multiple algorithms in multiple problems. <em>R J.</em>, 8(1):248, 2016. URL: <a class="reference external" href="https://doi.org/10.32614/rj-2016-017">https://doi.org/10.32614/rj-2016-017</a>, <a class="reference external" href="https://doi.org/10.32614/RJ-2016-017">doi:10.32614/RJ-2016-017</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← VERONA: predictiVE pRocess mOnitoring beNchmArk</a>
+  </li>
+  <li class="next">
+    <a href="installation.html"
+       title="next chapter">Installation →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

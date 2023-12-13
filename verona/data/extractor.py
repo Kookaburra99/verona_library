@@ -23,25 +23,28 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
 
     Args:
         dataset (pd.DataFrame): DataFrame containing the event log.
-        prediction_task (Literal): Specifies the type of prediction task.
-            - 'next_activity': Predict the next activity.
-            - 'activity_suffix': Predict the remaining sequence of activities.
-            - 'next_timestamp': Predict the next event timestamp.
-            - 'remaining_time': Predict the remaining time for the case to complete.
-            - 'next_attribute': Predict the next attribute.
-            - 'attribute_suffix': Predict the remaining sequence of attributes.
-        prefix_size (Optional[int], default=None): Length of the prefix to be used.
-            If None, uses all possible sizes.
-        case_id (str, default='CaseColumn'): Column name for the case identifier.
-        activity_id (Optional[str], default=None): Column name for the activity.
+        prediction_task (Literal['next_activity', 'activity_suffix', 'next_timestamp', 'remaining_time', 'next_attribute', 'attribute_suffix']):
+            Specifies the type of prediction task.
+
+            - ``'next_activity'``: Predict the next activity.
+            - ``'activity_suffix'``: Predict the remaining sequence of activities.
+            - ``'next_timestamp'``: Predict the next event timestamp.
+            - ``'remaining_time'``: Predict the remaining time for the case to complete.
+            - ``'next_attribute'``: Predict the next attribute.
+            - ``'attribute_suffix'``: Predict the remaining sequence of attributes.
+
+        prefix_size (int, optional): Length of the prefix to be used.
+            If ``None``, uses all possible sizes.
+        case_id (str, optional): Column name for the case identifier. Default is ``DataFrameFields.CASE_COLUMN``.
+        activity_id (str, optional): Column name for the activity.
             Needed for 'next_activity' and 'activity_suffix'.
-        timestamp_id (Optional[str], default=None): Column name for the timestamp.
+        timestamp_id (str, optional): Column name for the timestamp.
             Needed for 'next_timestamp' and 'remaining_time'.
-        attribute_id (Optional[str], default=None): Column name for the attribute.
+        attribute_id (str, optional): Column name for the attribute.
             Needed for 'next_attribute' and 'attribute_suffix'.
 
-    Notes:
-        Default setting for "prefix_size" reproduces the expermiental setup of [1].
+    Tip:
+        Leaving the default values for **prefix_size** reproduces the expermiental setup of [1].
 
         [1]  Rama-Maneiro, E., Vidal, J. C., & Lama, M. (2023). Deep Learning for Predictive Business Process
         Monitoring: Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756.
@@ -56,7 +59,7 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
         ValueError: If the required column for a prediction task is not specified.
 
     Examples:
-        >>> prefixes, targets = get_prefixes_and_targets(dataset, 'next_activity', prefix_size=5)
+        >>> prefixes, targets = get_prefixes_and_targets(df_dataset, 'next_activity', prefix_size=5)
     """
 
     cases = dataset.groupby(case_id)

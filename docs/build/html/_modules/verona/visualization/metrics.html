@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.visualization.metrics</title>
+    
+          <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.visualization.metrics</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.visualization.metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objects</span> <span class="kn">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+
+<div class="viewcode-block" id="bar_plot_metric"><a class="viewcode-back" href="../../../verona.visualization.html#verona.visualization.metrics.bar_plot_metric">[docs]</a><span class="k">def</span> <span class="nf">bar_plot_metric</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">x_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span>
+                    <span class="n">reduction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+                    <span class="n">print_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a bar chart from input data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be</span>
+<span class="sd">            represented on the X-axis and the values are either single numerical values</span>
+<span class="sd">            or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.</span>
+<span class="sd">        x_label (str, optional): Label for the X axis. Default is ``&#39;Dataset&#39;``.</span>
+<span class="sd">        y_label (str, optional): Label for the Y axis. Defaults to ``&#39;Accuracy&#39;``.</span>
+<span class="sd">        reduction (Literal[&#39;mean&#39;, &#39;max&#39;, &#39;min&#39;, &#39;median&#39;], optional): The reduction function</span>
+<span class="sd">            to be applied if the values in the `data` dictionary are NumPy Arrays.</span>
+<span class="sd">        y_min (float, optional): The minimum value for the Y-axis. Default is ``0.0``.</span>
+<span class="sd">        y_max (float, optional): The maximum value for the Y-axis. Defaults is ``100.0``.</span>
+<span class="sd">        font_size (int, optional): Font size of the text in the plot. Default is ``15``.</span>
+<span class="sd">        print_values (bool, optional): If True, metric values are printed over each bar.</span>
+<span class="sd">            Default is ``False``.</span>
+<span class="sd">        num_decimals (int, optional): Number of decimals to display if `print_values` is ``True``.</span>
+<span class="sd">            Default is ``2``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Plotly Figure: ``Plotly Figure`` object representing the bar chart.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_values_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="n">y_values_raw</span>
+    <span class="k">elif</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="n">__apply_reduction</span><span class="p">(</span><span class="n">y_values_raw</span><span class="p">,</span> <span class="n">reduction</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect format for values in data DataFrame: </span><span class="si">{</span><span class="n">y_values_raw</span><span class="si">}</span><span class="s1">. &#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;Only two dimension DataFrames with one or more values per column are allowed.&#39;</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">x_label</span><span class="p">,</span> <span class="n">y_label</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_values</span><span class="p">):</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">num_decimals</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">x_label</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">y_label</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="line_plot_metric"><a class="viewcode-back" href="../../../verona.visualization.html#verona.visualization.metrics.line_plot_metric">[docs]</a><span class="k">def</span> <span class="nf">line_plot_metric</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">x_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span>
+                     <span class="n">reduction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+                     <span class="n">print_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a line chart from input data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be</span>
+<span class="sd">            represented on the X-axis and the values are either single numerical values</span>
+<span class="sd">            or NumPy Arrays. If arrays are used, the `reduction` parameter will be applied.</span>
+<span class="sd">        x_label (str, optional): Label for the X axis. Default is ``&#39;Dataset&#39;``.</span>
+<span class="sd">        y_label (str, optional): Label for the Y axis. Default is ``&#39;Accuracy&#39;``.</span>
+<span class="sd">        reduction (Literal[&#39;mean&#39;, &#39;max&#39;, &#39;min&#39;, &#39;median&#39;], optional): The reduction function</span>
+<span class="sd">            to be applied if the values in the `data` dictionary are NumPy Arrays.</span>
+<span class="sd">        y_min (float, optional): The minimum value for the Y-axis. Default is ``0.0``.</span>
+<span class="sd">        y_max (float, optional): The maximum value for the Y-axis. Default is ``100.0``.</span>
+<span class="sd">        font_size (int, optional): Font size of the text in the plot. Default is ``15` .</span>
+<span class="sd">        print_values (bool, optional): If ``True``, metric values are printed over each point.</span>
+<span class="sd">            Default is ``False``.</span>
+<span class="sd">        num_decimals (int, optional): Number of decimals to display if `print_values` is ``True``.</span>
+<span class="sd">            Default is ``2``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Plotly Figure: ``Plotly Figure`` object representing the line chart.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_values_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="n">y_values_raw</span>
+    <span class="k">elif</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="n">__apply_reduction</span><span class="p">(</span><span class="n">y_values_raw</span><span class="p">,</span> <span class="n">reduction</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect format for values in data DataFrame: </span><span class="si">{</span><span class="n">y_values_raw</span><span class="si">}</span><span class="s1">. &#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;Only two dimension DataFrames with one or more values per column are allowed.&#39;</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">x_label</span><span class="p">,</span> <span class="n">y_label</span><span class="p">},</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">font_size</span><span class="o">/</span><span class="mi">5</span><span class="p">},</span> <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">font_size</span><span class="o">/</span><span class="mi">2</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_values</span><span class="p">):</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">v</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">num_decimals</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">x_label</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">y_label</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="box_plot_metric"><a class="viewcode-back" href="../../../verona.visualization.html#verona.visualization.metrics.box_plot_metric">[docs]</a><span class="k">def</span> <span class="nf">box_plot_metric</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">x_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span>
+                    <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a box plot showing the corresponding box for each category.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.DataFrame): Pandas DataFrame containing the values to be represented in the graph.</span>
+<span class="sd">            The columns name correspond to the categories to be represented on the X-axis,</span>
+<span class="sd">            while the values associated are used to build the corresponding box.</span>
+<span class="sd">        x_label (str, optional): Label for the X axis. Default is ``&#39;Dataset&#39;``.</span>
+<span class="sd">        y_label (str, optional): Label for the Y axis. Default is ``&#39;Accuracy&#39;``.</span>
+<span class="sd">        y_min (float, optional): The minimum value for the Y-axis. Defaults is ``0.0``.</span>
+<span class="sd">        y_max (float, optional): The maximum value for the Y-axis. Default is ``100.0``.</span>
+<span class="sd">        font_size (int, optional): Font size of the text in the plot. Default is ``15``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Plotly Figure: ``Plotly Figure`` object representing the error plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Box Plot&#39;</span><span class="p">,</span>
+                 <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">y_label</span><span class="p">,</span> <span class="n">x_label</span><span class="p">},</span> <span class="n">range_y</span><span class="o">=</span><span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">])</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">x_label</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">y_label</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="error_plot_metric"><a class="viewcode-back" href="../../../verona.visualization.html#verona.visualization.metrics.error_plot_metric">[docs]</a><span class="k">def</span> <span class="nf">error_plot_metric</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">x_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="n">y_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span>
+                      <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+                      <span class="n">print_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates an error plot from input data.</span>
+
+<span class="sd">    This function is particularly useful for visualizing results from cross-validation</span>
+<span class="sd">    experiments, as it shows the mean and standard deviation for each NumPy Array of values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.DataFrame): Pandas DataFrame where the columns name correspond to the categories to be</span>
+<span class="sd">            represented on the X-axis and the values are used to construct the corresponding error bars.</span>
+<span class="sd">        x_label (str, optional): Label for the X axis. Default is ``&#39;Dataset&#39;``.</span>
+<span class="sd">        y_label (str, optional): Label for the Y axis. Default is ``&#39;Accuracy&#39;``.</span>
+<span class="sd">        y_min (float, optional): The minimum value for the Y-axis. Default is ``0.0``.</span>
+<span class="sd">        y_max (float, optional): The maximum value for the Y-axis. Default is ``100.0``.</span>
+<span class="sd">        font_size (int, optional): Font size of the text in the plot. Default is ``15``.</span>
+<span class="sd">        print_values (bool, optional): Whether to print metric values over each</span>
+<span class="sd">            point. Default is ``False``.</span>
+<span class="sd">        num_decimals (int, optional): Number of decimal places to show if `print_values`</span>
+<span class="sd">            is ``True``. Default is ``2``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Plotly Figure: ``Plotly Figure``  object representing the error plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_values_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">y_values_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="n">y_values_raw</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect format for values in data DataFrame: </span><span class="si">{</span><span class="n">y_values_raw</span><span class="si">}</span><span class="s1">. &#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;Only two dimension DataFrames with two or more values per column are allowed.&#39;</span><span class="p">)</span>
+
+    <span class="n">y_means</span> <span class="o">=</span> <span class="n">__apply_reduction</span><span class="p">(</span><span class="n">y_values</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">y_stds</span> <span class="o">=</span> <span class="n">__apply_reduction</span><span class="p">(</span><span class="n">y_values</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_means</span><span class="p">,</span> <span class="n">error_y</span><span class="o">=</span><span class="n">y_stds</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">x_label</span><span class="p">,</span> <span class="n">y_label</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">error_y</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;thickness&#39;</span><span class="p">:</span> <span class="n">font_size</span> <span class="o">/</span> <span class="mi">10</span><span class="p">},</span> <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">font_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">mean_val</span><span class="p">,</span> <span class="n">std_val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y_means</span><span class="p">,</span> <span class="n">y_stds</span><span class="p">)):</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">mean_val</span> <span class="o">+</span> <span class="n">std_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mean: </span><span class="si">{</span><span class="n">mean_val</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">num_decimals</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&lt;br&gt;Std: </span><span class="si">{</span><span class="n">std_val</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">num_decimals</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">x_label</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="n">y_label</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="plot_metric_by_prefixes_len"><a class="viewcode-back" href="../../../verona.visualization.html#verona.visualization.metrics.plot_metric_by_prefixes_len">[docs]</a><span class="k">def</span> <span class="nf">plot_metric_by_prefixes_len</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">metric_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span>
+                                <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">print_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                <span class="n">num_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a mixed plot, where the bar chart indicates the number of prefixes of each length and the</span>
+<span class="sd">    line chart indicates the value of the chosen metric for each prefix length.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.DataFrame): Pandas DataFrame where the column names indicate the length of the prefixes and</span>
+<span class="sd">            the associated values indicate 1- the value of the metric and 2- the number of prefixes of that length.</span>
+<span class="sd">        metric_label (str, optional): Label for the right Y-axis. Default is ``&#39;Accuracy&#39;``.</span>
+<span class="sd">        font_size (int, optional): Font size of the text in the plot. Default is ``15``.</span>
+<span class="sd">        print_values (bool, optional): Whether to print metric values over each</span>
+<span class="sd">            point. Defaults is ``False``.</span>
+<span class="sd">        num_decimals (int, optional): Number of decimal places to show if &#39;print_values&#39;</span>
+<span class="sd">            is True. Default is ``2``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        PLotly Figure: ``Plotly Figure`` object representing the bar chart and the line chart.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_values_metric</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">y_values_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="p">[[{</span><span class="s2">&quot;secondary_y&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]])</span>
+
+    <span class="c1"># Add bar chart trace</span>
+    <span class="n">bar_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_values_counts</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">bar_trace</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Add line chart trace</span>
+    <span class="n">line_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_values_metric</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">metric_label</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">line_trace</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Update line chart properties (color and thickness)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">selector</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">),</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">font_size</span><span class="o">/</span><span class="mi">5</span><span class="p">),</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_values_metric</span><span class="p">):</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">v</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_values_counts</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_values_counts</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">.</span><span class="si">{</span><span class="n">num_decimals</span><span class="si">}</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric_label</span><span class="si">}</span><span class="s1"> by prefix length&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s1">&#39;Prefix Length&#39;</span><span class="p">,</span>  <span class="n">tickangle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_values_counts</span><span class="p">)</span><span class="o">*</span><span class="mf">1.03</span><span class="p">],</span> <span class="n">title_text</span><span class="o">=</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span>
+                     <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_values_metric</span><span class="p">)</span><span class="o">*</span><span class="mf">1.03</span><span class="p">],</span> <span class="n">title_text</span><span class="o">=</span><span class="s1">&#39;Metric&#39;</span><span class="p">,</span>
+                     <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tickfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<span class="k">def</span> <span class="nf">__apply_reduction</span><span class="p">(</span><span class="n">raw_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                      <span class="n">reduction</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">reduction</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">raw_values</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">reduction</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">raw_values</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">reduction</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">raw_values</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">reduction</span> <span class="o">==</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span> <span class="n">raw_values</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">reduction</span> <span class="o">==</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span> <span class="n">raw_values</span><span class="p">)))</span>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

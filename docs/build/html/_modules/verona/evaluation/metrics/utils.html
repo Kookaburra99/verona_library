@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.evaluation.metrics.utils</title>
+    
+          <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.evaluation.metrics.utils</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.evaluation.metrics.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">verona.evaluation.metrics</span> <span class="kn">import</span> <span class="n">event</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">time</span>
+
+
+<div class="viewcode-block" id="get_metric_by_prefix_len"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.utils.get_metric_by_prefix_len">[docs]</a><span class="k">def</span> <span class="nf">get_metric_by_prefix_len</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span>
+                                             <span class="s1">&#39;mcc&#39;</span><span class="p">,</span> <span class="s1">&#39;brier_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">],</span>
+                             <span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+                             <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span> <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                             <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">eoc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the value of the specified metric individually for each prefix size.</span>
+
+<span class="sd">    Generates a Pandas DataFrame in which each column represents a prefix size with: 1- its corresponding value</span>
+<span class="sd">    for the selected metric, 2- the number of prefixes with that length.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        metric (Literal[&#39;accuracy&#39;, &#39;fbeta&#39;, &#39;f1_score&#39;, &#39;precision&#39;, &#39;recall&#39;, &#39;mcc&#39;, &#39;brier_loss&#39;, &#39;damerau_levenshtein&#39;, &#39;mae&#39;, &#39;mse&#39;]): Metric to be calculated.</span>
+<span class="sd">        predictions (np.array): Array of shape (n_samples, n_classes) containing the predictions done by the</span>
+<span class="sd">            model as probabilities. The predictions on the array should respect the same order as their respective</span>
+<span class="sd">            prefixes and their ground_truths.</span>
+<span class="sd">        ground_truths (np.array): Array containing the ground truths. The grounds truths on the array should respect</span>
+<span class="sd">            the same order as their respective prefixes and predictions.</span>
+<span class="sd">        prefixes (list[pd.DataFrame]): List containing the prefixes as Pandas DataFrame. The prefixes on the</span>
+<span class="sd">            list should respect the same order as their respective predicates and ground_truths.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the predictions. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the ground truths. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;], optional): Type of averaging to be performed on data.</span>
+<span class="sd">            Only needed for ``&#39;fbeta&#39;``, ``&#39;f1_score&#39;``, ``&#39;precision&#39;`` and ``&#39;recall&#39;`` value in metric parameter.</span>
+<span class="sd">        beta (float, optional): Ratio of recall importance to precision importance. Only needed for ``&#39;fbeta&#39;`` value in</span>
+<span class="sd">            metric parameter.</span>
+<span class="sd">        eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that</span>
+<span class="sd">            signifies the end of the trace/suffix. Only needed for ``&#39;damerau_levenshtein&#39;`` value in metric parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df_results: Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate: 1- the value of the metric, 2- the number of prefixes with that size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">preds_by_lens</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">gts_by_lens</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">gt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">prefixes</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">):</span>
+        <span class="n">prefix_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prefix_len</span> <span class="ow">in</span> <span class="n">preds_by_lens</span><span class="p">:</span>
+            <span class="n">preds_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+            <span class="n">gts_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">preds_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred</span><span class="p">]</span>
+            <span class="n">gts_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">gt</span><span class="p">]</span>
+
+    <span class="n">preds_by_lens</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">preds_by_lens</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="n">gts_by_lens</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">gts_by_lens</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+    <span class="n">dict_results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">prefix_len</span> <span class="ow">in</span> <span class="n">preds_by_lens</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">__apply_metric</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">preds_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gts_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">]),</span>
+                                <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eoc</span><span class="p">)</span>
+        <span class="n">num_prefixes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">preds_by_lens</span><span class="p">[</span><span class="n">prefix_len</span><span class="p">])</span>
+
+        <span class="n">dict_results</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix_len</span><span class="si">}</span><span class="s1">-prefix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">,</span> <span class="n">num_prefixes</span><span class="p">]</span>
+
+    <span class="n">df_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dict_results</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_result</span></div>
+
+
+<span class="k">def</span> <span class="nf">__apply_metric</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;mcc&#39;</span><span class="p">,</span> <span class="s1">&#39;brier_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">],</span>
+                   <span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                   <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span> <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                   <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">],</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">eoc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_accuracy</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_fbeta</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;precision&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_precision</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_recall</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;mcc&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_mcc</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;brier_loss&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_brier_loss</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">suffix</span><span class="o">.</span><span class="n">get_damerau_levenshtein_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">preds_format</span><span class="p">,</span> <span class="n">gt_format</span><span class="p">,</span> <span class="n">eoc</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;mae&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">get_mae</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;mae&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">get_mse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

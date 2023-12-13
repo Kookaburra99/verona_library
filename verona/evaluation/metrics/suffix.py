@@ -20,13 +20,13 @@ def get_damerau_levenshtein_score(predictions: list[np.array], ground_truths: li
     Args:
         predictions (list[np.array]): List containing the predicted suffixes as NumPy Arrays.
         ground_truths (list[np.array]): List containing the ground truth suffixes as NumPy Arrays.
-        preds_format (Literal['labels', 'onehot']): Format of the predictions. If 'label',
+        preds_format (Literal['labels', 'onehot']): Format of the predictions. If ``'label'``,
             the predictions array contains the labels of the activities/attributes predicted.
-            If 'onehot', the predictions array contains vectors of probabilities, and the labels
+            If ``'onehot'``, the predictions array contains vectors of probabilities, and the labels
             are internally extracted based on the highest value element for the metric calculation.
-        gt_format (Literal['labels', 'onehot']): Format of the ground truth. If 'label',
+        gt_format (Literal['labels', 'onehot']): Format of the ground truth. If ``'label'``,
             the ground truth array contains the labels of the correct activities/attributes.
-            If 'onehot', the ground truth array contains the one-hot representation of the
+            If ``'onehot'``, the ground truth array contains the one-hot representation of the
             correct values, and the labels are internally extracted for the metric calculation.
         eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that
             signifies the end of the trace/suffix.
@@ -34,6 +34,13 @@ def get_damerau_levenshtein_score(predictions: list[np.array], ground_truths: li
     Returns:
         float: Damerau-Levenshtein score between 0 and 1. A lower value indicates worse suffix
         prediction, whereas a higher value indicates a prediction closer to the actual suffix.
+
+    Examples:
+        >>> ground_truths = [np.array([0, 1, 2, 3, 4])]
+        >>> predictions = [np.array([0, 12, 2])]
+        >>> dl_score = suffix.get_damerau_levenshtein_score(predictions, ground_truths, preds_format='labels', gt_format='labels')
+        >>> print(dl_score)
+        0.4
     """
 
     if preds_format == 'onehot':
