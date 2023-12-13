@@ -47,12 +47,12 @@ class PlackettLuceResults:
 
 class PlackettLuceRanking:
 
-    def __init__(self, result_matrix : pd.DataFrame, approaches : List[str]):
+    def __init__(self, result_matrix: pd.DataFrame, approaches: List[str]):
         """
         Parameters:
-            result_matrix : matrix of results in which each row represents a dataset and each column represents an
-            algorithm.
-            approaches : list of the names of approaches in the result matrix
+            result_matrix (pd.DataFrame): Matrix of results in which each row represents a dataset and each column
+                represents an algorithm.
+            approaches (List[str]): List of the names of approaches in the result matrix
         """
         self.result_matrix = result_matrix
         self.approaches = approaches
@@ -78,15 +78,17 @@ class PlackettLuceRanking:
 
 
         Args:
-            n_chains : number of chains used ot perform the sampling
-            num_samples : number of samples to considerate in the MCMC
-            mode : "max" or "min". If "max" the higher the value the better the algorithm. If "min" the lower the value
-            the better the algorithm.
+            n_chains (int, optional): Number of chains used ot perform the sampling. Default is ``8``.
+            num_samples (int, optional): Number of samples to considerate in the MCMC. Default is ``300000``.
+            mode (Literal['max', 'min'], optional): If ``'max'`` the higher the value the better the algorithm.
+                If ``'min'`` the lower the value the better the algorithm.
+                Default is ``'max'``.
 
         Returns:
-            expected_prob : expected probability of each algorithm having the best ranking
-            expected_rank : expected rank of each algorithm
-            posterior : posterior
+            PlackettLuceResutls : ``PackettLuceResutls`` instance containing:
+                - expected_prob: Expected probability of each algorithm having the best ranking
+                - expected_rank: Expected rank of each algorithm
+                - posterior: Posterior
 
         Examples:
             >>> result_matrix = pd.DataFrame([[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]])
@@ -113,18 +115,20 @@ class PlackettLuceRanking:
         results = PlackettLuceResults(expected_prob, expected_rank, posterior)
         return results
 
-    def _get_rank_matrix(self, result_matrix : pd.DataFrame, mode="max") -> pd.DataFrame:
+    def _get_rank_matrix(self, result_matrix: pd.DataFrame, mode="max") -> pd.DataFrame:
         """
         Compute the rank matrix of a matrix of results. If the mode is max, assume that the higher the result,
         the better.
         If the mode is min, do otherwise.
 
         Args:
-            result_matrix : matrix of results
-            mode : "max" for assigning better ranks to high results. "min" for otherwise.
+            result_matrix (pd.DataFrame): Matrix of results.
+            mode (Literal['max', 'min'], optional): ``'max'`` for assigning better ranks to high results.
+                ``'min'`` for otherwise.
+                Default is ``'max'``.
 
         Returns:
-            rank_matrix : rank matrix of the result matrix.
+            rank_matrix : Rank matrix of the result matrix.
 
         """
         if mode == "min":
@@ -141,12 +145,12 @@ class PlackettLuceRanking:
         Execute the STAN program for the Plackett-Luce ranking model.
 
         Parameters:
-            rank_matrix : matrix of ranks
-            n_chains : number of simulations
-            num_samples : number of samples
+            rank_matrix : Matrix of ranks.
+            n_chains (int, optional): Number of simulations. Default is ``8``.
+            num_samples (int, optional): Number of samples. Default is ``300000``.
 
         Returns:
-            results : raw results from executing the STAN program
+            results : Raw results from executing the STAN program.
         """
 
         stan_code = STAN_CODE.PLACKETT_LUCE_TEST_V3
@@ -184,13 +188,13 @@ class PlackettLuceRanking:
 
         Parameters
         ----------
-        stan_results : raw stan results
+        stan_results : Raw stan results.
 
         Returns
         -------
-        expected_prob : expected probability of each approach to be the best in terms of ranking
-        expected_rank : expected rank of the approach
-        posterior : posterior probability, used to calculate the plot
+        expected_prob : Expected probability of each approach to be the best in terms of ranking.
+        expected_rank : Expected rank of the approach.
+        posterior : Posterior probability, used to calculate the plot.
         """
         columns = [col for col in stan_results.columns if "ratings" in col]
         posterior = stan_results[columns]

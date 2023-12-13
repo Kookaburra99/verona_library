@@ -163,8 +163,7 @@
 <span class="sd">    for the selected metric, 2- the number of prefixes with that length.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        metric (Literal[&#39;accuracy&#39;, &#39;fbeta&#39;, &#39;f1_score&#39;, &#39;precision&#39;, &#39;recall&#39;,</span>
-<span class="sd">                        &#39;mcc&#39;, &#39;brier_loss&#39;, &#39;damerau_levenshtein&#39;, &#39;mae&#39;, &#39;mse&#39;]): Metric to be calculated.</span>
+<span class="sd">        metric (Literal[&#39;accuracy&#39;, &#39;fbeta&#39;, &#39;f1_score&#39;, &#39;precision&#39;, &#39;recall&#39;, &#39;mcc&#39;, &#39;brier_loss&#39;, &#39;damerau_levenshtein&#39;, &#39;mae&#39;, &#39;mse&#39;]): Metric to be calculated.</span>
 <span class="sd">        predictions (np.array): Array of shape (n_samples, n_classes) containing the predictions done by the</span>
 <span class="sd">            model as probabilities. The predictions on the array should respect the same order as their respective</span>
 <span class="sd">            prefixes and their ground_truths.</span>
@@ -172,20 +171,19 @@
 <span class="sd">            the same order as their respective prefixes and predictions.</span>
 <span class="sd">        prefixes (list[pd.DataFrame]): List containing the prefixes as Pandas DataFrame. The prefixes on the</span>
 <span class="sd">            list should respect the same order as their respective predicates and ground_truths.</span>
-<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the predictions. &#39;label&#39; for labels and</span>
-<span class="sd">            &#39;onehot&#39; for one-hot vectors.</span>
-<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the ground truths. &#39;label&#39; for labels and</span>
-<span class="sd">            &#39;onehot&#39; for one-hot vectors.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the predictions. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;], optional): Format of the ground truths. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
 <span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;], optional): Type of averaging to be performed on data.</span>
-<span class="sd">            Only needed for &#39;fbeta&#39;, &#39;f1_score&#39;, &#39;precision&#39; and &#39;recall&#39; value in metric parameter.</span>
-<span class="sd">        beta (float, optional): Ratio of recall importance to precision importance. Only needed for &#39;fbeta&#39; value in</span>
+<span class="sd">            Only needed for ``&#39;fbeta&#39;``, ``&#39;f1_score&#39;``, ``&#39;precision&#39;`` and ``&#39;recall&#39;`` value in metric parameter.</span>
+<span class="sd">        beta (float, optional): Ratio of recall importance to precision importance. Only needed for ``&#39;fbeta&#39;`` value in</span>
 <span class="sd">            metric parameter.</span>
 <span class="sd">        eoc (Union[str, int], optional): Label of the End-of-Case (EOC) which is an element that</span>
-<span class="sd">            signifies the end of the trace/suffix. Only needed for &#39;damerau_levenshtein&#39; value in metric parameter.</span>
+<span class="sd">            signifies the end of the trace/suffix. Only needed for ``&#39;damerau_levenshtein&#39;`` value in metric parameter.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        df_results: Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate:</span>
-<span class="sd">            1- the value of the metric, 2- the number of prefixes with that size.</span>
+<span class="sd">        df_results: Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate: 1- the value of the metric, 2- the number of prefixes with that size.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">preds_by_lens</span> <span class="o">=</span> <span class="p">{}</span>

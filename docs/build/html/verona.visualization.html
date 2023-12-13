@@ -166,25 +166,24 @@
 <li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame where the columns name correspond to the categories to be
 represented on the X-axis and the values are either single numerical values
 or NumPy Arrays. If arrays are used, the <cite>reduction</cite> parameter will be applied.</p></li>
-<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Defaults to ‘Dataset’.</p></li>
-<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Defaults to ‘Accuracy’.</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Default is <code class="docutils literal notranslate"><span class="pre">'Dataset'</span></code>.</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Defaults to <code class="docutils literal notranslate"><span class="pre">'Accuracy'</span></code>.</p></li>
 <li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'max'</em><em>, </em><em>'min'</em><em>, </em><em>'median'</em><em>]</em><em>, </em><em>optional</em>) – The reduction function
-to be applied if the values in the <cite>data</cite> dictionary are NumPy Arrays.
-Defaults to None.</p></li>
-<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Defaults to 0.0.</p></li>
-<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Defaults to 100.0.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Defaults to 15.</p></li>
+to be applied if the values in the <cite>data</cite> dictionary are NumPy Arrays.</p></li>
+<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
+<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Defaults is <code class="docutils literal notranslate"><span class="pre">100.0</span></code>.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
 <li><p><strong>print_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, metric values are printed over each bar.
-Defaults to False.</p></li>
-<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimals to display if <cite>print_values</cite> is True.
-Defaults to 2.</p></li>
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimals to display if <cite>print_values</cite> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Plotly Figure object representing the bar chart.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Plotly</span> <span class="pre">Figure</span></code> object representing the bar chart.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>fig</p>
+<dd class="field-odd"><p>Plotly Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,18 +198,18 @@ Defaults to 2.</p></li>
 <li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame containing the values to be represented in the graph.
 The columns name correspond to the categories to be represented on the X-axis,
 while the values associated are used to build the corresponding box.</p></li>
-<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Defaults to ‘Dataset’.</p></li>
-<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Defaults to ‘Accuracy’.</p></li>
-<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Defaults to 0.0.</p></li>
-<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Defaults to 100.0.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Defaults to 15.</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Default is <code class="docutils literal notranslate"><span class="pre">'Dataset'</span></code>.</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Default is <code class="docutils literal notranslate"><span class="pre">'Accuracy'</span></code>.</p></li>
+<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Defaults is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
+<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">100.0</span></code>.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Plotly Figure object representing the error plot.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Plotly</span> <span class="pre">Figure</span></code> object representing the error plot.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>fig</p>
+<dd class="field-odd"><p>Plotly Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -226,22 +225,22 @@ experiments, as it shows the mean and standard deviation for each NumPy Array of
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame where the columns name correspond to the categories to be
 represented on the X-axis and the values are used to construct the corresponding error bars.</p></li>
-<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Defaults to ‘Dataset’.</p></li>
-<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Defaults to ‘Accuracy’.</p></li>
-<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Defaults to 0.0.</p></li>
-<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Defaults to 100.0.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Defaults to 15.</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Default is <code class="docutils literal notranslate"><span class="pre">'Dataset'</span></code>.</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Default is <code class="docutils literal notranslate"><span class="pre">'Accuracy'</span></code>.</p></li>
+<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
+<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">100.0</span></code>.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
 <li><p><strong>print_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print metric values over each
-point. Defaults to False.</p></li>
-<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to show if ‘print_values’
-is True. Defaults to 2.</p></li>
+point. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to show if <cite>print_values</cite>
+is <code class="docutils literal notranslate"><span class="pre">True</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Plotly Figure object representing the error plot.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Plotly</span> <span class="pre">Figure</span></code>  object representing the error plot.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>fig</p>
+<dd class="field-odd"><p>Plotly Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -256,25 +255,24 @@ is True. Defaults to 2.</p></li>
 <li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame where the columns name correspond to the categories to be
 represented on the X-axis and the values are either single numerical values
 or NumPy Arrays. If arrays are used, the <cite>reduction</cite> parameter will be applied.</p></li>
-<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Defaults to ‘Dataset’.</p></li>
-<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Defaults to ‘Accuracy’.</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X axis. Default is <code class="docutils literal notranslate"><span class="pre">'Dataset'</span></code>.</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y axis. Default is <code class="docutils literal notranslate"><span class="pre">'Accuracy'</span></code>.</p></li>
 <li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'max'</em><em>, </em><em>'min'</em><em>, </em><em>'median'</em><em>]</em><em>, </em><em>optional</em>) – The reduction function
-to be applied if the values in the <cite>data</cite> dictionary are NumPy Arrays.
-Defaults to None.</p></li>
-<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Defaults to 0.0.</p></li>
-<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Defaults to 100.0.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Defaults to 15.</p></li>
-<li><p><strong>print_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, metric values are printed over each point.
-Defaults to False.</p></li>
-<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimals to display if <cite>print_values</cite> is True.
-Defaults to 2.</p></li>
+to be applied if the values in the <cite>data</cite> dictionary are NumPy Arrays.</p></li>
+<li><p><strong>y_min</strong> (<em>float</em><em>, </em><em>optional</em>) – The minimum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
+<li><p><strong>y_max</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum value for the Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">100.0</span></code>.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Default is <a href="#id1"><span class="problematic" id="id2">``</span></a>15` .</p></li>
+<li><p><strong>print_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, metric values are printed over each point.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimals to display if <cite>print_values</cite> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Plotly Figure object representing the line chart.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Plotly</span> <span class="pre">Figure</span></code> object representing the line chart.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>fig</p>
+<dd class="field-odd"><p>Plotly Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -289,19 +287,19 @@ line chart indicates the value of the chosen metric for each prefix length.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame where the column names indicate the length of the prefixes and
 the associated values indicate 1- the value of the metric and 2- the number of prefixes of that length.</p></li>
-<li><p><strong>metric_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the right Y-axis. Defaults to ‘Accuracy’.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Defaults to 15.</p></li>
+<li><p><strong>metric_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the right Y-axis. Default is <code class="docutils literal notranslate"><span class="pre">'Accuracy'</span></code>.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size of the text in the plot. Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
 <li><p><strong>print_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print metric values over each
-point. Defaults to False.</p></li>
+point. Defaults is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>num_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to show if ‘print_values’
-is True. Defaults to 2.</p></li>
+is True. Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Plotly Figure object representing the bar chart and the line chart.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Plotly</span> <span class="pre">Figure</span></code> object representing the bar chart and the line chart.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>fig</p>
+<dd class="field-odd"><p>PLotly Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -317,7 +315,7 @@ they have a significative different ranking.</p>
 <dl class="simple">
 <dt>Parameters</dt><dd><p>save_path: String that indicates the path where the plot will be saved. If None, the plot will not be saved.</p>
 </dd>
-<dt>Returns</dt><dd><p>fig.figure : matplotlib figure of the aforementioned plot</p>
+<dt>Returns</dt><dd><p>Matplotlib Figure : <a href="#id3"><span class="problematic" id="id4">``</span></a>Matplotlib Figure of the aforementioned plot</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

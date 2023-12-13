@@ -69,13 +69,12 @@ class CorrelatedBayesianTTest:
         >>> test.run(rho=0.1, rope=[-1, 1])
 
     References:
-    - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple
-    Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
-    - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
+        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
+        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
 
     """
 
-    def __init__(self, x, y, approaches : List[str]):
+    def __init__(self, x, y, approaches: List[str]):
         """
         Initializes the CorrelatedBayesianTTest class.
 
@@ -94,21 +93,16 @@ class CorrelatedBayesianTTest:
         Executes the Bayesian t-test.
 
         Args:
-            rho (float, optional): Correlation factor between the paired samples. Defaults to 0.2.
+            rho (float, optional): Correlation factor between the paired samples. Default is ``0.2``.
 
-            - A rho of 0 implies that the paired samples are entirely independent, essentially converting the test into
-            a standard Bayesian t-test.
-            - A rho of 1 implies that the paired samples are perfectly correlated, making the test trivial.
-            - Values between 0 and 1 adjust the test to account for the degree of correlation between the paired
-            samples. For instance, in the context of machine learning, rho could be set to the proportion of the test
-            set size to the total dataset size to account for data reuse across different folds in k-fold
-            cross-validation.
+                - A rho of 0 implies that the paired samples are entirely independent, essentially converting the test into a standard Bayesian t-test.
+                - A rho of 1 implies that the paired samples are perfectly correlated, making the test trivial.
+                - Values between 0 and 1 adjust the test to account for the degree of correlation between the paired samples. For instance, in the context of machine learning, rho could be set to the proportion of the test set size to the total dataset size to account for data reuse across different folds in k-fold cross-validation.
 
-            rope (list, optional): Interval for the difference considered as "irrelevant" or "equivalent". Defaults to
-            [-1, 1].
+            rope (list, optional): Interval for the difference considered as "irrelevant" or "equivalent". Defaults is ``[-1, 1]``.
             
         Returns:
-            BayesianTTestResult: An instance of the BayesianTTestResult class that contains the following:
+            BayesianTTestResult: An instance of the ``BayesianTTestResult`` class that contains the following:
 
             - `posterior_probabilities`: Probabilities for the left, rope, and right regions.
             - `approximated`: Whether the posterior distribution is approximated.
@@ -117,8 +111,8 @@ class CorrelatedBayesianTTest:
             - `additional`: Additional details about the posterior distribution.
 
 
-        Details:
-            The default value for rho is 0.2, which accounts for a 20% split in the testing set.
+        Note:
+            The default value for **rho** is ``0.2``, which accounts for a 20% split in the testing set.
         """
 
         # Check the rope parameter

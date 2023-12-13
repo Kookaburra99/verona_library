@@ -51,12 +51,11 @@ class BayesianSignedRankTest:
         run: Executes the Bayesian test.
 
     References:
-    - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple
-    Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
-    - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
+        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
+        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
     """
 
-    def __init__(self, x, y, approaches : List[str]):
+    def __init__(self, x, y, approaches: List[str]):
         """
         Initializes the BayesianSignedRankTest class.
 
@@ -74,27 +73,25 @@ class BayesianSignedRankTest:
 
         """
         Args:
-            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to 0.5.
+            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to ``0.5``.
             z0 (float, optional): Position of the pseudo-observation associated to the prior Dirichlet Process.
             Defaults to 0.
-            rope (tuple, optional): Interval for the difference considered as "irrelevant". Defaults to (-1, 1).
-            nsim (int, optional): Number of samples used to estimate the posterior distribution. Defaults to 100000.
-            seed (int, optional): Optional parameter used to fix the random seed. Defaults to None.
+            rope (tuple, optional): Interval for the difference considered as "irrelevant". Defaults to ``(-1, 1)``.
+            nsim (int, optional): Number of samples used to estimate the posterior distribution. Defaults to ``100000``.
+            seed (int, optional): Optional parameter used to fix the random seed.
 
         Returns:
             dict: A dictionary containing:
-                - method: a string with the name of the method used
-                - posterior_probabilities: a dictionary with the left, rope and right probabilities
-                - approximate: a boolean, True if the posterior distribution is approximated (sampled) and
-                False if it is exact
-                - parameters: a dictionary of parameters used by the method
-                - posterior: a list of dictionaries containing the sampled probabilities
+                - method: A string with the name of the method used.
+                - posterior_probabilities: A dictionary with the left, rope and right probabilities.
+                - approximate: A boolean, ``True`` if the posterior distribution is approximated (sampled) and ``False`` if it is exact.
+                - parameters: A dictionary of parameters used by the method.
+                - posterior: A list of dictionaries containing the sampled probabilities.
 
 
         References:
-        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple
-        Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
-        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
+            - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.
+            - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.
         """
 
         if rope[1] < rope[0]:

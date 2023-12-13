@@ -167,21 +167,24 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        dataset (pd.DataFrame): DataFrame containing the event log.</span>
-<span class="sd">        prediction_task (Literal): Specifies the type of prediction task.</span>
-<span class="sd">            - &#39;next_activity&#39;: Predict the next activity.</span>
-<span class="sd">            - &#39;activity_suffix&#39;: Predict the remaining sequence of activities.</span>
-<span class="sd">            - &#39;next_timestamp&#39;: Predict the next event timestamp.</span>
-<span class="sd">            - &#39;remaining_time&#39;: Predict the remaining time for the case to complete.</span>
-<span class="sd">            - &#39;next_attribute&#39;: Predict the next attribute.</span>
-<span class="sd">            - &#39;attribute_suffix&#39;: Predict the remaining sequence of attributes.</span>
-<span class="sd">        prefix_size (Optional[int], default=None): Length of the prefix to be used.</span>
-<span class="sd">            If None, uses all possible sizes.</span>
-<span class="sd">        case_id (str, default=&#39;CaseColumn&#39;): Column name for the case identifier.</span>
-<span class="sd">        activity_id (Optional[str], default=None): Column name for the activity.</span>
+<span class="sd">        prediction_task (Literal[&#39;next_activity&#39;, &#39;activity_suffix&#39;, &#39;next_timestamp&#39;, &#39;remaining_time&#39;, &#39;next_attribute&#39;, &#39;attribute_suffix&#39;]):</span>
+<span class="sd">            Specifies the type of prediction task.</span>
+
+<span class="sd">            - ``&#39;next_activity&#39;``: Predict the next activity.</span>
+<span class="sd">            - ``&#39;activity_suffix&#39;``: Predict the remaining sequence of activities.</span>
+<span class="sd">            - ``&#39;next_timestamp&#39;``: Predict the next event timestamp.</span>
+<span class="sd">            - ``&#39;remaining_time&#39;``: Predict the remaining time for the case to complete.</span>
+<span class="sd">            - ``&#39;next_attribute&#39;``: Predict the next attribute.</span>
+<span class="sd">            - ``&#39;attribute_suffix&#39;``: Predict the remaining sequence of attributes.</span>
+
+<span class="sd">        prefix_size (int, optional): Length of the prefix to be used.</span>
+<span class="sd">            If ``None``, uses all possible sizes.</span>
+<span class="sd">        case_id (str, optional): Column name for the case identifier. Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        activity_id (str, optional): Column name for the activity.</span>
 <span class="sd">            Needed for &#39;next_activity&#39; and &#39;activity_suffix&#39;.</span>
-<span class="sd">        timestamp_id (Optional[str], default=None): Column name for the timestamp.</span>
+<span class="sd">        timestamp_id (str, optional): Column name for the timestamp.</span>
 <span class="sd">            Needed for &#39;next_timestamp&#39; and &#39;remaining_time&#39;.</span>
-<span class="sd">        attribute_id (Optional[str], default=None): Column name for the attribute.</span>
+<span class="sd">        attribute_id (str, optional): Column name for the attribute.</span>
 <span class="sd">            Needed for &#39;next_attribute&#39; and &#39;attribute_suffix&#39;.</span>
 
 <span class="sd">    Tip:</span>
@@ -200,7 +203,7 @@
 <span class="sd">        ValueError: If the required column for a prediction task is not specified.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; prefixes, targets = get_prefixes_and_targets(dataset, &#39;next_activity&#39;, prefix_size=5)</span>
+<span class="sd">        &gt;&gt;&gt; prefixes, targets = get_prefixes_and_targets(df_dataset, &#39;next_activity&#39;, prefix_size=5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>

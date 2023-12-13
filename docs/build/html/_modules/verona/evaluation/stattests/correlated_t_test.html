@@ -213,13 +213,12 @@
 <span class="sd">        &gt;&gt;&gt; test.run(rho=0.1, rope=[-1, 1])</span>
 
 <span class="sd">    References:</span>
-<span class="sd">    - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple</span>
-<span class="sd">    Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
-<span class="sd">    - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
+<span class="sd">        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
+<span class="sd">        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the CorrelatedBayesianTTest class.</span>
 
@@ -238,21 +237,16 @@
 <span class="sd">        Executes the Bayesian t-test.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            rho (float, optional): Correlation factor between the paired samples. Defaults to 0.2.</span>
+<span class="sd">            rho (float, optional): Correlation factor between the paired samples. Default is ``0.2``.</span>
 
-<span class="sd">            - A rho of 0 implies that the paired samples are entirely independent, essentially converting the test into</span>
-<span class="sd">            a standard Bayesian t-test.</span>
-<span class="sd">            - A rho of 1 implies that the paired samples are perfectly correlated, making the test trivial.</span>
-<span class="sd">            - Values between 0 and 1 adjust the test to account for the degree of correlation between the paired</span>
-<span class="sd">            samples. For instance, in the context of machine learning, rho could be set to the proportion of the test</span>
-<span class="sd">            set size to the total dataset size to account for data reuse across different folds in k-fold</span>
-<span class="sd">            cross-validation.</span>
+<span class="sd">                - A rho of 0 implies that the paired samples are entirely independent, essentially converting the test into a standard Bayesian t-test.</span>
+<span class="sd">                - A rho of 1 implies that the paired samples are perfectly correlated, making the test trivial.</span>
+<span class="sd">                - Values between 0 and 1 adjust the test to account for the degree of correlation between the paired samples. For instance, in the context of machine learning, rho could be set to the proportion of the test set size to the total dataset size to account for data reuse across different folds in k-fold cross-validation.</span>
 
-<span class="sd">            rope (list, optional): Interval for the difference considered as &quot;irrelevant&quot; or &quot;equivalent&quot;. Defaults to</span>
-<span class="sd">            [-1, 1].</span>
+<span class="sd">            rope (list, optional): Interval for the difference considered as &quot;irrelevant&quot; or &quot;equivalent&quot;. Defaults is ``[-1, 1]``.</span>
 <span class="sd">            </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            BayesianTTestResult: An instance of the BayesianTTestResult class that contains the following:</span>
+<span class="sd">            BayesianTTestResult: An instance of the ``BayesianTTestResult`` class that contains the following:</span>
 
 <span class="sd">            - `posterior_probabilities`: Probabilities for the left, rope, and right regions.</span>
 <span class="sd">            - `approximated`: Whether the posterior distribution is approximated.</span>
@@ -261,8 +255,8 @@
 <span class="sd">            - `additional`: Additional details about the posterior distribution.</span>
 
 
-<span class="sd">        Details:</span>
-<span class="sd">            The default value for rho is 0.2, which accounts for a 20% split in the testing set.</span>
+<span class="sd">        Note:</span>
+<span class="sd">            The default value for **rho** is ``0.2``, which accounts for a 20% split in the testing set.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Check the rope parameter</span>

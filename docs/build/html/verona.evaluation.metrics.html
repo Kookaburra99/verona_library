@@ -169,10 +169,10 @@ Both predictions and ground truth can be specified as labels or one-hot vectors.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the model’s predictions.</p></li>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
-<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
-<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -186,6 +186,14 @@ Both predictions and ground truth can be specified as labels or one-hot vectors.
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_onehot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy</span><span class="p">,</span> <span class="n">correct</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">get_accuracy</span><span class="p">(</span><span class="n">preds_onehot</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">correct</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.25 - 1 - 4</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -201,18 +209,26 @@ The formula for the Brier Score Loss is [  ext{BSL} =</p>
 and ( N ) is the total number of observations.</p>
 <p>As a measure of loss, the closer to 0, the better the predictions, while higher values
 indicate worse predictions.</p>
-<dl class="simple">
+<dl>
 <dt>Args:</dt><dd><p>predictions (np.array): Array of shape (n_samples, n_classes) containing
 the predictions done by the model as probabilities.
 ground_truths (np.array): Array containing the ground truths.
-gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truth. If ‘label’,
+gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truth. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
 the ground truth array contains the labels of the correct activities/attributes,
-from which the one-hot vectors are internally extracted. If ‘onehot’,
+from which the one-hot vectors are internally extracted. If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>,
 the ground truths array contains the one-hot representation of the correct values.</p>
 </dd>
 <dt>Returns:</dt><dd><p>float: Brier Score Loss, a value equal or greater than zero. Smaller values (close to 0)
 indicate smaller error (better predictions), and larger values indicate larger error
 (worse predictions).</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_onehot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">brier_loss</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_brier_loss</span><span class="p">(</span><span class="n">preds_onehot</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">brier_loss</span><span class="p">)</span>
+<span class="go">1.06235</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd>
@@ -231,10 +247,10 @@ Returns the F1-score, precision, and recall used for the calculation.</p>
 <li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the model’s predictions.</p></li>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
 <li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em>) – Type of averaging to be performed on data.</p></li>
-<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
-<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -244,6 +260,14 @@ Returns the F1-score, precision, and recall used for the calculation.</p>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span> <span class="o">=</span> <span class="n">get_f1_score</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f1</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.13333333333333333 - 0.1 - 0.2</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -258,9 +282,9 @@ The F-beta score is the weighted harmonic mean of precision and recall.</p>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the ground truths.</p></li>
 <li><p><strong>beta</strong> (<em>float</em>) – Ratio of recall importance to precision importance.</p></li>
 <li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em>) – Type of averaging to be performed on data.</p></li>
-<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
-<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. ‘label’ for labels and
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
 ‘onehot’ for one-hot vectors.</p></li>
 </ul>
 </dd>
@@ -271,6 +295,14 @@ The F-beta score is the weighted harmonic mean of precision and recall.</p>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span> <span class="o">=</span> <span class="n">get_fbeta</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fbeta</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">0.1388888888888889 - 0.125 - 0.25</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -295,6 +327,14 @@ and -1 an inverse prediction.</p>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcc</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_mcc</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
+<span class="go">0.09128709291752768</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -305,7 +345,7 @@ and -1 an inverse prediction.</p>
 </div></blockquote>
 <dl>
 <dt>rac{{        ext{{tp}}}}{{   ext{{tp}} +     ext{{fp}}}} )</dt><dd><p>where ‘tp’ is the number of true positives and ‘fp’ the number of false positives.</p>
-<dl class="simple">
+<dl>
 <dt>Args:</dt><dd><p>predictions (np.array): Array of predictions from the model.
 ground_truths (np.array): Array of ground truth labels.
 average (Literal[‘micro’, ‘macro’, ‘weighted’]): Type of averaging performed on the data.
@@ -313,6 +353,14 @@ preds_format (Literal[‘labels’, ‘onehot’]): Format of the predictions.
 gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truths.</p>
 </dd>
 <dt>Returns:</dt><dd><p>float: Precision score between 0 and 1.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">precision</span> <span class="o">=</span> <span class="n">get_precision</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
+<span class="go">0.1</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd>
@@ -327,7 +375,7 @@ gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truths.</p
 </div></blockquote>
 <dl>
 <dt>rac{{   ext{{tp}}}}{{   ext{{tp}} +     ext{{fn}}}} )</dt><dd><p>where ‘tp’ is the number of true positives and ‘fn’ the number of false negatives.</p>
-<dl class="simple">
+<dl>
 <dt>Args:</dt><dd><p>predictions (np.array): Array of predictions from the model.
 ground_truths (np.array): Array of ground truth labels.
 average (Literal[‘micro’, ‘macro’, ‘weighted’]): Type of averaging performed on the data.
@@ -335,6 +383,14 @@ preds_format (Literal[‘labels’, ‘onehot’]): Format of the predictions.
 gt_format (Literal[‘labels’, ‘onehot’]): Format of the ground truths.</p>
 </dd>
 <dt>Returns:</dt><dd><p>float: Recall score between 0 and 1.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preds_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recall</span> <span class="o">=</span> <span class="n">get_recall</span><span class="p">(</span><span class="n">preds_labels</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
+<span class="go">0.2</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd>
@@ -357,13 +413,13 @@ value is obtained by subtracting the normalized distance from 1.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>predictions</strong> (<em>list</em><em>[</em><em>np.array</em><em>]</em>) – List containing the predicted suffixes as NumPy Arrays.</p></li>
 <li><p><strong>ground_truths</strong> (<em>list</em><em>[</em><em>np.array</em><em>]</em>) – List containing the ground truth suffixes as NumPy Arrays.</p></li>
-<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. If ‘label’,
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the predictions. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
 the predictions array contains the labels of the activities/attributes predicted.
-If ‘onehot’, the predictions array contains vectors of probabilities, and the labels
+If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>, the predictions array contains vectors of probabilities, and the labels
 are internally extracted based on the highest value element for the metric calculation.</p></li>
-<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truth. If ‘label’,
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em>) – Format of the ground truth. If <code class="docutils literal notranslate"><span class="pre">'label'</span></code>,
 the ground truth array contains the labels of the correct activities/attributes.
-If ‘onehot’, the ground truth array contains the one-hot representation of the
+If <code class="docutils literal notranslate"><span class="pre">'onehot'</span></code>, the ground truth array contains the one-hot representation of the
 correct values, and the labels are internally extracted for the metric calculation.</p></li>
 <li><p><strong>eoc</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Label of the End-of-Case (EOC) which is an element that
 signifies the end of the trace/suffix.</p></li>
@@ -377,6 +433,14 @@ prediction, whereas a higher value indicates a prediction closer to the actual s
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truths</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dl_score</span> <span class="o">=</span> <span class="n">suffix</span><span class="o">.</span><span class="n">get_damerau_levenshtein_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">preds_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">gt_format</span><span class="o">=</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">dl_score</span><span class="p">)</span>
+<span class="go">0.4</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
@@ -392,12 +456,13 @@ prediction, whereas a higher value indicates a prediction closer to the actual s
 <li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the predicted times as floats.</p></li>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the real times as floats.</p></li>
 <li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'none'</em><em>]</em><em>, </em><em>optional</em>) – Determines the type of reduction applied to the MAE.
-If ‘mean’, calculates the average MAE for all pairs of prediction and ground truth.
-If ‘none’, returns all MAE values for the individual pairs without reduction.</p></li>
+If <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>, calculates the average MAE for all pairs of prediction and ground truth.
+If <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, returns all MAE values for the individual pairs without reduction.
+Default is <code class="docutils literal notranslate"><span class="pre">'mean'</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>MAE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is ‘none’.</p>
+<dd class="field-even"><p>MAE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is <code class="docutils literal notranslate"><span class="pre">'none'</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[float, np.array]</p>
@@ -415,12 +480,13 @@ If ‘none’, returns all MAE values for the individual pairs without reduction
 <li><p><strong>predictions</strong> (<em>np.array</em>) – NumPy Array containing the predicted times as floats.</p></li>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – NumPy Array containing the real times as floats.</p></li>
 <li><p><strong>reduction</strong> (<em>Literal</em><em>[</em><em>'mean'</em><em>, </em><em>'none'</em><em>]</em><em>, </em><em>optional</em>) – Determines the type of reduction applied to the MSE.
-If ‘mean’, calculates the average MSE for all pairs of prediction and ground truth.
-If ‘none’, returns all MSE values for the individual pairs without reduction.</p></li>
+If <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>, calculates the average MSE for all pairs of prediction and ground truth.
+If <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, returns all MSE values for the individual pairs without reduction.
+DEfault is <code class="docutils literal notranslate"><span class="pre">'mean'</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>MSE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is ‘none’.</p>
+<dd class="field-even"><p>MSE as a single float if reduction is ‘mean’, or as a NumPy Array if reduction is <code class="docutils literal notranslate"><span class="pre">'none'</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[float, np.array]</p>
@@ -440,45 +506,28 @@ for the selected metric, 2- the number of prefixes with that length.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>Literal</strong><strong>[</strong><strong>'accuracy'</strong> (<em>metric</em>) – ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.</p></li>
-<li><p><strong>'fbeta'</strong> – ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.</p></li>
-<li><p><strong>'f1_score'</strong> – ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.</p></li>
-<li><p><strong>'precision'</strong> – ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.</p></li>
-<li><p><strong>'recall'</strong> – ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.</p></li>
-</ul>
-</dd>
-</dl>
-<p>:param : ‘mcc’, ‘brier_loss’, ‘damerau_levenshtein’, ‘mae’, ‘mse’]): Metric to be calculated.
-:param predictions: Array of shape (n_samples, n_classes) containing the predictions done by the</p>
-<blockquote>
-<div><p>model as probabilities. The predictions on the array should respect the same order as their respective
-prefixes and their ground_truths.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<em>Literal</em><em>[</em><em>'accuracy'</em><em>, </em><em>'fbeta'</em><em>, </em><em>'f1_score'</em><em>, </em><em>'precision'</em><em>, </em><em>'recall'</em><em>, </em><em>'mcc'</em><em>, </em><em>'brier_loss'</em><em>, </em><em>'damerau_levenshtein'</em><em>, </em><em>'mae'</em><em>, </em><em>'mse'</em><em>]</em>) – Metric to be calculated.</p></li>
+<li><p><strong>predictions</strong> (<em>np.array</em>) – Array of shape (n_samples, n_classes) containing the predictions done by the
+model as probabilities. The predictions on the array should respect the same order as their respective
+prefixes and their ground_truths.</p></li>
 <li><p><strong>ground_truths</strong> (<em>np.array</em>) – Array containing the ground truths. The grounds truths on the array should respect
 the same order as their respective prefixes and predictions.</p></li>
 <li><p><strong>prefixes</strong> (<em>list</em><em>[</em><em>pd.DataFrame</em><em>]</em>) – List containing the prefixes as Pandas DataFrame. The prefixes on the
 list should respect the same order as their respective predicates and ground_truths.</p></li>
-<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the predictions. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
-<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the ground truths. ‘label’ for labels and
-‘onehot’ for one-hot vectors.</p></li>
+<li><p><strong>preds_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the predictions. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
+<li><p><strong>gt_format</strong> (<em>Literal</em><em>[</em><em>'labels'</em><em>, </em><em>'onehot'</em><em>]</em><em>, </em><em>optional</em>) – Format of the ground truths. <code class="docutils literal notranslate"><span class="pre">'label'</span></code> for labels and
+<code class="docutils literal notranslate"><span class="pre">'onehot'</span></code> for one-hot vectors.</p></li>
 <li><p><strong>average</strong> (<em>Literal</em><em>[</em><em>'micro'</em><em>, </em><em>'macro'</em><em>, </em><em>'weighted'</em><em>]</em><em>, </em><em>optional</em>) – Type of averaging to be performed on data.
-Only needed for ‘fbeta’, ‘f1_score’, ‘precision’ and ‘recall’ value in metric parameter.</p></li>
-<li><p><strong>beta</strong> (<em>float</em><em>, </em><em>optional</em>) – Ratio of recall importance to precision importance. Only needed for ‘fbeta’ value in
+Only needed for <code class="docutils literal notranslate"><span class="pre">'fbeta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'f1_score'</span></code>, <code class="docutils literal notranslate"><span class="pre">'precision'</span></code> and <code class="docutils literal notranslate"><span class="pre">'recall'</span></code> value in metric parameter.</p></li>
+<li><p><strong>beta</strong> (<em>float</em><em>, </em><em>optional</em>) – Ratio of recall importance to precision importance. Only needed for <code class="docutils literal notranslate"><span class="pre">'fbeta'</span></code> value in
 metric parameter.</p></li>
 <li><p><strong>eoc</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Label of the End-of-Case (EOC) which is an element that
-signifies the end of the trace/suffix. Only needed for ‘damerau_levenshtein’ value in metric parameter.</p></li>
+signifies the end of the trace/suffix. Only needed for <code class="docutils literal notranslate"><span class="pre">'damerau_levenshtein'</span></code> value in metric parameter.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate:</dt><dd><p>1- the value of the metric, 2- the number of prefixes with that size.</p>
-</dd>
-</dl>
-</p>
+<dd class="field-even"><p>Pandas DataFrame where the columns indicate the size of the prefix and its two values indicate: 1- the value of the metric, 2- the number of prefixes with that size.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>df_results</p>

@@ -164,12 +164,20 @@
 <span class="sd">            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.</span>
 <span class="sd">        store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH</span>
 <span class="sd">        test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces</span>
-<span class="sd">            reserved for the test partition. Default is 0.2.</span>
+<span class="sd">            reserved for the test partition.</span>
+<span class="sd">            Default is ``0.2``.</span>
 <span class="sd">        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the</span>
 <span class="sd">            percentage of traces reserved for the validation partition within the cases of the training partition.</span>
-<span class="sd">            Default is 0.2.</span>
+<span class="sd">            Default is ``0.2``.</span>
 <span class="sd">        case_column (str, optional): Name of the case identifier in the original dataset file.</span>
-<span class="sd">            Default is &#39;case:concept:name&#39;.</span>
+<span class="sd">            Default is ``XesFields.CASE_COLUMN``.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The default values for **test_size** and **val_from_train** are based on the experimental setup from the first</span>
+<span class="sd">        version of [1].</span>
+
+<span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:</span>
+<span class="sd">        Review and Benchmark. https://arxiv.org/abs/2009.13251v1.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train,</span>
@@ -180,13 +188,6 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; train_df, val_df, test_df = make_holdout(&#39;path/to/dataset.csv&#39;, test_size=0.3, val_from_train=0.1)</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        The default values for **test_size** and **val_from_train** are based on the experimental setup from the first</span>
-<span class="sd">        version of [1].</span>
-
-<span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2021). Deep Learning for Predictive Business Process Monitoring:</span>
-<span class="sd">        Review and Benchmark. https://arxiv.org/abs/2009.13251v1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
@@ -257,23 +258,18 @@
 <span class="sd">        dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz</span>
 <span class="sd">            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.</span>
 <span class="sd">        store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.</span>
-<span class="sd">        cv_folds (int, optional): Number of folds for the cross-validation split. Default is 5.</span>
+<span class="sd">        cv_folds (int, optional): Number of folds for the cross-validation split. Default is ``5``.</span>
 <span class="sd">        val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the</span>
 <span class="sd">            percentage of traces reserved for the validation partition within the cases of the training partition.</span>
-<span class="sd">            Default is 0.2.</span>
+<span class="sd">            Default is ``0.2``.</span>
 <span class="sd">        case_column (str, optional): Name of the case identifier in the original dataset file.</span>
-<span class="sd">            Default is &#39;case:concept:name&#39;.</span>
-<span class="sd">        seed (int, optional): Set a seed for reproducibility. Default is 42.</span>
+<span class="sd">            Default is ``XesFields.CASE_COLUMN``.</span>
+<span class="sd">        seed (int, optional): Set a seed for reproducibility.</span>
+<span class="sd">            Default is ``42``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]: Returns a tuple containing the lists of</span>
 <span class="sd">        DataFrames for the train, validation, and test splits.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If an invalid value for cv_folds or val_from_train is provided.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; splits_paths = make_crossvalidation(&#39;path/to/dataset.csv&#39;)</span>
 
 <span class="sd">    Tip:</span>
 <span class="sd">        Leaving the default values for **cv_folds**, **val_from_train** and **seed** reproduces the expermiental</span>
@@ -281,6 +277,12 @@
 
 <span class="sd">        [1] Rama-Maneiro, E., Vidal, J. C., &amp; Lama, M. (2023). Deep Learning for Predictive Business Process Monitoring:</span>
 <span class="sd">        Review and Benchmark. IEEE Transactions on Services Computing, 16(1), 739-756. doi:10.1109/TSC.2021.3139807</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If an invalid value for cv_folds or val_from_train is provided.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; splits_paths = make_crossvalidation(&#39;path/to/dataset.csv&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>

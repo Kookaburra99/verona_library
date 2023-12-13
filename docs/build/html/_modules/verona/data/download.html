@@ -276,7 +276,6 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; available_datasets = get_available_datasets()</span>
-<span class="sd">        &gt;&gt;&gt; print(available_datasets)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Available datasets:&#39;</span><span class="p">)</span>
@@ -298,18 +297,18 @@
 <span class="sd">    Args:</span>
 <span class="sd">        dataset_name (str): Identifier of the dataset to download.</span>
 
-<span class="sd">        store_path (Optional[str]): The directory path where the dataset will be stored.</span>
-<span class="sd">            If not specified, the dataset will be stored in the folder ~/.verona_datasets/</span>
+<span class="sd">        store_path (Optional[str], optional): The directory path where the dataset will be stored.</span>
+<span class="sd">            If not specified, the dataset will be stored in the folder ``~/.verona_datasets/``.</span>
 
-<span class="sd">        extension (Literal[&#39;xes&#39;, &#39;csv&#39;, &#39;both&#39;]): The format in which to save the dataset.</span>
+<span class="sd">        extension (Literal[&#39;xes&#39;, &#39;csv&#39;, &#39;both&#39;], optional): The format in which to save the dataset.</span>
 <span class="sd">            Choose from &#39;xes&#39; for &#39;xes.gz&#39; format, &#39;csv&#39; for &#39;csv&#39; format, or &#39;both&#39; to download both formats.</span>
-<span class="sd">            Default is &#39;xes&#39;.</span>
+<span class="sd">            Default is ``xes``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None: The function stores the downloaded dataset in the &#39;store_path&#39; and returns nothing.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; get_dataset(&#39;bpi2012a&#39;, store_path=None, extension=&#39;csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; dataset_path, df_dataset = get_dataset(&#39;bpi2012a&#39;, store_path=None, extension=&#39;csv&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">extension</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>

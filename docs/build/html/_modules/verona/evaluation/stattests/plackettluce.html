@@ -191,12 +191,12 @@
 
 <div class="viewcode-block" id="PlackettLuceRanking"><a class="viewcode-back" href="../../../../verona.evaluation.stattests.html#verona.evaluation.stattests.plackettluce.PlackettLuceRanking">[docs]</a><span class="k">class</span> <span class="nc">PlackettLuceRanking</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_matrix</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">approaches</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_matrix</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">approaches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters:</span>
-<span class="sd">            result_matrix : matrix of results in which each row represents a dataset and each column represents an</span>
-<span class="sd">            algorithm.</span>
-<span class="sd">            approaches : list of the names of approaches in the result matrix</span>
+<span class="sd">            result_matrix (pd.DataFrame): Matrix of results in which each row represents a dataset and each column</span>
+<span class="sd">                represents an algorithm.</span>
+<span class="sd">            approaches (List[str]): List of the names of approaches in the result matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result_matrix</span> <span class="o">=</span> <span class="n">result_matrix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">approaches</span> <span class="o">=</span> <span class="n">approaches</span>
@@ -222,15 +222,17 @@
 
 
 <span class="sd">        Args:</span>
-<span class="sd">            n_chains : number of chains used ot perform the sampling</span>
-<span class="sd">            num_samples : number of samples to considerate in the MCMC</span>
-<span class="sd">            mode : &quot;max&quot; or &quot;min&quot;. If &quot;max&quot; the higher the value the better the algorithm. If &quot;min&quot; the lower the value</span>
-<span class="sd">            the better the algorithm.</span>
+<span class="sd">            n_chains (int, optional): Number of chains used ot perform the sampling. Default is ``8``.</span>
+<span class="sd">            num_samples (int, optional): Number of samples to considerate in the MCMC. Default is ``300000``.</span>
+<span class="sd">            mode (Literal[&#39;max&#39;, &#39;min&#39;], optional): If ``&#39;max&#39;`` the higher the value the better the algorithm.</span>
+<span class="sd">                If ``&#39;min&#39;`` the lower the value the better the algorithm.</span>
+<span class="sd">                Default is ``&#39;max&#39;``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            expected_prob : expected probability of each algorithm having the best ranking</span>
-<span class="sd">            expected_rank : expected rank of each algorithm</span>
-<span class="sd">            posterior : posterior</span>
+<span class="sd">            PlackettLuceResutls : ``PackettLuceResutls`` instance containing:</span>
+<span class="sd">                - expected_prob: Expected probability of each algorithm having the best ranking</span>
+<span class="sd">                - expected_rank: Expected rank of each algorithm</span>
+<span class="sd">                - posterior: Posterior</span>
 
 <span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; result_matrix = pd.DataFrame([[0.75, 0.6, 0.8], [0.8, 0.7, 0.9], [0.9, 0.8, 0.7]])</span>
@@ -257,18 +259,20 @@
         <span class="n">results</span> <span class="o">=</span> <span class="n">PlackettLuceResults</span><span class="p">(</span><span class="n">expected_prob</span><span class="p">,</span> <span class="n">expected_rank</span><span class="p">,</span> <span class="n">posterior</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_rank_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_matrix</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_get_rank_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_matrix</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the rank matrix of a matrix of results. If the mode is max, assume that the higher the result,</span>
 <span class="sd">        the better.</span>
 <span class="sd">        If the mode is min, do otherwise.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            result_matrix : matrix of results</span>
-<span class="sd">            mode : &quot;max&quot; for assigning better ranks to high results. &quot;min&quot; for otherwise.</span>
+<span class="sd">            result_matrix (pd.DataFrame): Matrix of results.</span>
+<span class="sd">            mode (Literal[&#39;max&#39;, &#39;min&#39;], optional): ``&#39;max&#39;`` for assigning better ranks to high results.</span>
+<span class="sd">                ``&#39;min&#39;`` for otherwise.</span>
+<span class="sd">                Default is ``&#39;max&#39;``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            rank_matrix : rank matrix of the result matrix.</span>
+<span class="sd">            rank_matrix : Rank matrix of the result matrix.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;min&quot;</span><span class="p">:</span>
@@ -285,12 +289,12 @@
 <span class="sd">        Execute the STAN program for the Plackett-Luce ranking model.</span>
 
 <span class="sd">        Parameters:</span>
-<span class="sd">            rank_matrix : matrix of ranks</span>
-<span class="sd">            n_chains : number of simulations</span>
-<span class="sd">            num_samples : number of samples</span>
+<span class="sd">            rank_matrix : Matrix of ranks.</span>
+<span class="sd">            n_chains (int, optional): Number of simulations. Default is ``8``.</span>
+<span class="sd">            num_samples (int, optional): Number of samples. Default is ``300000``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            results : raw results from executing the STAN program</span>
+<span class="sd">            results : Raw results from executing the STAN program.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">stan_code</span> <span class="o">=</span> <span class="n">STAN_CODE</span><span class="o">.</span><span class="n">PLACKETT_LUCE_TEST_V3</span>
@@ -328,13 +332,13 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        stan_results : raw stan results</span>
+<span class="sd">        stan_results : Raw stan results.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        expected_prob : expected probability of each approach to be the best in terms of ranking</span>
-<span class="sd">        expected_rank : expected rank of the approach</span>
-<span class="sd">        posterior : posterior probability, used to calculate the plot</span>
+<span class="sd">        expected_prob : Expected probability of each approach to be the best in terms of ranking.</span>
+<span class="sd">        expected_rank : Expected rank of the approach.</span>
+<span class="sd">        posterior : Posterior probability, used to calculate the plot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">stan_results</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;ratings&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
         <span class="n">posterior</span> <span class="o">=</span> <span class="n">stan_results</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>

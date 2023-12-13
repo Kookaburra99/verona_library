@@ -16,9 +16,9 @@ class BayesianHierarchicalResults:
 
         Args:
             global_wins (pd.DataFrame): A DataFrame containing the global winning probabilities for each condition
-            (left, right, rope).
+                (left, right, rope).
             posterior_distribution (pd.DataFrame): A DataFrame with the posterior distribution probabilities
-            (left, rope, right).
+                (left, rope, right).
             per_dataset (pd.DataFrame): A DataFrame with per-dataset statistics.
             global_sign (pd.DataFrame): A DataFrame containing the global sign probabilities (positive, negative).
             raw_results (pd.DataFrame): A DataFrame containing the raw results from the sampling.
@@ -42,10 +42,10 @@ class HierarchicalBayesianTest:
         is scaled and shifted by mean, and sd, respectively.
 
         Args:
-            q : quantile
-            df : degrees of freedom
-            mean : scale (mean)
-            sd : shift (standard deviation)
+            q: quantile
+            df: degrees of freedom
+            mean: scale (mean). Default is ``0``.
+            sd: shift (standard deviation). Default is ``1``.
 
         Returns:
             Cumulative distribution function shifted and scaled.
@@ -55,17 +55,17 @@ class HierarchicalBayesianTest:
     def __init__(self, x_result: pd.DataFrame, y_result: pd.DataFrame, approaches: List[str], datasets: List[str]):
         """
         Args:
-            x_result: A 2D dataframe containing the performance metrics obtained by the first algorithm. Each row in
-            this matrix represents a unique dataset, and each column corresponds to the result of an individual fold in
-            a k-fold cross-validation for that dataset.
-            y_result: A 2D dataframe containing the performance metrics obtained by the second algorithm. The structure
-            is the same as `x_result`, where rows correspond to datasets and columns to individual k-fold
-            cross-validation results.
-            approaches: A list containing the names of the two algorithms being compared. The first element in the list
-            should correspond to the algorithm associated with `x_result`, and the second element should correspond to
-            the algorithm associated with `y_result`.
-            datasets: A list containing the names of the datasets used in the model. The order should match the row
-            order in `x_result` and `y_result`.
+            x_result (pd.DataFrame): A 2D dataframe containing the performance metrics obtained by the first algorithm. Each row in
+                this matrix represents a unique dataset, and each column corresponds to the result of an individual fold in
+                a k-fold cross-validation for that dataset.
+            y_result (pd.DataFrame): A 2D dataframe containing the performance metrics obtained by the second algorithm. The structure
+                is the same as `x_result`, where rows correspond to datasets and columns to individual k-fold
+                cross-validation results.
+            approaches (List[str]): A list containing the names of the two algorithms being compared. The first element in the list
+                should correspond to the algorithm associated with `x_result`, and the second element should correspond to
+                the algorithm associated with `y_result`.
+            datasets (List[str]): A list containing the names of the datasets used in the model. The order should match the row
+                order in `x_result` and `y_result`.
         """
 
         assert len(approaches) == 2, "The number of names of the approaches is not 2"
@@ -105,28 +105,32 @@ class HierarchicalBayesianTest:
 
 
         Args:
-            rope (List, default=[-1, 1]): Region of Practical Equivalence, defines the interval within which performance
-            differences are considered "irrelevant" or "insignificant".
-            rho (float, default=0.2): A hyperparameter representing the correlation factor across datasets. A higher
-            value indicates stronger correlation between datasets in terms of algorithm performance.
-            n_chains (int, default=4): The number of Markov Chains to be used in the simulation. Half of the simulations
-            are used for warm-up.
-            num_samples (int, default=300000): The total number of samples (per chain) used for estimating the posterior
-            distribution. By default, half of these samples are used for the burn-in phase.
-            std_upper (int, default=1000): A scaling factor that sets the upper bounds for the hyperparameters sigma_i
-            and sigma_0, which represent dataset-specific and global variability, respectively.
-            alpha_lower (float, default=0.5): Lower bound for the uniform prior of the alpha hyperparameter, which
-            models the global variance.
-            alpha_upper (float, default=5): Upper bound for the uniform prior of the alpha hyperparameter.
-            beta_lower (float, default=0.05): Lower bound for the uniform prior of the beta hyperparameter, which models
-            dataset-specific variances.
-            beta_upper (float, default=0.15): Upper bound for the uniform prior of the beta hyperparameter.
+            rope (List, optional): Region of Practical Equivalence, defines the interval within which performance
+                differences are considered "irrelevant" or "insignificant". Default is ``[-1, 1]``.
+            rho (float, optional): A hyperparameter representing the correlation factor across datasets. A higher
+                value indicates stronger correlation between datasets in terms of algorithm performance.
+                Default is ``0.2``.
+            n_chains (int, optional): The number of Markov Chains to be used in the simulation. Half of the simulations
+                are used for warm-up. Default is ``4``.
+            num_samples (int, optional): The total number of samples (per chain) used for estimating the posterior
+                distribution. Default is ``300000``.
+            std_upper (int, optional): A scaling factor that sets the upper bounds for the hyperparameters sigma_i
+                and sigma_0, which represent dataset-specific and global variability, respectively.
+                Default is ``1000``.
+            alpha_lower (float, optional): Lower bound for the uniform prior of the alpha hyperparameter, which
+                models the global variance. Default is ``0.5``.
+            alpha_upper (float, optional): Upper bound for the uniform prior of the alpha hyperparameter.
+                Default is ``5``.
+            beta_lower (float, optional): Lower bound for the uniform prior of the beta hyperparameter, which models
+                dataset-specific variances. Default is ``0.05``.
+            beta_upper (float, optional): Upper bound for the uniform prior of the beta hyperparameter.
+                Default is ``0.15``.
             d0_lower (float, optional): Lower bound for the prior distribution of mu_0, the grand mean of performance
-            differences. If not provided, the smallest observed difference is used as the lower bound.
+                differences. If not provided, the smallest observed difference is used as the lower bound.
             d0_upper (float, optional): Upper bound for the prior distribution of mu_0. If not provided, the largest
-            observed difference is used as the upper bound.
+                observed difference is used as the upper bound.
 
-        Notes:
+        Note:
             The results includes the typical information relative to the three areas of the posterior density (left,
             right and rope probabilities), both global and per dataset (in the additional information). Also, the
             simulation results are included.
@@ -143,14 +147,12 @@ class HierarchicalBayesianTest:
         Returns:
             BayesianHierarchicalResults
                 An object containing the following attributes:
-                - `approximated` : Boolean value that indicates whether the posterior distribution is approximated
-                (True in this case).
-                - `global_wins`: DataFrame containing the global winning probabilities for each condition (left, right,
-                rope).
-                - `posterior_distribution`: DataFrame with the posterior distribution probabilities (left, rope, right).
-                - `per_dataset`: DataFrame with per-dataset statistics.
-                - `global_sign`: DataFrame containing the global sign probabilities (positive, negative).
-                - `raw_results`: DataFrame containing the raw results from the sampling.
+                    - `approximated` : Boolean value that indicates whether the posterior distribution is approximated (True in this case).
+                    - `global_wins`: DataFrame containing the global winning probabilities for each condition (left, right, rope).
+                    - `posterior_distribution`: DataFrame with the posterior distribution probabilities (left, rope, right).
+                    - `per_dataset`: DataFrame with per-dataset statistics.
+                    - `global_sign`: DataFrame containing the global sign probabilities (positive, negative).
+                    - `raw_results`: DataFrame containing the raw results from the sampling.
 
         Examples:
             >>> x_data = pd.DataFrame([[75.3, 78.3, 60.4], [68.5, 77.5, 76.9], [77.9, 74.5, 80.9], [90, 90, 90]])
@@ -158,12 +160,10 @@ class HierarchicalBayesianTest:
             >>> results = HierarchicalBayesianTest(x_data, y_data, approaches=["approach 1", "approach 2"],
             datasets=["d1", "d2", "d3", "d4"]).run([-1, 1])
             >>> print("Global wins: ", results.global_wins)
-            Global wins:     left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 >
-                approach 2)
+            Global wins:     left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 > approach 2)
                                     0.809272                             0.0                         0.190728
             >>> print("Per dataset: ", results.per_dataset.iloc[:, 1:4])
-            Per dataset:      left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 >
-                approach 2)
+            Per dataset:      left (approach 1 < approach 2)  rope (approach 1 = approach 2)  right (approach 1 > approach 2)
             d1                        0.207137                        0.503125                         0.289738
             d2                        0.279955                        0.419848                         0.300197
             d3                        0.619778                        0.337055                         0.043167

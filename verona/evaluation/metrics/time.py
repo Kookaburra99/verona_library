@@ -12,11 +12,12 @@ def get_mae(predictions: np.array, ground_truths: np.array,
         predictions (np.array): NumPy Array containing the predicted times as floats.
         ground_truths (np.array): NumPy Array containing the real times as floats.
         reduction (Literal['mean', 'none'], optional): Determines the type of reduction applied to the MAE.
-            If 'mean', calculates the average MAE for all pairs of prediction and ground truth.
-            If 'none', returns all MAE values for the individual pairs without reduction.
+            If ``'mean'``, calculates the average MAE for all pairs of prediction and ground truth.
+            If ``'none'``, returns all MAE values for the individual pairs without reduction.
+            Default is ``'mean'``
 
     Returns:
-        Union[float, np.array]: MAE as a single float if reduction is 'mean', or as a NumPy Array if reduction is 'none'.
+        Union[float, np.array]: MAE as a single float if reduction is 'mean', or as a NumPy Array if reduction is ``'none'``.
     """
 
     mae = np.abs(predictions - ground_truths)
@@ -36,11 +37,12 @@ def get_mse(predictions: np.array, ground_truths: np.array,
         predictions (np.array): NumPy Array containing the predicted times as floats.
         ground_truths (np.array): NumPy Array containing the real times as floats.
         reduction (Literal['mean', 'none'], optional): Determines the type of reduction applied to the MSE.
-            If 'mean', calculates the average MSE for all pairs of prediction and ground truth.
-            If 'none', returns all MSE values for the individual pairs without reduction.
+            If ``'mean'``, calculates the average MSE for all pairs of prediction and ground truth.
+            If ``'none'``, returns all MSE values for the individual pairs without reduction.
+            DEfault is ``'mean'``.
 
     Returns:
-        Union[float, np.array]: MSE as a single float if reduction is 'mean', or as a NumPy Array if reduction is 'none'.
+        Union[float, np.array]: MSE as a single float if reduction is 'mean', or as a NumPy Array if reduction is ``'none'``.
     """
 
     mse = np.power(predictions - ground_truths, 2)

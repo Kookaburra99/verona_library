@@ -132,7 +132,6 @@ def get_available_datasets():
 
     Examples:
         >>> available_datasets = get_available_datasets()
-        >>> print(available_datasets)
     """
 
     print(f'Available datasets:')
@@ -154,18 +153,18 @@ def get_dataset(dataset_name: str, store_path: str = None,
     Args:
         dataset_name (str): Identifier of the dataset to download.
 
-        store_path (Optional[str]): The directory path where the dataset will be stored.
-            If not specified, the dataset will be stored in the folder ~/.verona_datasets/
+        store_path (Optional[str], optional): The directory path where the dataset will be stored.
+            If not specified, the dataset will be stored in the folder ``~/.verona_datasets/``.
 
-        extension (Literal['xes', 'csv', 'both']): The format in which to save the dataset.
+        extension (Literal['xes', 'csv', 'both'], optional): The format in which to save the dataset.
             Choose from 'xes' for 'xes.gz' format, 'csv' for 'csv' format, or 'both' to download both formats.
-            Default is 'xes'.
+            Default is ``xes``.
 
     Returns:
         None: The function stores the downloaded dataset in the 'store_path' and returns nothing.
 
     Examples:
-        >>> get_dataset('bpi2012a', store_path=None, extension='csv')
+        >>> dataset_path, df_dataset = get_dataset('bpi2012a', store_path=None, extension='csv')
     """
 
     if extension not in ['xes', 'csv', 'both']:

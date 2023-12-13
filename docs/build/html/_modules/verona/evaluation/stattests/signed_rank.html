@@ -195,12 +195,11 @@
 <span class="sd">        run: Executes the Bayesian test.</span>
 
 <span class="sd">    References:</span>
-<span class="sd">    - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple</span>
-<span class="sd">    Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
-<span class="sd">    - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
+<span class="sd">        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
+<span class="sd">        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">approaches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the BayesianSignedRankTest class.</span>
 
@@ -218,27 +217,25 @@
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to 0.5.</span>
+<span class="sd">            s (float, optional): Scale parameter of the prior Dirichlet Process. Defaults to ``0.5``.</span>
 <span class="sd">            z0 (float, optional): Position of the pseudo-observation associated to the prior Dirichlet Process.</span>
 <span class="sd">            Defaults to 0.</span>
-<span class="sd">            rope (tuple, optional): Interval for the difference considered as &quot;irrelevant&quot;. Defaults to (-1, 1).</span>
-<span class="sd">            nsim (int, optional): Number of samples used to estimate the posterior distribution. Defaults to 100000.</span>
-<span class="sd">            seed (int, optional): Optional parameter used to fix the random seed. Defaults to None.</span>
+<span class="sd">            rope (tuple, optional): Interval for the difference considered as &quot;irrelevant&quot;. Defaults to ``(-1, 1)``.</span>
+<span class="sd">            nsim (int, optional): Number of samples used to estimate the posterior distribution. Defaults to ``100000``.</span>
+<span class="sd">            seed (int, optional): Optional parameter used to fix the random seed.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict: A dictionary containing:</span>
-<span class="sd">                - method: a string with the name of the method used</span>
-<span class="sd">                - posterior_probabilities: a dictionary with the left, rope and right probabilities</span>
-<span class="sd">                - approximate: a boolean, True if the posterior distribution is approximated (sampled) and</span>
-<span class="sd">                False if it is exact</span>
-<span class="sd">                - parameters: a dictionary of parameters used by the method</span>
-<span class="sd">                - posterior: a list of dictionaries containing the sampled probabilities</span>
+<span class="sd">                - method: A string with the name of the method used.</span>
+<span class="sd">                - posterior_probabilities: A dictionary with the left, rope and right probabilities.</span>
+<span class="sd">                - approximate: A boolean, ``True`` if the posterior distribution is approximated (sampled) and ``False`` if it is exact.</span>
+<span class="sd">                - parameters: A dictionary of parameters used by the method.</span>
+<span class="sd">                - posterior: A list of dictionaries containing the sampled probabilities.</span>
 
 
 <span class="sd">        References:</span>
-<span class="sd">        - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple</span>
-<span class="sd">        Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
-<span class="sd">        - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
+<span class="sd">            - A. Benavoli, G. Corani, J. Demsar, M. Zaffalon (2017) Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis. Journal of Machine Learning Research, 18, 1-36.</span>
+<span class="sd">            - scmamp: Statistical Comparison of Multiple Algorithms in Multiple Problems.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">rope</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">rope</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
