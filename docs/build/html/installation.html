@@ -168,12 +168,42 @@ download the source code from the official repository and manually
 compile it.</p>
 <section id="id1">
 <h2>PyPI<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install verona
+</pre></div>
+</div>
 </section>
 <section id="id2">
 <h2>Conda<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install verona
+</pre></div>
+</div>
 </section>
 <section id="manual-compilation">
 <h2>Manual compilation<a class="headerlink" href="#manual-compilation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Download the code from the official <a class="reference external" href="https://www.google.es">GitHub repository</a>:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Kookaburra99/verona_library.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create a virtual environment (preferably a Conda environment):</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n verona_env <span class="nv">python</span><span class="o">==</span><span class="m">3</span>.11
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Install dependencies:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Install the code as library:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py install
+</pre></div>
+</div>
 </section>
 </section>
 

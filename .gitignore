@@ -15,7 +15,6 @@ __pycache__/
 # Virtual environment
 venv/
 myenv/
-.barro_env/
 
 # Sphinx build directory
 docs/_build/

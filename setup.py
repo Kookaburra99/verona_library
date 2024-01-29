@@ -10,7 +10,7 @@ setup(
                      'performance of predictive models in the context of business process monitoring.',
     author='Efren Rama-Maneiro, Pedro Gamallo-Fernandez',
     author_email='efren.rama.maneiro@usc.es, pedro.gamallo.fernandez@usc.es',
-    url='https://gitlab.citius.usc.es/pedro.gamallo/barro_library',
+    url='https://gitlab.citius.usc.es/pedro.gamallo/verona_library',
     license='GPLv3',
     package_data={
         'verona.data.csv': ['*.csv'],  # Include all CSV files under the 'csv' directory
