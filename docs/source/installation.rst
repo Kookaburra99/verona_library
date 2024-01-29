@@ -14,14 +14,6 @@ PyPI
 
     pip install verona
 
-Conda
------
-
-.. code-block:: bash
-
-    conda install verona
-
-
 Manual compilation
 ------------------
 
