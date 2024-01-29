@@ -3,6 +3,6 @@ sphinx_press_theme
 numpy
 pandas
 tqdm
-sklearn
+scikit-learn
 scipy
 plotly
