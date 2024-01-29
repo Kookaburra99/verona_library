@@ -1,2 +1,4 @@
 sphinxcontrib-bibtex
 sphinx_press_theme
+numpy
+pandas
