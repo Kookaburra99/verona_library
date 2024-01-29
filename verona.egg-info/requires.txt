@@ -1,0 +1,14 @@
+requests
+pm4py
+pandas
+numpy
+scikit-learn
+tqdm
+jellyfish
+pytest
+cmdstanpy
+matplotlib
+plotly
+sphinx
+sphinx-press-theme
+sphinxcontrib-bibtex

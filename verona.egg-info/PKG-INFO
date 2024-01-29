@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: verona
+Version: 1.0.0
+Summary: The predictive process monitoring library for Python
+Home-page: https://gitlab.citius.usc.es/pedro.gamallo/verona_library
+Author: Efren Rama-Maneiro, Pedro Gamallo-Fernandez
+Author-email: efren.rama.maneiro@usc.es, pedro.gamallo.fernandez@usc.es
+License: GPLv3
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: pm4py
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: tqdm
+Requires-Dist: jellyfish
+Requires-Dist: pytest
+Requires-Dist: cmdstanpy
+Requires-Dist: matplotlib
+Requires-Dist: plotly
+Requires-Dist: sphinx
+Requires-Dist: sphinx-press-theme
+Requires-Dist: sphinxcontrib-bibtex
+
+The VERONA library is a powerful Python tool designed to evaluate and compare predictive process monitoring models fairly and under equals conditions. Leveraging the benchmark published in Rama-Maneiro et al. (2021), this library provides comprehensive functions for assessing the performance of predictive models in the context of business process monitoring.

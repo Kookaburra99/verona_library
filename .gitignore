@@ -18,3 +18,6 @@ myenv/
 
 # Sphinx build directory
 docs/_build/
+
+# Dist folder
+dist/
