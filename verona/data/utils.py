@@ -81,6 +81,56 @@ def unify_activity_and_lifecycle(dataset: pd.DataFrame, activity_id: str = XesFi
     return dataset
 
 
+def sort_events(dataset: pd.DataFrame, timestamp_column: str = XesFields.TIMESTAMP_COLUMN,
+                case_column: str = XesFields.CASE_COLUMN) -> pd.DataFrame:
+    """
+    Sort events within each case by timestamp.
+
+    Args:
+        dataset (pd.DataFrame): DataFrame containing all the events.
+        timestamp_column (str, optional): Name of the timestamp column in the DataFrame.
+            Default is ``XesFields.TIMESTAMP_COLUMN``.
+        case_column (str, optional): Name of the case identifier column in the DataFrame.
+            Default is ``XesFields.CASE_COLUMN``.
+
+    Returns:
+        pd.DataFrame: The events of each case, as Pandas DataFrame, sorted by timestamp.
+    """
+
+    dataset[timestamp_column] = pd.to_datetime(dataset[timestamp_column])
+
+    sorted_events = dataset.groupby(case_column).apply(lambda case: case.sort_values(by=timestamp_column),
+                                                       include_groups=False).reset_index(drop=True)
+
+    return sorted_events
+
+
+def sort_dataset(dataset: pd.DataFrame, timestamp_column: str = XesFields.TIMESTAMP_COLUMN,
+                 case_column: str = XesFields.CASE_COLUMN) -> pd.DataFrame:
+    """
+    Sort the cases of the dataset by their first timestamp.
+
+    Args:
+        dataset (pd.DataFrame): DataFrame containing all the events.
+        timestamp_column (str, optional): Name of the timestamp column in the DataFrame.
+            Default is ``XesFields.TIMESTAMP_COLUMN``.
+        case_column (str, optional): Name of the case identifier column in the DataFrame.
+            Default is ``XesFields.CASE_COLUMN``.
+
+    Returns:
+        pd.DataFrame: The cases, as Pandas DataFrame, sorted by their first timestamp.
+    """
+
+    dataset[timestamp_column] = pd.to_datetime(dataset[timestamp_column])
+
+    dataset['min_timestamp'] = dataset.groupby(case_column)[timestamp_column].transform('min')
+
+    sorted_dataset = dataset.sort_values(by=['min_timestamp', case_column, timestamp_column])
+    sorted_dataset = sorted_dataset.drop(columns='min_timestamp')
+
+    return sorted_dataset
+
+
 def get_onehot_representation(attribute: np.array, num_elements: int) -> np.array:
     """
     Gets attribute values as labels and converts them to their one-hot representation.
@@ -94,7 +144,6 @@ def get_onehot_representation(attribute: np.array, num_elements: int) -> np.arra
     Returns:
         np.array: Pandas Series or NumPy Array (depending on the type of 'attribute') containing the one-hot vectors.
     """
-
 
     if not num_elements:
         num_elements = np.unique(attribute).size

@@ -5,6 +5,21 @@ import pandas as pd
 from verona.data import split, download
 
 
+def test_temporal_split():
+    user_path = os.path.expanduser("~/.verona_datasets/")
+    string, log = download.get_dataset('helpdesk', user_path, 'csv')
+    train_df, val_df, test_df = split.make_temporal_split(string, 'helpdesk',
+                                                          test_offset=pd.Timedelta(days=30), store_path=user_path)
+    assert train_df is not None
+    assert isinstance(train_df, pd.DataFrame)
+    assert val_df is None
+    assert test_df is not None
+    assert isinstance(test_df, pd.DataFrame)
+
+    user_path = os.path.expanduser("~/.verona_datasets/")
+    assert os.path.exists(os.path.join(user_path, 'train_helpdesk.csv'))
+    assert os.path.exists(os.path.join(user_path, 'test_helpdesk.csv'))
+
 def test_split_holdout():
     string, log = download.get_dataset('bpi2013inc', None, 'csv')
     train_df, val_df, test_df = split.make_holdout(string, store_path=None)
