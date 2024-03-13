@@ -3,7 +3,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 
-from verona.data.utils import DataFrameFields
+from verona.data.utils import DataFrameFields, sort_events
 
 
 def get_prefixes_and_targets(dataset: pd.DataFrame,
@@ -61,6 +61,9 @@ def get_prefixes_and_targets(dataset: pd.DataFrame,
     Examples:
         >>> prefixes, targets = get_prefixes_and_targets(df_dataset, 'next_activity', prefix_size=5)
     """
+
+    if timestamp_id:
+        dataset = sort_events(dataset, timestamp_id, case_id)
 
     cases = dataset.groupby(case_id)
 
