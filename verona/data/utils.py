@@ -1,5 +1,7 @@
+from typing import Literal, Tuple, List, Union
 import numpy as np
 import pandas as pd
+import pm4py
 
 
 class XesFields:
@@ -21,6 +23,65 @@ class DataFrameFields:
     ACTIVITY_COLUMN = "Activity"
     TIMESTAMP_COLUMN = "Timestamp"
     RESOURCE_COLUMN = "Resource"
+
+
+def read_eventlog(dataset: Union[str, pd.DataFrame], sort_events_in_trace: bool = False,
+                  sort_traces: bool = False, timestamp_column: str = XesFields.TIMESTAMP_COLUMN,
+                  case_column: str = XesFields.CASE_COLUMN) -> pd.DataFrame:
+    """
+    Reads the event log and returns it as a Pandas DataFrame. Optionally, temporally sorts the
+    events within a case and the cases within the eventlog by their start timestamp.
+
+    Args:
+        dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
+        sort_events_in_trace (bool, optional): If True, sort the events within each case by their timestamp.
+            Default is ``False``.
+        sort_traces (bool, optional): If True, sort cases by their start timestamp (the timestamp of their first event).
+            Default is ``False``.
+        timestamp_column (str, optional): Name of the timestamp column in the eventlog.
+            Default is ``XesFields.TIMESTAMP_COLUMN``.
+        case_column (str, optional): Name of the case identifier in the eventlog.
+            Default is ``XesFields.CASE_COLUMN``.
+
+    Returns:
+        pd.DataFrame: A Pandas DataFrame containing the eventlog.
+
+    Raises:
+        ValueError: If an invalid extension is provided when calling the function with **dataset** as a string.
+        TypeError: If **dataset** is neither a string nor a Pandas DataFrame
+    """
+
+    if type(dataset) is str:
+        filename = dataset.split('/')[-1]
+        if len(filename.split('.')) == 1:
+            filename += '.csv'
+        input_extension = filename.split('.')[-1]
+        if input_extension == 'gz':
+            input_extension = '.'.join(filename.split('.')[-2:])
+
+        if input_extension == "xes":
+            df_log = pm4py.read_xes(dataset)
+        elif input_extension == "csv":
+            df_log = pd.read_csv(dataset)
+        else:
+            raise ValueError(f'Wrong dataset extension: {input_extension}. '
+                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
+
+    elif type(dataset) is pd.DataFrame:
+        df_log = dataset
+
+    else:
+        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
+                        f'Only str and pd.DataFrame types are allowed.')
+
+    if sort_events_in_trace:
+        df_log = sort_events(df_log, timestamp_column, case_column)
+
+    if sort_traces:
+        df_log = sort_dataset(df_log, timestamp_column, case_column)
+
+    return df_log
 
 
 def categorize_attribute(attr: pd.Series) -> (pd.Series, dict, dict):
@@ -99,8 +160,8 @@ def sort_events(dataset: pd.DataFrame, timestamp_column: str = XesFields.TIMESTA
 
     dataset[timestamp_column] = pd.to_datetime(dataset[timestamp_column])
 
-    sorted_events = dataset.groupby(case_column).apply(lambda case: case.sort_values(by=timestamp_column),
-                                                       include_groups=False).reset_index(drop=True)
+    sorted_events = (dataset.groupby(case_column).apply(lambda case: case.sort_values(by=timestamp_column))
+                     .reset_index(drop=True))
 
     return sorted_events
 

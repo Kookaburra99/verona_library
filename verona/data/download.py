@@ -161,7 +161,8 @@ def get_dataset(dataset_name: str, store_path: str = None,
             Default is ``xes``.
 
     Returns:
-        None: The function stores the downloaded dataset in the 'store_path' and returns nothing.
+        Tuple[str, pd.DataFrame]: A string indicating the full path where the dataset is stored and a
+            Pandas DataFrame with the dataset.
 
     Examples:
         >>> dataset_path, df_dataset = get_dataset('bpi2012a', store_path=None, extension='csv')
@@ -204,7 +205,7 @@ def __download_dataset(dataset_name: str, store_path: str,
             store_path_csv = os.path.join(store_path, dataset_name + '.csv')
 
             log = pm4py.read_xes(store_path_xes)
-            log.to_csv(store_path_csv)
+            log.to_csv(store_path_csv, index=False)
 
         if extension not in ['xes', 'both']:
             os.remove(store_path_xes)

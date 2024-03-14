@@ -2,11 +2,10 @@ from pathlib import Path
 from typing import Literal, Tuple, List, Union
 
 import pandas as pd
-import pm4py
 from sklearn.model_selection import KFold
 
 from verona.data.download import DEFAULT_PATH
-from verona.data.utils import XesFields, sort_dataset
+from verona.data.utils import XesFields, read_eventlog
 
 
 def make_temporal_split(dataset: Union[str, pd.DataFrame], dataset_name: str = 'Dataset', store_path: str = None,
@@ -32,6 +31,7 @@ def make_temporal_split(dataset: Union[str, pd.DataFrame], dataset_name: str = '
             from which any trace with a start timestamp equal to or later, but less than the start timestamp plus
             test_offset, is added to the validation partition.
         timestamp_column (str, optional): Name of the timestamp column in the original dataset file.
+            Default is ``XesFields.TIMESTAMP_COLUMN``.
         case_column (str, optional): Name of the case identifier in the original dataset file.
             Default is ``XesFields.CASE_COLUMN``.
 
@@ -46,32 +46,8 @@ def make_temporal_split(dataset: Union[str, pd.DataFrame], dataset_name: str = '
         >>> train_df, _, test_df = make_temporal_split('path/to/dataset.csv', test_offset=pd.Timedelta(days=730))
     """
 
-    if type(dataset) is str:
-        filename = dataset.split('/')[-1]
-        if len(filename.split('.')) == 1:
-            filename += '.csv'
-        input_extension = filename.split('.')[-1]
-        if input_extension == 'gz':
-            input_extension = '.'.join(filename.split('.')[-2:])
-
-        if input_extension == "xes":
-            df_log = pm4py.read_xes(dataset)
-        elif input_extension == "csv":
-            df_log = pd.read_csv(dataset)
-        else:
-            raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
-
-    elif type(dataset) is pd.DataFrame:
-        df_log = dataset
-
-    else:
-        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
-                        f'Only str and pd.DataFrame types are allowed.')
-
-    df_log[timestamp_column] = pd.to_datetime(df_log[timestamp_column], format='ISO8601')
-
-    df_log = sort_dataset(df_log, timestamp_column, case_column)
+    df_log = read_eventlog(dataset, sort_events_in_trace=True, sort_traces=True,
+                           timestamp_column=timestamp_column, case_column=case_column)
 
     start_timestamp = df_log.loc[0, timestamp_column]
     val_timestamp = start_timestamp + val_offset if val_offset else None
@@ -148,28 +124,7 @@ def make_holdout(dataset: Union[str, pd.DataFrame], dataset_name: str = 'Dataset
         >>> train_df, val_df, test_df = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
     """
 
-    if type(dataset) is str:
-        filename = dataset.split('/')[-1]
-        if len(filename.split('.')) == 1:
-            filename += '.csv'
-        input_extension = filename.split('.')[-1]
-        if input_extension == 'gz':
-            input_extension = '.'.join(filename.split('.')[-2:])
-
-        if input_extension == "xes":
-            df_log = pm4py.read_xes(dataset)
-        elif input_extension == "csv":
-            df_log = pd.read_csv(dataset)
-        else:
-            raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
-
-    elif type(dataset) is pd.DataFrame:
-        df_log = dataset
-
-    else:
-        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
-                        f'Only str and pd.DataFrame types are allowed.')
+    df_log = read_eventlog(dataset)
 
     df_groupby = df_log.groupby(case_column)
     cases = [case for _, case in df_groupby]
@@ -247,28 +202,7 @@ def make_crossvalidation(dataset: Union[str, pd.DataFrame], dataset_name: str = 
         >>> splits_paths = make_crossvalidation('path/to/dataset.csv')
     """
 
-    if type(dataset) is str:
-        filename = dataset.split('/')[-1]
-        if len(filename.split('.')) == 1:
-            filename += '.csv'
-        input_extension = filename.split('.')[-1]
-        if input_extension == 'gz':
-            input_extension = '.'.join(filename.split('.')[-2:])
-
-        if input_extension == "xes":
-            df_log = pm4py.read_xes(dataset)
-        elif input_extension == "csv":
-            df_log = pd.read_csv(dataset)
-        else:
-            raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
-
-    elif type(dataset) is pd.DataFrame:
-        df_log = dataset
-
-    else:
-        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
-                        f'Only str and pd.DataFrame types are allowed.')
+    df_log = read_eventlog(dataset)
 
     unique_case_ids = list(df_log[case_column].unique())
     kfold = KFold(n_splits=cv_folds, random_state=seed, shuffle=True)
