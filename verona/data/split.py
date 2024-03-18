@@ -264,7 +264,7 @@ def __save_split_to_file(cases: Union[list, pd.DataFrame], store_path: str, data
     Path(store_path).mkdir(parents=True, exist_ok=True)
 
     full_path = store_path + filename + '.csv'
-    df_split.to_csv(full_path)
+    df_split.to_csv(full_path, index=False)
 
     return df_split
 

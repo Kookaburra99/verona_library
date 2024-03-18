@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html  lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,10 +9,9 @@
           <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -150,14 +149,19 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="MetricValue"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MetricValue">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="MetricValue">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MetricValue">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">MetricValue</span><span class="p">:</span>
     <span class="n">value</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
-<div class="viewcode-block" id="AvailableMetrics"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics">[docs]</a><span class="k">class</span> <span class="nc">AvailableMetrics</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AvailableMetrics">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics">[docs]</a>
+<span class="k">class</span> <span class="nc">AvailableMetrics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Container class that holds available metrics for various predictive tasks in process mining.</span>
 
 <span class="sd">    This class defines different metric types that can be calculated for different predictive</span>
@@ -165,8 +169,10 @@
 <span class="sd">    and remaining time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="AvailableMetrics.NextActivity"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextActivity">[docs]</a>    <span class="k">class</span> <span class="nc">NextActivity</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AvailableMetrics.NextActivity">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextActivity">[docs]</a>
+    <span class="k">class</span> <span class="nc">NextActivity</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Metrics available for the task of predicting the next activity in a process instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ACCURACY</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
@@ -176,28 +182,41 @@
         <span class="n">BRIER_SCORE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;brier_score&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
         <span class="n">MCC</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mcc&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AvailableMetrics.ActivitySuffix"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.ActivitySuffix">[docs]</a>    <span class="k">class</span> <span class="nc">ActivitySuffix</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AvailableMetrics.ActivitySuffix">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.ActivitySuffix">[docs]</a>
+    <span class="k">class</span> <span class="nc">ActivitySuffix</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Metrics available for the task of predicting the suffix (sequence of remaining activities) in a</span>
 <span class="sd">        process instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">DAMERAU_LEVENSHTEIN</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;damerau_levenshtein&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AvailableMetrics.NextTimestamp"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextTimestamp">[docs]</a>    <span class="k">class</span> <span class="nc">NextTimestamp</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AvailableMetrics.NextTimestamp">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextTimestamp">[docs]</a>
+    <span class="k">class</span> <span class="nc">NextTimestamp</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Metrics available for the task of predicting the next timestamp in a process instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">MAE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mae&quot;</span><span class="p">,</span> <span class="s2">&quot;next_timestamp&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AvailableMetrics.RemainingTime"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.RemainingTime">[docs]</a>    <span class="k">class</span> <span class="nc">RemainingTime</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AvailableMetrics.RemainingTime">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.RemainingTime">[docs]</a>
+    <span class="k">class</span> <span class="nc">RemainingTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Metrics available for the task of predicting the remaining time for completion of a process instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">MAE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mae&quot;</span><span class="p">,</span> <span class="s2">&quot;remaining_time&quot;</span><span class="p">)</span></div></div>
+        <span class="n">MAE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mae&quot;</span><span class="p">,</span> <span class="s2">&quot;remaining_time&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="MissingResultStrategy"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MissingResultStrategy">[docs]</a><span class="k">class</span> <span class="nc">MissingResultStrategy</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MissingResultStrategy">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MissingResultStrategy">[docs]</a>
+<span class="k">class</span> <span class="nc">MissingResultStrategy</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enum for specifying the strategy to use for handling missing data (NaNs) in the dataset when applying</span>
 <span class="sd">    Bayesian models.</span>
 
@@ -210,8 +229,9 @@
     <span class="n">NONE</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span></div>
 
 
+
 <span class="k">def</span> <span class="nf">__evenize_dataset</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle missing data in a dataset according to the specified strategy.</span>
 
 <span class="sd">    This function takes a DataFrame containing results from various approaches on different datasets,</span>
@@ -259,10 +279,12 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="load_results_hierarchical"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_hierarchical">[docs]</a><span class="k">def</span> <span class="nf">load_results_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
+<div class="viewcode-block" id="load_results_hierarchical">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_hierarchical">[docs]</a>
+<span class="k">def</span> <span class="nf">load_results_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
                               <span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
                               <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load and preprocess the results of two approaches for comparison using a hierarchical test.</span>
 
 <span class="sd">    This function fetches the raw results from CSV files based on the selected metric, filters the data for the two</span>
@@ -328,9 +350,12 @@
     <span class="k">return</span> <span class="n">approach_1_df</span><span class="p">,</span> <span class="n">approach_2_df</span><span class="p">,</span> <span class="n">approach_1_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="load_results_plackett_luce"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_plackett_luce">[docs]</a><span class="k">def</span> <span class="nf">load_results_plackett_luce</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
+
+<div class="viewcode-block" id="load_results_plackett_luce">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_plackett_luce">[docs]</a>
+<span class="k">def</span> <span class="nf">load_results_plackett_luce</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
                                <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load and preprocess the results for applying the Plackett-Luce model.</span>
 
 <span class="sd">    This function loads a CSV file containing the raw results based on the given metric. It then computes the mean</span>
@@ -363,10 +388,13 @@
     <span class="k">return</span> <span class="n">mean_results</span><span class="p">,</span> <span class="n">mean_results</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="load_results_non_hierarchical"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_non_hierarchical">[docs]</a><span class="k">def</span> <span class="nf">load_results_non_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
+
+<div class="viewcode-block" id="load_results_non_hierarchical">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_non_hierarchical">[docs]</a>
+<span class="k">def</span> <span class="nf">load_results_non_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
                                   <span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
                                   <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load and preprocess results for non-hierarchical statistical comparison of two approaches.</span>
 
 <span class="sd">    This function initially loads results for all available approaches using the `load_results_plackett_luce` function.</span>
@@ -396,6 +424,7 @@
         <span class="n">results</span> <span class="o">=</span> <span class="n">results</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="k">return</span> <span class="n">results</span><span class="p">[</span><span class="n">approach_1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">results</span><span class="p">[</span><span class="n">approach_2</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span></div>
 
+
 </pre></div>
 
           </div>
@@ -404,7 +433,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

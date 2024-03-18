@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html  lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,10 +9,9 @@
           <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
       
       <!-- sphinx script_files -->
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -147,10 +146,12 @@
 <span class="kn">from</span> <span class="nn">verona.data.utils</span> <span class="kn">import</span> <span class="n">DataFrameFields</span>
 
 
-<div class="viewcode-block" id="get_num_activities"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_activities">[docs]</a><span class="k">def</span> <span class="nf">get_num_activities</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+<div class="viewcode-block" id="get_num_activities">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_activities">[docs]</a>
+<span class="k">def</span> <span class="nf">get_num_activities</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                        <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of unique activities in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -174,9 +175,12 @@
     <span class="k">return</span> <span class="n">get_num_values</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">activity_id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_activities_list"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_activities_list">[docs]</a><span class="k">def</span> <span class="nf">get_activities_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_activities_list">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_activities_list">[docs]</a>
+<span class="k">def</span> <span class="nf">get_activities_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                         <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the list of unique activities in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -200,9 +204,12 @@
     <span class="k">return</span> <span class="n">get_values_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">activity_id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_num_values"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_values">[docs]</a><span class="k">def</span> <span class="nf">get_num_values</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_num_values">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_values">[docs]</a>
+<span class="k">def</span> <span class="nf">get_num_values</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                    <span class="n">attribute_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of unique values for the specified attribute in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -225,9 +232,12 @@
     <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">attribute_id</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_values_list"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_values_list">[docs]</a><span class="k">def</span> <span class="nf">get_values_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_values_list">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_values_list">[docs]</a>
+<span class="k">def</span> <span class="nf">get_values_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                     <span class="n">attribute_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the list of unique values for the specified attribute in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -251,9 +261,12 @@
     <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">attribute_id</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_num_cases"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_cases">[docs]</a><span class="k">def</span> <span class="nf">get_num_cases</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_num_cases">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_cases">[docs]</a>
+<span class="k">def</span> <span class="nf">get_num_cases</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                   <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of unique cases in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -277,9 +290,12 @@
     <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_max_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_max_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_max_len_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_len_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_max_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                      <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the maximum case length in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -304,9 +320,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_min_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_min_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_min_len_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_len_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_min_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                      <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the minimum case length in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -330,9 +349,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_avg_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_avg_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_avg_len_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_len_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_avg_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                      <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the average case length in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -357,9 +379,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_max_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_max_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_max_duration_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_max_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the maximum case temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -389,9 +414,12 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_min_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_min_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_min_duration_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_min_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the minimum case temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -421,9 +449,12 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_avg_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_avg_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_avg_duration_case">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_case">[docs]</a>
+<span class="k">def</span> <span class="nf">get_avg_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the average case temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -453,9 +484,12 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_max_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_max_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_max_duration_event">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_event">[docs]</a>
+<span class="k">def</span> <span class="nf">get_max_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                            <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the maximum event temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -484,9 +518,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_min_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_min_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_min_duration_event">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_event">[docs]</a>
+<span class="k">def</span> <span class="nf">get_min_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                            <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the minimum event temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -515,9 +552,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_avg_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_avg_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_avg_duration_event">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_event">[docs]</a>
+<span class="k">def</span> <span class="nf">get_avg_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                            <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the average event temporal duration in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -546,9 +586,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_num_variants"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_variants">[docs]</a><span class="k">def</span> <span class="nf">get_num_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_num_variants">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_variants">[docs]</a>
+<span class="k">def</span> <span class="nf">get_num_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                      <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of unique cases (different sequences of activities) in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -577,9 +620,12 @@
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">)</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_count_variants"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_count_variants">[docs]</a><span class="k">def</span> <span class="nf">get_count_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+
+<div class="viewcode-block" id="get_count_variants">
+<a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_count_variants">[docs]</a>
+<span class="k">def</span> <span class="nf">get_count_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
                        <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of times each variant appears in the dataset.</span>
 
 <span class="sd">    Parameters:</span>
@@ -607,6 +653,7 @@
 
     <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span></div>
+
 </pre></div>
 
           </div>
@@ -615,7 +662,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

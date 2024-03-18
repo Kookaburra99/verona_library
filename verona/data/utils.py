@@ -197,13 +197,14 @@ def get_onehot_representation(attribute: np.array, num_elements: int) -> np.arra
     Gets attribute values as labels and converts them to their one-hot representation.
 
     Args:
-        attribute (np.array): Pandas Series or NumPy Array containing the categorical values of the attribute.
+        attribute (np.array): NumPy Array containing the values of the categorical attribute. Only numeric
+            labels are allowed.
         num_elements (int): Integer indicating the number of unique values of the attribute, which is the
                             size of the one-hot vector. If not specified, the vector size is calculated from
                             the number of unique elements in 'attribute'.
 
     Returns:
-        np.array: Pandas Series or NumPy Array (depending on the type of 'attribute') containing the one-hot vectors.
+        np.array: NumPy Array containing the one-hot vectors.
     """
 
     if not num_elements:
@@ -216,6 +217,79 @@ def get_onehot_representation(attribute: np.array, num_elements: int) -> np.arra
     onehot_attr[np.arange(attribute.size), attribute] = 1
 
     return onehot_attr
+
+
+def get_aggregation_representation(prefix: pd.DataFrame, unique_activities: np.array, numeric_columns: np.array = None,
+                                   numeric_aggr_func: Literal['max', 'min', 'avg', 'sum'] = 'avg',
+                                   activity_column: str = XesFields.ACTIVITY_COLUMN,
+                                   relative_freq: bool = False) -> np.array:
+    """
+    Gets the aggregation sequence encoding described in [1]. Activities are represented by their frequency
+    (absolute or relativea) of occurrence in the prefix. Numerical variables are represented by general statistics
+    such as maximum, minimum, mean or sum.
+
+    Args:
+        prefix (pd.DataFrame): DataFrame containing the events of the prefix.
+        unique_activities (np.array): NumPy Array of unique activities labels.
+        numeric_columns (np.array, optional): NumPy Array of names of the numerical columns to be represented.
+            If any columns with time data are included, make sure they are correctly converted to numeric value.
+        numeric_aggr_func (Literal['max', 'min', 'avg', 'sum']): Statistical function to be used to obtain the
+            representative value of the numerical variables.
+
+            - ``'max'``: Uses the maximum value of the numerical attribute in the prefix.
+            - ``'min'``: Uses the minimum value of the numerical attribute in the prefix.
+            - ``'avg'``: Uses the mean value of the numerical attribute in the prefix.
+            - ``'sum'``: Uses the sum of the values of the numerical attribute in the prefix.
+
+            Default is ``'avg'``.
+
+        activity_column (str, optional): Name of the activity column. Only numeric labels are allowed.
+            Default is ``XesFields.ACTIVITY_COLUMN``.
+        relative_freq (bool, optional): Whether to use absolute frequency (``False``) or relative (``True``)
+            to prefix length to represent activities.
+            Default is ``False``.
+
+    Returns:
+        NumPy Array containing the aggregation representation of the input prefix.
+
+    Raises:
+        ValueError: If an invalid value of ``numeric_aggr_func`` is provided.
+
+    References:
+        [1] Teinemaa, I., Dumas, M., Rosa, M. L., & Maggi, F. M. (2019). Outcome-oriented predictive process
+            monitoring: Review and benchmark. ACM Transactions on Knowledge Discovery from Data (TKDD), 13(2), 1-57.
+    """
+
+    activity_counts = prefix[activity_column].value_counts()
+
+    act_freq_array = np.zeros(len(unique_activities))
+    for i, activity in enumerate(unique_activities):
+        if activity in activity_counts:
+            act_freq_array[i] = activity_counts[activity]
+
+    if relative_freq:
+        act_freq_array = act_freq_array / len(prefix)
+
+    if numeric_columns:
+        numeric_array = np.zeros(len(numeric_columns))
+        for i, numeric_column in enumerate(numeric_columns):
+            if numeric_aggr_func == 'max':
+                numeric_array[i] = prefix[numeric_column].max()
+            elif numeric_aggr_func == 'min':
+                numeric_array[i] = prefix[numeric_column].min()
+            elif numeric_aggr_func == 'avg':
+                numeric_array[i] = prefix[numeric_column].mean()
+            elif numeric_aggr_func == 'sum':
+                numeric_array[i] = prefix[numeric_column].sum()
+            else:
+                raise ValueError(f'Wrong numeric aggregation function: {numeric_aggr_func}. '
+                                 f'Only max, min, avg and sum are allowed.')
+
+        aggr_representation = np.concatenate([act_freq_array, numeric_array])
+    else:
+        aggr_representation = act_freq_array
+
+    return aggr_representation
 
 
 def get_labels_from_onehot(onehots: np.array) -> np.array:
