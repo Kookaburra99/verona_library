@@ -2,22 +2,100 @@ from pathlib import Path
 from typing import Literal, Tuple, List, Union
 
 import pandas as pd
-import pm4py
 from sklearn.model_selection import KFold
 
 from verona.data.download import DEFAULT_PATH
-from verona.data.utils import XesFields
+from verona.data.utils import XesFields, read_eventlog
 
 
-def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test_size: float = 0.2,
-                 val_from_train: float = 0.2,
+def make_temporal_split(dataset: Union[str, pd.DataFrame], dataset_name: str = 'Dataset', store_path: str = None,
+                        test_offset: pd.Timedelta = pd.Timedelta(365, 'D'),
+                        val_offset: pd.Timedelta = None,
+                        timestamp_column: str = XesFields.TIMESTAMP_COLUMN,
+                        case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Split a given dataset following a temporal scheme. Traces starting on a date equal to or greater than the date
+    of the first trace plus **test_offset** form the test partition. Optionally, traces starting on a date equal to or
+    greater than the date of the first trace plus **val_offset** but less than the date of the first trace plus
+    **test_offset** form the validation partition. The remaining traces form the training partition.
+
+    Args:
+        dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
+            datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
+        dataset_name (str): Name of the dataset.
+            Default is ``Dataset``.
+        store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
+        test_offset (pd.Timedelta, optional): Time difference with respect to the starting timestamp of the first
+            trace, from which any trace with the same or a later starting timestamp is added to the test partition.
+        val_offset (pd.Timedelta, optional): Time difference with respect to the start timestamp of the first trace,
+            from which any trace with a start timestamp equal to or later, but less than the start timestamp plus
+            test_offset, is added to the validation partition.
+        timestamp_column (str, optional): Name of the timestamp column in the original dataset file.
+            Default is ``XesFields.TIMESTAMP_COLUMN``.
+        case_column (str, optional): Name of the case identifier in the original dataset file.
+            Default is ``XesFields.CASE_COLUMN``.
+
+    Returns:
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: Returns a tuple containing the DataFrames for the train,
+        validation, and test splits.
+
+    Raises:
+        ValueError: If an invalid value for **test_offset** or **val_offset** is provided.
+
+    Examples:
+        >>> train_df, _, test_df = make_temporal_split('path/to/dataset.csv', test_offset=pd.Timedelta(days=730))
+    """
+
+    df_log = read_eventlog(dataset, sort_events_in_trace=True, sort_traces=True,
+                           timestamp_column=timestamp_column, case_column=case_column)
+
+    start_timestamp = df_log.loc[0, timestamp_column]
+    val_timestamp = start_timestamp + val_offset if val_offset else None
+    test_timestamp = start_timestamp + test_offset if test_offset else None
+
+    df_groupby = df_log.groupby(case_column)
+
+    if val_timestamp and start_timestamp < val_timestamp < test_timestamp:
+        train_cases = df_groupby.filter(lambda case: case[timestamp_column].iloc[0] < val_timestamp)
+        val_cases = df_groupby.filter(lambda case: val_timestamp <= case[timestamp_column].iloc[0] < test_timestamp)
+        test_cases = df_groupby.filter(lambda case: case[timestamp_column].iloc[0] >= test_timestamp)
+
+    elif val_timestamp is None and start_timestamp < test_timestamp:
+        train_cases = df_groupby.filter(lambda case: case[timestamp_column].iloc[0] < test_timestamp)
+        val_cases = None
+        test_cases = df_groupby.filter(lambda case: case[timestamp_column].iloc[0] >= test_timestamp)
+
+    else:
+        raise ValueError(f'Wrong offset values: val_offset={val_offset}, test_offset={test_offset}. '
+                         f'Offset values should be positive and the validation offset (if provided) '
+                         f'should be lower than the test offset.')
+
+    if not store_path:
+        store_path = DEFAULT_PATH
+
+    train_df = __save_split_to_file(train_cases, store_path, dataset_name, 'train')
+
+    if val_offset:
+        val_df = __save_split_to_file(val_cases, store_path, dataset_name, 'val')
+    else:
+        val_df = None
+
+    test_df = __save_split_to_file(test_cases, store_path, dataset_name, 'test')
+
+    return train_df, val_df, test_df
+
+
+def make_holdout(dataset: Union[str, pd.DataFrame], dataset_name: str = 'Dataset', store_path: str = None,
+                 test_size: float = 0.2, val_from_train: float = 0.2,
                  case_column: str = XesFields.CASE_COLUMN) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Split a given dataset following a holdout scheme (train-validation-test).
 
-    Parameters:
+    Args:
         dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
             datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
+        dataset_name (str): Name of the dataset.
+            Default is ``Dataset``.
         store_path (str, optional): Path where the splits will be stored. Defaults to the DEFAULT_PATH
         test_size (float, optional): Float value between 0 and 1 (both excluded), indicating the percentage of traces
             reserved for the test partition.
@@ -46,26 +124,7 @@ def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test
         >>> train_df, val_df, test_df = make_holdout('path/to/dataset.csv', test_size=0.3, val_from_train=0.1)
     """
 
-    if type(dataset) == str:
-        dataset_name = Path(dataset).stem
-        if len(dataset_name.split('.')) == 1:
-            dataset_name += '.csv'
-        dataset_name, input_extension = dataset_name.split('.')
-
-        if input_extension == "xes":
-            df_log = pm4py.read_xes(dataset)
-        elif input_extension == "csv":
-            df_log = pd.read_csv(dataset)
-        else:
-            raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
-
-    elif type(dataset) == pd.DataFrame:
-        df_log = dataset
-
-    else:
-        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
-                        f'Only str and pd.DataFrame types are allowed.')
+    df_log = read_eventlog(dataset)
 
     df_groupby = df_log.groupby(case_column)
     cases = [case for _, case in df_groupby]
@@ -104,15 +163,17 @@ def make_holdout(dataset: Union[str, pd.DataFrame], store_path: str = None, test
     return train_df, val_df, test_df
 
 
-def make_crossvalidation(dataset: Union[str, pd.DataFrame], store_path: str = None, cv_folds: int = 5,
-                         val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN,
+def make_crossvalidation(dataset: Union[str, pd.DataFrame], dataset_name: str = 'Dataset', store_path: str = None,
+                         cv_folds: int = 5, val_from_train: float = 0.2, case_column: str = XesFields.CASE_COLUMN,
                          seed: int = 42) -> Tuple[List[pd.DataFrame], List[pd.DataFrame], List[pd.DataFrame]]:
     """
     Split a given dataset following a cross-validation scheme.
 
-    Parameters:
+    Args:
         dataset (str | pd.DataFrame): If string, full path to the dataset to be split. Only csv, xes, and xes.gz
             datasets are allowed. If Pandas DataFrame, the DataFrame containing the dataset.
+        dataset_name (str): Name of the dataset.
+            Default is ``Dataset``.
         store_path (str, optional): Path where the splits will be stored. Defaults to the current working directory.
         cv_folds (int, optional): Number of folds for the cross-validation split. Default is ``5``.
         val_from_train (float, optional): Float value between 0 and 1 (0 included, 1 excluded), indicating the
@@ -141,26 +202,7 @@ def make_crossvalidation(dataset: Union[str, pd.DataFrame], store_path: str = No
         >>> splits_paths = make_crossvalidation('path/to/dataset.csv')
     """
 
-    if type(dataset) == str:
-        dataset_name = Path(dataset).stem
-        if len(dataset_name.split('.')) == 1:
-            dataset_name += '.csv'
-        dataset_name, input_extension = dataset_name.split('.')
-
-        if input_extension == "xes":
-            df_log = pm4py.read_xes(dataset)
-        elif input_extension == "csv":
-            df_log = pd.read_csv(dataset)
-        else:
-            raise ValueError(f'Wrong dataset extension: {input_extension}. '
-                             f'Only .csv, .xes and .xes.gz datasets are allowed.')
-
-    elif type(dataset) == pd.DataFrame:
-        df_log = dataset
-
-    else:
-        raise TypeError(f'Wrong type for parameter dataset: {type(dataset)}. '
-                        f'Only str and pd.DataFrame types are allowed.')
+    df_log = read_eventlog(dataset)
 
     unique_case_ids = list(df_log[case_column].unique())
     kfold = KFold(n_splits=cv_folds, random_state=seed, shuffle=True)
@@ -207,17 +249,22 @@ def make_crossvalidation(dataset: Union[str, pd.DataFrame], store_path: str = No
     return train_folds, val_folds, test_folds
 
 
-def __save_split_to_file(cases: list, store_path: str, dataset_name: str,
+def __save_split_to_file(cases: Union[list, pd.DataFrame], store_path: str, dataset_name: str,
                          split: Literal['train', 'val', 'test'], fold: int = None) -> pd.DataFrame:
-    df_split = pd.concat(cases)
+    if type(cases) is list:
+        df_split = pd.concat(cases)
+    else:
+        df_split = cases
 
     if fold is not None:
         filename = f'fold{int(fold)}_{split}_{dataset_name}'
     else:
         filename = f'{split}_{dataset_name}'
 
+    Path(store_path).mkdir(parents=True, exist_ok=True)
+
     full_path = store_path + filename + '.csv'
-    df_split.to_csv(full_path)
+    df_split.to_csv(full_path, index=False)
 
     return df_split
 
