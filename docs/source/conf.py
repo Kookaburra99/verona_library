@@ -18,11 +18,11 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'VERONA'
-copyright = '2023, Efrén Rama-Maneiro, Pedro Gamallo-Fernández'
+copyright = '2024, Efrén Rama-Maneiro, Pedro Gamallo-Fernández'
 author = 'Efrén Rama-Maneiro, Pedro Gamallo-Fernández'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = '1.1.0'
 
 
 # -- General configuration ---------------------------------------------------
