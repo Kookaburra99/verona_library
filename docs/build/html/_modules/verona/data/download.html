@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.data.download</title>
+    
+          <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.data.download</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.data.download</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pm4py</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># TODO: this should be in a yaml</span>
+<span class="n">DEFAULT_PATH</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
+<span class="n">DATASETS_LIST</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;bpi2011&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2011&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/5ea5bb88-feaa-4e6f-a743-6460a755e05b/6f9640f9-0f1e-44d2-9495-ef9d1bd82218&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012comp&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012 Complete&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012_Complete.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012w&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012 W&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012_W.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012wcomp&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012 W Complete&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012_W_Complete.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012a&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012 A&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012_A.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2012o&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2012 O&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2012_O.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2013op&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2013 Open Problems&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/7aafbf5b-97ae-48ba-bd0a-4d973a68cd35/0647ad1a-fa73-4376-bdb4-1b253576c3a1&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2013cp&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2013 Closed Problems&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/BPI_Challenge_2013_closed_problems.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2013inc&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2013 Incidents&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/bpi_challenge_2013_incidents.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2015_1&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2015 Municipality 1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/6f35269e-4ce7-4bc4-9abb-b3cea04cad00/2c8d5827-3e08-471d-98e2-6ffdec92f958&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2015_2&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2015 Municipality 2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/372d0cad-3fb1-4627-8ea9-51a09923d331/d653a8ec-4cd1-4029-8b61-6cfde4f4a666&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2015_3&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2015 Municipality 3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/d6741425-5f62-4a59-92c5-08bae64b4611/21b574ab-02ba-4dfb-badc-bb46ce0edc44&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2015_4&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2015 Municipality 4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/34216d8a-f054-46d4-bf03-d9352f90967e/68923819-b085-43be-abe2-e084a0f1381f&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2015_5&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2015 Municipality 5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/32b70553-0765-4808-b155-aa5319802c8a/d39e1365-e4b8-4cb8-83d3-0b01cbf6f8c2&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2017&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2017&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/34c3f44b-3101-4ea9-8281-e38905c68b8d/f3aec4f7-d52c-4217-82f4-57d719a8298c&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2018&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2018&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/443451fd-d38a-4464-88b4-0fc641552632/cd4fd2b8-6c95-47ae-aad9-dc1a085db364&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2019&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2019&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/35ed7122-966a-484e-a0e1-749b64e3366d/864493d1-3a58-47f6-ad6f-27f95f995828&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2020domdec&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2020 Domestic Declarations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/6a0a26d2-82d0-4018-b1cd-89afb0e8627f/6eeb0328-f991-48c7-95f2-35033504036e&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2020intdec&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2020 International Declarations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/91fd1fa8-4df4-4b1a-9a3f-0116c412378f/d45ee7dc-952c-4885-b950-4579a91ef426&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2020rfp&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2020 Request For Payment&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/a6f651a7-5ce0-4bc6-8be1-a7747effa1cc/7b1f2e56-e4a8-43ee-9a09-6e64f45a1a98&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2020tpd&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2020 Travel Permit Data&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/db35afac-2133-40f3-a565-2dc77a9329a3/12b48cc1-18a8-4089-ae01-7078fc5e8f90&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;bpi2020ptc&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;BPI Challenge 2020 Prepaid Travel Cost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://data.4tu.nl/file/fb84cf2d-166f-4de2-87be-62ee317077e5/612068f6-14d0-4a82-b118-1b51db52e73a&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;helpdesk&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Helpdesk&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/Helpdesk.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;sepsis&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;SEPSIS&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/SEPSIS.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;env_permit&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;env_permit&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/env_permit.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;nasa&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;nasa&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://gitlab.citius.usc.es/efren.rama/pmdlcompararator/-/raw/crossvalidation/raw_datasets/nasa.xes.gz?ref_type=heads&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_available_datasets"><a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_available_datasets">[docs]</a><span class="k">def</span> <span class="nf">get_available_datasets</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display the list of available datasets from the official repository and return their identifiers.</span>
+
+<span class="sd">    This function prints out the list of available datasets along with their names, as defined in the</span>
+<span class="sd">    `DATASETS_LIST` dictionary.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of available dataset identifiers.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; available_datasets = get_available_datasets()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Available datasets:&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">dataset_id</span> <span class="ow">in</span> <span class="n">DATASETS_LIST</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">- </span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">: </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">DATASETS_LIST</span><span class="p">[</span><span class="n">dataset_id</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\&quot;</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">dataset_ids_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">DATASETS_LIST</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">dataset_ids_list</span></div>
+
+
+<div class="viewcode-block" id="get_dataset"><a class="viewcode-back" href="../../../verona.data.html#verona.data.download.get_dataset">[docs]</a><span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">extension</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;xes&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download a specified dataset from the official repository and store it in a designated path.</span>
+
+<span class="sd">    This function downloads the dataset in either &#39;xes.gz&#39; or &#39;csv&#39; format, based on the &#39;extension&#39; argument.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset_name (str): Identifier of the dataset to download.</span>
+
+<span class="sd">        store_path (Optional[str], optional): The directory path where the dataset will be stored.</span>
+<span class="sd">            If not specified, the dataset will be stored in the folder ``~/.verona_datasets/``.</span>
+
+<span class="sd">        extension (Literal[&#39;xes&#39;, &#39;csv&#39;, &#39;both&#39;], optional): The format in which to save the dataset.</span>
+<span class="sd">            Choose from &#39;xes&#39; for &#39;xes.gz&#39; format, &#39;csv&#39; for &#39;csv&#39; format, or &#39;both&#39; to download both formats.</span>
+<span class="sd">            Default is ``xes``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[str, pd.DataFrame]: A string indicating the full path where the dataset is stored and a</span>
+<span class="sd">            Pandas DataFrame with the dataset.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; dataset_path, df_dataset = get_dataset(&#39;bpi2012a&#39;, store_path=None, extension=&#39;csv&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">extension</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong extension. Choose from &#39;xes&#39;, &#39;csv&#39;, or &#39;both&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">store_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># By default, os does not expand the &#39;~&#39; character to the user home.</span>
+        <span class="n">store_path</span> <span class="o">=</span> <span class="n">DEFAULT_PATH</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">store_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">store_path</span><span class="p">)</span>
+
+    <span class="c1"># TODO: add caching mechanism to avoid downloading the same file multiple times</span>
+    <span class="k">if</span> <span class="n">dataset_name</span> <span class="ow">in</span> <span class="n">DATASETS_LIST</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">__download_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">store_path</span><span class="p">,</span> <span class="n">extension</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Wrong dataset identifier: </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> is not available. &#39;</span>
+                         <span class="sa">f</span><span class="s1">&#39;Check the list of available datasets with get_available_datasets()&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">__download_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                       <span class="n">extension</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="n">dataset_url</span> <span class="o">=</span> <span class="n">DATASETS_LIST</span><span class="p">[</span><span class="n">dataset_name</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dataset_url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">store_path_xes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_path</span><span class="p">,</span> <span class="n">dataset_name</span> <span class="o">+</span> <span class="s1">&#39;.xes.gz&#39;</span><span class="p">)</span>
+    <span class="n">store_path_csv</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">file_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-length&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">file_size</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Downloading </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">store_path_xes</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+            <span class="n">store_path_csv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_path</span><span class="p">,</span> <span class="n">dataset_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+
+            <span class="n">log</span> <span class="o">=</span> <span class="n">pm4py</span><span class="o">.</span><span class="n">read_xes</span><span class="p">(</span><span class="n">store_path_xes</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">store_path_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">extension</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;xes&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">store_path_xes</span><span class="p">)</span>
+
+        <span class="c1"># Dataset stored in xes. We need to load it with pm4py</span>
+        <span class="k">if</span> <span class="n">store_path_csv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log</span> <span class="o">=</span> <span class="n">pm4py</span><span class="o">.</span><span class="n">read_xes</span><span class="p">(</span><span class="n">store_path_xes</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">store_path_xes</span><span class="p">,</span> <span class="n">log</span>
+        <span class="c1"># Dataset stored in csv, the dataset is already preloaded</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">store_path_csv</span><span class="p">,</span> <span class="n">log</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to download the file. Status code: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

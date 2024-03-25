@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.data.results</title>
+    
+          <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.data.results</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.data.results</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">open_text</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="MetricValue"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MetricValue">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MetricValue</span><span class="p">:</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="AvailableMetrics"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics">[docs]</a><span class="k">class</span> <span class="nc">AvailableMetrics</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container class that holds available metrics for various predictive tasks in process mining.</span>
+
+<span class="sd">    This class defines different metric types that can be calculated for different predictive</span>
+<span class="sd">    tasks in process mining such as predicting the next activity, activity suffix, next timestamp,</span>
+<span class="sd">    and remaining time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AvailableMetrics.NextActivity"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextActivity">[docs]</a>    <span class="k">class</span> <span class="nc">NextActivity</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metrics available for the task of predicting the next activity in a process instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ACCURACY</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
+        <span class="n">F1</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
+        <span class="n">PRECISION</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
+        <span class="n">RECALL</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
+        <span class="n">BRIER_SCORE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;brier_score&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span>
+        <span class="n">MCC</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mcc&quot;</span><span class="p">,</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AvailableMetrics.ActivitySuffix"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.ActivitySuffix">[docs]</a>    <span class="k">class</span> <span class="nc">ActivitySuffix</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metrics available for the task of predicting the suffix (sequence of remaining activities) in a</span>
+<span class="sd">        process instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">DAMERAU_LEVENSHTEIN</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;damerau_levenshtein&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AvailableMetrics.NextTimestamp"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.NextTimestamp">[docs]</a>    <span class="k">class</span> <span class="nc">NextTimestamp</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metrics available for the task of predicting the next timestamp in a process instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">MAE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mae&quot;</span><span class="p">,</span> <span class="s2">&quot;next_timestamp&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AvailableMetrics.RemainingTime"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.AvailableMetrics.RemainingTime">[docs]</a>    <span class="k">class</span> <span class="nc">RemainingTime</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metrics available for the task of predicting the remaining time for completion of a process instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">MAE</span> <span class="o">=</span> <span class="n">MetricValue</span><span class="p">(</span><span class="s2">&quot;mae&quot;</span><span class="p">,</span> <span class="s2">&quot;remaining_time&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MissingResultStrategy"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.MissingResultStrategy">[docs]</a><span class="k">class</span> <span class="nc">MissingResultStrategy</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum for specifying the strategy to use for handling missing data (NaNs) in the dataset when applying</span>
+<span class="sd">    Bayesian models.</span>
+
+<span class="sd">    This enum provides options for how to deal with missing data (NaN values) in the dataset when preparing</span>
+<span class="sd">    data for Bayesian models. Options include deleting the entire dataset associated with the missing data, </span>
+<span class="sd">    deleting only the approach (algorithm/method) associated with the missing data, or taking no action.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">DELETE_DATASET</span> <span class="o">=</span> <span class="s2">&quot;delete_dataset&quot;</span>
+    <span class="n">DELETE_APPROACH</span> <span class="o">=</span> <span class="s2">&quot;delete_approach&quot;</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span></div>
+
+
+<span class="k">def</span> <span class="nf">__evenize_dataset</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle missing data in a dataset according to the specified strategy.</span>
+
+<span class="sd">    This function takes a DataFrame containing results from various approaches on different datasets,</span>
+<span class="sd">    and applies the specified strategy to handle any missing data (NaNs).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        results (pd.DataFrame): The DataFrame containing results from different approaches and datasets.</span>
+<span class="sd">            Each row should represent a dataset, and each column an approach.</span>
+
+<span class="sd">        even_strategy (MissingResultStrategy): Enum specifying the strategy to apply for handling missing data.</span>
+<span class="sd">            - DELETE_DATASET: Removes any row (dataset) that contains at least one NaN value.</span>
+<span class="sd">            - DELETE_APPROACH: Removes any column (approach) that contains at least one NaN value.</span>
+<span class="sd">            - NONE: Does not modify the DataFrame and leaves handling of NaN values to downstream processing.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: A new DataFrame with missing data handled according to the specified strategy.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If an unsupported even strategy is passed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">even_strategy</span> <span class="o">==</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">even_strategy</span> <span class="o">==</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_APPROACH</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">even_strategy</span> <span class="o">==</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported even strategy&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="k">def</span> <span class="nf">__load_csv_results</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;next_activity&quot;</span><span class="p">:</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">_raw_results.csv&#39;</span>
+    <span class="k">elif</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="s1">&#39;suffix_raw_results.csv&#39;</span>
+    <span class="k">elif</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;next_timestamp&quot;</span><span class="p">:</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="s1">&#39;nt_mae_raw_results.csv&#39;</span>
+    <span class="k">elif</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;remaining_time&quot;</span><span class="p">:</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="s1">&#39;remaining_time_results.csv&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported metric&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">open_text</span><span class="p">(</span><span class="s1">&#39;verona.data.csv&#39;</span><span class="p">,</span> <span class="n">resource_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_results_hierarchical"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_hierarchical">[docs]</a><span class="k">def</span> <span class="nf">load_results_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
+                              <span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
+                              <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load and preprocess the results of two approaches for comparison using a hierarchical test.</span>
+
+<span class="sd">    This function fetches the raw results from CSV files based on the selected metric, filters the data for the two</span>
+<span class="sd">    approaches specified, and handles missing data according to the provided **even_strategy**.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        approach_1 (str, optional): The name of the first approach for which to load results. Default is ``&#39;Tax&#39;``.</span>
+<span class="sd">        approach_2 (str, optional): The name of the second approach for which to load results.</span>
+<span class="sd">            Default is ``&#39;TACO&#39;``.</span>
+<span class="sd">        metric (MetricValue, optional): An enum specifying the metric on which the approaches should be compared.</span>
+<span class="sd">            Default is ``AvailableMetrics.NextActivity.ACCURACY``.</span>
+<span class="sd">        even_strategy (MissingResultStrategy, optional): Enum specifying the strategy to apply for handling missing data.</span>
+<span class="sd">            Default is ``MissingResultStrategy.DELETE_DATASET``.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        For the metrics &quot;next_activity&quot; and &quot;suffix&quot;, the values are multiplied by 100 so that they are consistent</span>
+<span class="sd">            with the default rope values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame, pd.DataFrame, List[str]: Two DataFrames containing the preprocessed results of the two approaches,</span>
+<span class="sd">        and a list of common dataset names (indices).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If an unsupported metric or even_strategy is passed.</span>
+<span class="sd">        AssertionError: If the specified approaches are not available in the data.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; approach_1_df, approach_2_df, common_datasets = load_results_hierarchical(&quot;Tax&quot;, &quot;TACO&quot;, metric=AvailableMetrics.NextActivity.ACCURACY, even_strategy=EvenStrategy.DELETE_DATASET)</span>
+<span class="sd">        &gt;&gt;&gt; print(approach_1_df.head())</span>
+<span class="sd">        &gt;&gt;&gt; print(approach_2_df.head())</span>
+<span class="sd">        &gt;&gt;&gt; print(common_datasets)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">__load_csv_results</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+    <span class="n">available_approaches</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;approach&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">approach_1</span> <span class="ow">in</span> <span class="n">available_approaches</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Approach </span><span class="si">{</span><span class="n">approach_1</span><span class="si">}</span><span class="s2"> not available, available approaches are &quot;</span> \
+                                               <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">available_approaches</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">approach_2</span> <span class="ow">in</span> <span class="n">available_approaches</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Approach </span><span class="si">{</span><span class="n">approach_2</span><span class="si">}</span><span class="s2"> not available, available approaches are &quot;</span> \
+                                               <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">available_approaches</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">approach_1_df</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;approach&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">approach_1</span><span class="p">]</span>
+    <span class="n">approach_1_df</span> <span class="o">=</span> <span class="n">approach_1_df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;fold&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+    <span class="n">approach_1_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">approach_1_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">approach_2_df</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;approach&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">approach_2</span><span class="p">]</span>
+    <span class="n">approach_2_df</span> <span class="o">=</span> <span class="n">approach_2_df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;fold&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+    <span class="n">approach_2_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">approach_2_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;next_activity&quot;</span> <span class="ow">or</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span>
+        <span class="n">approach_1_df</span> <span class="o">=</span> <span class="n">approach_1_df</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">approach_2_df</span> <span class="o">=</span> <span class="n">approach_2_df</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">if</span> <span class="n">even_strategy</span> <span class="o">==</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">:</span>
+        <span class="n">common_indices</span> <span class="o">=</span> <span class="n">approach_1_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">approach_2_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">approach_1_df</span> <span class="o">=</span> <span class="n">approach_1_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">common_indices</span><span class="p">]</span>
+        <span class="n">approach_2_df</span> <span class="o">=</span> <span class="n">approach_2_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">common_indices</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">even_strategy</span> <span class="o">==</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_APPROACH</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Delete approach not valid for hierarchical tests.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">approach_1_df</span><span class="p">,</span> <span class="n">approach_2_df</span><span class="p">,</span> <span class="n">approach_1_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="load_results_plackett_luce"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_plackett_luce">[docs]</a><span class="k">def</span> <span class="nf">load_results_plackett_luce</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
+                               <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load and preprocess the results for applying the Plackett-Luce model.</span>
+
+<span class="sd">    This function loads a CSV file containing the raw results based on the given metric. It then computes the mean</span>
+<span class="sd">    result for each pair of *(approach, dataset)*, and finally applies an evenizing strategy to handle missing data,</span>
+<span class="sd">    if any.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        metric (AvailableMetrics, optional): The metric for which results should be loaded.</span>
+<span class="sd">            Default is ``AvailableMetrics.NextActivity.ACCURACY``.</span>
+<span class="sd">        even_strategy (MissingResultStrategy, optional): Strategy to apply when missing values are encountered.</span>
+<span class="sd">            Determines whether rows (datasets) or columns (approaches) should be dropped.</span>
+<span class="sd">            Default is ``MissingResultStrategy.DELETE_DATASET``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: A DataFrame containing the mean results, where each row represents a dataset and each column an</span>
+<span class="sd">            approach.</span>
+<span class="sd">        list: A list of approach names.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; mean_results, approaches = load_results_plackett_luce(AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">__load_csv_results</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+    <span class="n">mean_results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;approach&#39;</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">mean_results</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fold&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mean_results</span> <span class="o">=</span> <span class="n">mean_results</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;approach&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
+
+    <span class="n">mean_results</span> <span class="o">=</span> <span class="n">__evenize_dataset</span><span class="p">(</span><span class="n">mean_results</span><span class="p">,</span> <span class="n">even_strategy</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mean_results</span><span class="p">,</span> <span class="n">mean_results</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="load_results_non_hierarchical"><a class="viewcode-back" href="../../../verona.data.html#verona.data.results.load_results_non_hierarchical">[docs]</a><span class="k">def</span> <span class="nf">load_results_non_hierarchical</span><span class="p">(</span><span class="n">approach_1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tax&quot;</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TACO&quot;</span><span class="p">,</span>
+                                  <span class="n">metric</span><span class="p">:</span> <span class="n">MetricValue</span> <span class="o">=</span> <span class="n">AvailableMetrics</span><span class="o">.</span><span class="n">NextActivity</span><span class="o">.</span><span class="n">ACCURACY</span><span class="p">,</span>
+                                  <span class="n">even_strategy</span><span class="p">:</span> <span class="n">MissingResultStrategy</span> <span class="o">=</span> <span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">DELETE_DATASET</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load and preprocess results for non-hierarchical statistical comparison of two approaches.</span>
+
+<span class="sd">    This function initially loads results for all available approaches using the `load_results_plackett_luce` function.</span>
+<span class="sd">    It then filters the results to include only the specified `approach_1` and `approach_2`, and applies an evenizing</span>
+<span class="sd">    strategy to handle any missing values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        approach_1 (str, optional): The name of the first approach to compare. Default is ``&#39;Tax&#39;``.</span>
+<span class="sd">        approach_2 (str, optional): The name of the second approach to compare. Default is ``&#39;TACO&#39;``.</span>
+<span class="sd">        metric (AvailableMetrics, optional): The metric to consider for loading results.</span>
+<span class="sd">            Default is ``AvailableMetrics.NextActivity.ACCURACY``.</span>
+<span class="sd">        even_strategy (MissingResultStrategy, optional): Strategy to apply when missing values are encountered.</span>
+<span class="sd">            Determines whether rows (datasets) or columns (approaches) should be dropped.</span>
+<span class="sd">            Default is ``MissingResultStrategy.DELETE_DATASET``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: A NumPy array containing the filtered results for `approach_1`.</span>
+<span class="sd">        np.ndarray: A NumPy array containing the filtered results for `approach_2`.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; results_tax, results_taco = load_results_non_hierarchical(&quot;Tax&quot;, &quot;TACO&quot;, AvailableMetrics.NextActivity.ACCURACY, MissingResultStrategy.DELETE_DATASET)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span><span class="p">,</span> <span class="n">approaches</span> <span class="o">=</span> <span class="n">load_results_plackett_luce</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">even_strategy</span><span class="o">=</span><span class="n">MissingResultStrategy</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="n">approach_1</span><span class="p">,</span> <span class="n">approach_2</span><span class="p">]]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">__evenize_dataset</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">even_strategy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;next_activity&quot;</span> <span class="ow">or</span> <span class="n">metric</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">results</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">return</span> <span class="n">results</span><span class="p">[</span><span class="n">approach_1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">results</span><span class="p">[</span><span class="n">approach_2</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span></div>
+
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

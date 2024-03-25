@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.data.statistics</title>
+    
+          <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.data.statistics</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.data.statistics</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">verona.data.utils</span> <span class="kn">import</span> <span class="n">DataFrameFields</span>
+
+
+<div class="viewcode-block" id="get_num_activities"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_activities">[docs]</a><span class="k">def</span> <span class="nf">get_num_activities</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                       <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of unique activities in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        activity_id (str, optional): Name of the activity column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.ACTIVITY_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The number of unique activities in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the activity column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; num_activities = get_num_activities(df)</span>
+<span class="sd">        &gt;&gt;&gt; print(num_activities)</span>
+<span class="sd">        3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">get_num_values</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">activity_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_activities_list"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_activities_list">[docs]</a><span class="k">def</span> <span class="nf">get_activities_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                        <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of unique activities in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        activity_id (str, optional): Name of the activity column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.ACTIVITY_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list containing unique activities in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the activity column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; activities_list = get_activities_list(df)</span>
+<span class="sd">        &gt;&gt;&gt; print(activities_list)</span>
+<span class="sd">        [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">get_values_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">activity_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_num_values"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_values">[docs]</a><span class="k">def</span> <span class="nf">get_num_values</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                   <span class="n">attribute_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of unique values for the specified attribute in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        attribute_id (str): Name of the attribute column in the DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The number of unique values for the specified attribute in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the attribute column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;attribute&#39;: [1, 2, 2, 3]})</span>
+<span class="sd">        &gt;&gt;&gt; num_values = get_num_values(df, &#39;attribute&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(num_values)</span>
+<span class="sd">        3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">attribute_id</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_values_list"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_values_list">[docs]</a><span class="k">def</span> <span class="nf">get_values_list</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                    <span class="n">attribute_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of unique values for the specified attribute in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        attribute_id (str, optional): Name of the attribute column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.ACTIVITY_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The list of unique values for the specified attribute in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the attribute column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;attribute&#39;: [1, 2, 2, 3]})</span>
+<span class="sd">        &gt;&gt;&gt; values_list = get_values_list(df, &#39;attribute&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(values_list)</span>
+<span class="sd">        [1, 2, 3]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">attribute_id</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_num_cases"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_cases">[docs]</a><span class="k">def</span> <span class="nf">get_num_cases</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                  <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of unique cases in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The number of unique cases in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the case identifier column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; num_cases = get_num_cases(df, &#39;case&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(num_cases)</span>
+<span class="sd">        3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">dataset</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_max_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_max_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                     <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the maximum case length in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The maximum case length in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the case identifier column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; max_len = get_max_len_case(df, &#39;case&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(max_len)</span>
+<span class="sd">        2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_min_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_min_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                     <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the minimum case length in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The minimum case length in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the case identifier column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; min_len = get_min_len_case(df, &#39;case&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(min_len)</span>
+<span class="sd">        1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_avg_len_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_len_case">[docs]</a><span class="k">def</span> <span class="nf">get_avg_len_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                     <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the average case length in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: The average case length in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty or the case identifier column does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; avg_len = get_avg_len_case(df, &#39;case&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(avg_len)</span>
+<span class="sd">        1.6666666666666667</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">case_id</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_max_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_max_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                          <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the maximum case temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The maximum temporal duration of a case in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; max_dur_case = get_max_duration_case(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(max_dur_case)</span>
+<span class="sd">        91 days 10:55:36.161000</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="n">first_and_last_timestamp_per_case</span> <span class="o">=</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_min_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_min_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                          <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the minimum case temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The minimum temporal duration of a case in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; min_dur_case = get_max_duration_case(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(min_dur_case)</span>
+<span class="sd">        0 days 00:00:01.855000</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="n">first_and_last_timestamp_per_case</span> <span class="o">=</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_avg_duration_case"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_case">[docs]</a><span class="k">def</span> <span class="nf">get_avg_duration_case</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                          <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the average case temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The average temporal duration of a case in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; min_dur_case = get_avg_duration_case(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(min_dur_case)</span>
+<span class="sd">        8 days 01:55:14.860649805</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="n">first_and_last_timestamp_per_case</span> <span class="o">=</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">first_and_last_timestamp_per_case</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_max_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_max_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_max_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the maximum event temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The maximum temporal duration of an event in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; max_dur_event = get_max_duration_event(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(max_dur_event)</span>
+<span class="sd">        89 days 13:10:06.164000</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_min_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_min_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_min_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the minimum event temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The minimum temporal duration of an event in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; min_dur_event = get_min_duration_event(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(min_dur_event)</span>
+<span class="sd">        0 days 00:00:00</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_avg_duration_event"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_avg_duration_event">[docs]</a><span class="k">def</span> <span class="nf">get_avg_duration_event</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                           <span class="n">timestamp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">TIMESTAMP_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the average event temporal duration in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        timestamp_id (str, optional): Name of the timestamp column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.TIMESTAMP_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Timedelta: The average temporal duration of an event in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or timestamp columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.read_csv(&#39;../../BPI_Challenge_2012_A.csv&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; avg_dur_event = get_avg_duration_event(df, &#39;CaseID&#39;, &#39;Timestamp&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(avg_dur_event)</span>
+<span class="sd">        2 days 05:08:06.570523093</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">timestamp_id</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_num_variants"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_num_variants">[docs]</a><span class="k">def</span> <span class="nf">get_num_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                     <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of unique cases (different sequences of activities) in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        activity_id (str, optional): Name of the activity column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.ACTIVITY_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The number of variants (cases with different sequences of activities).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or activity columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; num_variants = get_num_variants(df, &#39;case&#39;, &#39;activity&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(num_variants)</span>
+<span class="sd">        3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">)</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_count_variants"><a class="viewcode-back" href="../../../verona.data.html#verona.data.statistics.get_count_variants">[docs]</a><span class="k">def</span> <span class="nf">get_count_variants</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">CASE_COLUMN</span><span class="p">,</span>
+                       <span class="n">activity_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DataFrameFields</span><span class="o">.</span><span class="n">ACTIVITY_COLUMN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of times each variant appears in the dataset.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (pd.DataFrame): DataFrame containing the dataset to be analyzed.</span>
+<span class="sd">        case_id (str, optional): Name of the case identifier column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.CASE_COLUMN``.</span>
+<span class="sd">        activity_id (str, optional): Name of the activity column in the DataFrame.</span>
+<span class="sd">            Default is ``DataFrameFields.ACTIVITY_COLUMN``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Dictionary where the keys are the variants and the values are the count of occurrences of each variant</span>
+<span class="sd">            in the dataset.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dataset is empty, or the case identifier or activity columns do not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;case&#39;: [1, 1, 2, 2, 3], &#39;activity&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;C&#39;, &#39;D&#39;]})</span>
+<span class="sd">        &gt;&gt;&gt; count_variants = get_count_variants(df, &#39;case&#39;, &#39;activity&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(count_variants)</span>
+<span class="sd">        {&#39;A-&gt;B&#39;: 1, &#39;A-&gt;C&#39;: 1, &#39;D&#39;: 1}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">cases</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">case_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cases</span><span class="p">[</span><span class="n">activity_id</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

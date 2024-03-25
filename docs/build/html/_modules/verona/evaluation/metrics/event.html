@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>verona.evaluation.metrics.event</title>
+    
+          <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../../../_static/theme-vendors.js"></script> -->
+      <script src="../../../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../../../genindex.html" />
+  <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../../../index.html" class="home-link">
+    
+      <span class="site-name">VERONA</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../../../index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../overview.html" class="reference internal ">Overview</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../architecture.html" class="reference internal ">Software architecture</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../api.html" class="reference internal ">API Reference</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../../../citation.html" class="reference internal ">Cite the paper</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../../../index.html">Module code</a> &raquo;</li>
+    
+    <li>verona.evaluation.metrics.event</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for verona.evaluation.metrics.event</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="kn">from</span> <span class="nn">verona.data.utils</span> <span class="kn">import</span> <span class="n">get_labels_from_onehot</span><span class="p">,</span> <span class="n">get_onehot_representation</span>
+
+
+<div class="viewcode-block" id="get_accuracy"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_accuracy">[docs]</a><span class="k">def</span> <span class="nf">get_accuracy</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                 <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                 <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the accuracy score, including the ratio of correct predictions,</span>
+<span class="sd">    total number of correct predicted values, and total number of predictions.</span>
+<span class="sd">    Both predictions and ground truth can be specified as labels or one-hot vectors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): NumPy Array containing the model&#39;s predictions.</span>
+<span class="sd">        ground_truths (np.array): NumPy Array containing the ground truths.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Float indicating the accuracy ratio, integer for the number of correct predictions,</span>
+<span class="sd">            and integer for the total number of predictions.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_onehot = np.array([[0.2, 0.7, 0.06, 0.04], [0.1, 0.2, 0.6, 0.1], [0.9, 0.05, 0.04, 0.01], [0.1, 0.5, 0.3, 0.1]])</span>
+<span class="sd">        &gt;&gt;&gt; accuracy, correct, total = get_accuracy(preds_onehot, ground_truth, preds_format=&#39;onehot&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&#39;{accuracy} - {correct} - {total}&#39;)</span>
+<span class="sd">        0.25 - 1 - 4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">correct_preds</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">total_preds</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">correct_preds</span><span class="p">,</span> <span class="n">total_preds</span></div>
+
+
+<div class="viewcode-block" id="get_fbeta"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_fbeta">[docs]</a><span class="k">def</span> <span class="nf">get_fbeta</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+              <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">],</span>
+              <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+              <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the F-beta score between the predictions and the ground truth.</span>
+<span class="sd">    The F-beta score is the weighted harmonic mean of precision and recall.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): NumPy Array containing the model&#39;s predictions.</span>
+<span class="sd">        ground_truths (np.array): NumPy Array containing the ground truths.</span>
+<span class="sd">        beta (float): Ratio of recall importance to precision importance.</span>
+<span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;]): Type of averaging to be performed on data.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            &#39;onehot&#39; for one-hot vectors.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Float for the F-beta score, float for the precision, and float for the recall.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_labels = np.array([1, 2, 0, 1])</span>
+<span class="sd">        &gt;&gt;&gt; fbeta, precision, recall = get_fbeta(preds_labels, ground_truth, beta=0.5, average=&#39;weighted&#39;, preds_format=&#39;labels&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&#39;{fbeta} - {precision} - {recall}&#39;)</span>
+<span class="sd">        0.1388888888888889 - 0.125 - 0.25</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">f_beta</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">fbeta_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f_beta</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span></div>
+
+
+<div class="viewcode-block" id="get_f1_score"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_f1_score">[docs]</a><span class="k">def</span> <span class="nf">get_f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                 <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">],</span>
+                 <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                 <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the F1-Score, which is the harmonic mean of precision and recall,</span>
+<span class="sd">    between the predictions and the ground truth. Equivalent to F-beta score with &#39;beta&#39; = 1.</span>
+<span class="sd">    Returns the F1-score, precision, and recall used for the calculation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): NumPy Array containing the model&#39;s predictions.</span>
+<span class="sd">        ground_truths (np.array): NumPy Array containing the ground truths.</span>
+<span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;]): Type of averaging to be performed on data.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths. ``&#39;label&#39;`` for labels and</span>
+<span class="sd">            ``&#39;onehot&#39;`` for one-hot vectors.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Float for the F1-score, float for the precision, and float for the recall.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_labels = np.array([1, 2, 0, 1])</span>
+<span class="sd">        &gt;&gt;&gt; f1, precision, recall = get_f1_score(preds_labels, ground_truth, average=&#39;macro&#39;, preds_format=&#39;labels&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&#39;{f1} - {precision} - {recall}&#39;)</span>
+<span class="sd">        0.13333333333333333 - 0.1 - 0.2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span>
+                                                                             <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span></div>
+
+
+<div class="viewcode-block" id="get_precision"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_precision">[docs]</a><span class="k">def</span> <span class="nf">get_precision</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                  <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">],</span>
+                  <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+                  <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the precision using the formula \( \frac{{\text{{tp}}}}{{\text{{tp}} + \text{{fp}}}} \)</span>
+<span class="sd">    where &#39;tp&#39; is the number of true positives and &#39;fp&#39; the number of false positives.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): Array of predictions from the model.</span>
+<span class="sd">        ground_truths (np.array): Array of ground truth labels.</span>
+<span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;]): Type of averaging performed on the data.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Precision score between 0 and 1.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_labels = np.array([1, 2, 0, 1])</span>
+<span class="sd">        &gt;&gt;&gt; precision = get_precision(preds_labels, ground_truth, average=&#39;macro&#39;, preds_format=&#39;labels&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(precision)</span>
+<span class="sd">        0.1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">precision</span></div>
+
+
+<div class="viewcode-block" id="get_recall"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_recall">[docs]</a><span class="k">def</span> <span class="nf">get_recall</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+               <span class="n">average</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;micro&#39;</span><span class="p">,</span> <span class="s1">&#39;macro&#39;</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">],</span>
+               <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+               <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the recall using the formula \( \frac{{\text{{tp}}}}{{\text{{tp}} + \text{{fn}}}} \)</span>
+<span class="sd">    where &#39;tp&#39; is the number of true positives and &#39;fn&#39; the number of false negatives.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): Array of predictions from the model.</span>
+<span class="sd">        ground_truths (np.array): Array of ground truth labels.</span>
+<span class="sd">        average (Literal[&#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;]): Type of averaging performed on the data.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Recall score between 0 and 1.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_labels = np.array([1, 2, 0, 1])</span>
+<span class="sd">        &gt;&gt;&gt; recall = get_recall(preds_labels, ground_truth, average=&#39;macro&#39;, preds_format=&#39;labels&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(recall)</span>
+<span class="sd">        0.2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recall</span></div>
+
+
+<div class="viewcode-block" id="get_mcc"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_mcc">[docs]</a><span class="k">def</span> <span class="nf">get_mcc</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+            <span class="n">preds_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">],</span>
+            <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the Matthews correlation coefficient (MCC), a value between -1 and +1.</span>
+<span class="sd">    A coefficient of +1 represents a perfect prediction, 0 an average random prediction,</span>
+<span class="sd">    and -1 an inverse prediction.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): Array of predictions from the model.</span>
+<span class="sd">        ground_truths (np.array): Array of ground truth labels.</span>
+<span class="sd">        preds_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the predictions.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truths.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Matthews Correlation Coefficient, between -1 and +1.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_labels = np.array([1, 2, 0, 1])</span>
+<span class="sd">        &gt;&gt;&gt; mcc = event.get_mcc(preds_labels, ground_truth, preds_format=&#39;labels&#39;, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(mcc)</span>
+<span class="sd">        0.09128709291752768</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">preds_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_labels_from_onehot</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">mcc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">matthews_corrcoef</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mcc</span></div>
+
+
+<div class="viewcode-block" id="get_brier_loss"><a class="viewcode-back" href="../../../../verona.evaluation.metrics.html#verona.evaluation.metrics.event.get_brier_loss">[docs]</a><span class="k">def</span> <span class="nf">get_brier_loss</span><span class="p">(</span><span class="n">predictions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                   <span class="n">gt_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the Brier Score Loss adapted to multi-class predictions.</span>
+<span class="sd">    The formula for the Brier Score Loss is \[ \text{BSL} = \frac{1}{N} \sum_{i=1}^{N} (f_i - o_i)^2 \]</span>
+<span class="sd">    where \( f_i \) is the predicted probability for the true class for observation \( i \),</span>
+<span class="sd">    \( o_i \) is the actual outcome for observation \( i \) (1 if true class, 0 otherwise),</span>
+<span class="sd">    and \( N \) is the total number of observations.</span>
+
+<span class="sd">    As a measure of loss, the closer to 0, the better the predictions, while higher values</span>
+<span class="sd">    indicate worse predictions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions (np.array): Array of shape (n_samples, n_classes) containing</span>
+<span class="sd">        the predictions done by the model as probabilities.</span>
+<span class="sd">        ground_truths (np.array): Array containing the ground truths.</span>
+<span class="sd">        gt_format (Literal[&#39;labels&#39;, &#39;onehot&#39;]): Format of the ground truth. If ``&#39;label&#39;``,</span>
+<span class="sd">        the ground truth array contains the labels of the correct activities/attributes,</span>
+<span class="sd">        from which the one-hot vectors are internally extracted. If ``&#39;onehot&#39;``,</span>
+<span class="sd">        the ground truths array contains the one-hot representation of the correct values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Brier Score Loss, a value equal or greater than zero. Smaller values (close to 0)</span>
+<span class="sd">        indicate smaller error (better predictions), and larger values indicate larger error</span>
+<span class="sd">        (worse predictions).</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ground_truth = np.array([1, 3, 4, 0])</span>
+<span class="sd">        &gt;&gt;&gt; preds_onehot = np.array([[0.2, 0.7, 0.06, 0.04], [0.1, 0.2, 0.6, 0.1], [0.9, 0.05, 0.04, 0.01], [0.1, 0.5, 0.3, 0.1]])</span>
+<span class="sd">        &gt;&gt;&gt; brier_loss = event.get_brier_loss(preds_onehot, ground_truth, gt_format=&#39;labels&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(brier_loss)</span>
+<span class="sd">        1.06235</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">gt_format</span> <span class="o">==</span> <span class="s1">&#39;labels&#39;</span><span class="p">:</span>
+        <span class="n">ground_truths</span> <span class="o">=</span> <span class="n">get_onehot_representation</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">brier_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ground_truths</span> <span class="o">-</span> <span class="n">predictions</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">brier_loss</span></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, Efrén Rama-Maneiro, Pedro Gamallo-Fernández.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
