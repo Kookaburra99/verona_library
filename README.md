@@ -1,6 +1,6 @@
 # VERONA: predicti<i>VE</i> p<i>R</i>ocess m<i>O</i>nitoring be<i>N</i>chm<i>A</i>rk
 
-**Version:** v1.0.0 (February 2024)
+**Version:** v1.1.0 (March 2024)
 
 **Authors:**
  - **Efrén Rama-Maneiro**: [GitLab Profile](https://gitlab.citius.usc.es/efren.rama) -
