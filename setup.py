@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='verona',
-    version='1.0.0',
+    version='1.1.0',
     description='The predictive process monitoring library for Python',
     long_description='The VERONA library is a powerful Python tool designed to evaluate and compare predictive process '
                      'monitoring models fairly and under equals conditions. Leveraging the benchmark published in '
