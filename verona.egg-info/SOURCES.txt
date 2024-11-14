@@ -8,6 +8,7 @@ tests/data/test_download.py
 tests/data/test_extractor.py
 tests/data/test_split.py
 tests/data/test_statistics.py
+tests/data/test_utils.py
 tests/evaluation/__init__.py
 tests/evaluation/metrics/__init__.py
 tests/evaluation/metrics/test_event.py
